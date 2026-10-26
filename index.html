@@ -197,6 +197,7 @@ table.t{border-collapse:collapse;width:100%;font-size:.93rem}
 
 /* documents */
 .doc{display:grid;grid-template-columns:auto minmax(0,1fr);gap:16px;align-items:start}
+.coverimg{width:96px;height:auto;max-width:100%;border:1px solid var(--line);border-radius:3px}
 .cover{width:84px;aspect-ratio:3/4;max-width:100%;border-radius:4px;background:var(--hero);color:var(--hero-fg);display:flex;flex-direction:column;justify-content:space-between;padding:8px;font:700 .55rem/1.2 var(--f-body);letter-spacing:.04em}
 .cover b{font:800 1.1rem/1 var(--f-mono);color:var(--amber)}
 dl.meta{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 14px;margin:12px 0 0;font-size:.9rem}
@@ -210,7 +211,6 @@ dl.meta dd{margin:0;font-family:var(--f-mono);font-size:.85rem}
 .lcard{display:grid;grid-template-columns:58px minmax(0,1fr);gap:12px;align-items:center;padding:12px;border:1px solid var(--line);border-radius:var(--r);background:var(--surface);text-decoration:none;color:var(--ink)}
 .lcard:hover{border-color:var(--ink)}
 .lcard .no{font:800 1.05rem var(--f-mono);text-align:center;padding:10px 0;border-radius:4px;background:var(--paper);color:var(--teal)}
-.lcard .no.scan{color:var(--amber)}
 .lcard b{display:block;font-size:.95rem;line-height:1.3}
 .lcard small{color:var(--muted);font-size:.8rem}
 
@@ -221,49 +221,165 @@ body.lv #views{display:block}
 .lview{display:none}
 .lview.on{display:block}
 .vbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--hero);color:var(--hero-fg)}
-.vbar .wrap{display:flex;gap:10px;align-items:center;justify-content:space-between;padding-block:10px;flex-wrap:wrap}
-.vbar h2{font-size:1rem;font-weight:700}
+.vbar .wrap{display:flex;gap:12px;align-items:center;justify-content:space-between;padding-block:10px;flex-wrap:wrap}
+.vbar .vt{min-width:0;flex:1 1 260px}
+.vbar .vt small{display:block;font:700 .7rem var(--f-body);letter-spacing:.12em;text-transform:uppercase;color:var(--amber)}
+.vbar h2{font-size:1rem;font-weight:700;color:var(--hero-fg)}
+.vbar .acts{display:flex;gap:8px;flex-wrap:wrap}
 .vbar .btn{background:transparent;color:var(--hero-fg);border-color:#3a5062}
+.vbar .btn:hover{border-color:var(--hero-fg)}
 .vbar .btn.amb{background:var(--amber);color:#1b1206;border-color:var(--amber)}
-.sheets{display:grid;gap:24px;justify-items:center;padding-block:28px 60px;overflow-x:auto}
-.sheet{width:210mm;max-width:100%;min-height:297mm;background:#fff;color:#111;padding:16mm 15mm;box-shadow:0 2px 14px rgba(0,0,0,.18);font:10.5pt/1.45 Arial,"Liberation Sans",sans-serif}
+.vnote{max-width:210mm;margin:20px auto 0;border-left:4px solid var(--amber);background:var(--amber-soft);padding:12px 16px;border-radius:0 6px 6px 0;font-size:.95rem}
+.pager{max-width:210mm;margin:0 auto;display:flex;justify-content:space-between;gap:10px;padding-bottom:48px;flex-wrap:wrap}
+.sheets{display:grid;gap:24px;justify-items:center;padding-block:24px 28px;overflow-x:auto}
+.sheet{width:210mm;max-width:100%;min-height:297mm;background:#fff;color:#000;padding:12mm 15mm;box-shadow:0 2px 14px rgba(0,0,0,.18);font:10.5pt/1.4 Arial,"Liberation Sans",Helvetica,sans-serif;position:relative}
 .sheet *{color:inherit}
-.sheet .hd{text-align:right;font-size:8.5pt;color:#444;line-height:1.3}
-.sheet .lno{font:700 11pt Arial,sans-serif;text-align:right;margin-bottom:4mm}
-.sheet .ft{font:700 12.5pt/1.3 Arial,sans-serif;text-align:center;margin:3mm 0 5mm;text-transform:uppercase}
-.sheet .bar{background:#1f3a4d;color:#fff;font-weight:700;font-size:9.5pt;padding:1.6mm 2.4mm;margin:4mm 0 2mm}
-.sheet .bar *{color:#fff}
-.sheet .f{display:grid;grid-template-columns:42% 3mm 1fr;gap:1mm;font-size:9.5pt;padding:1.3mm 0}
-.sheet .f span:last-child{border-bottom:1px dotted #888;min-height:5mm}
-.sheet .f.tall span:last-child{min-height:12mm}
-.sheet .cols{display:grid;grid-template-columns:1fr 1fr;gap:7mm}
-.sheet .ck{font-size:9.5pt;padding:1mm 0;line-height:1.55}
-.sheet .ck i{font-style:normal;display:inline-block;min-width:44%;}
-.sheet .ck i::before{content:"☐ ";font-size:10pt}
-.sheet table{border-collapse:collapse;width:100%;font-size:9.3pt;margin-top:2mm}
-.sheet th,.sheet td{border:1px solid #333;padding:1.6mm 2mm;vertical-align:top;text-align:left}
-.sheet th{background:#e7ecef;font-weight:700}
-.sheet td.e{height:8mm}
-.sheet .warn{margin-top:5mm;border:1.5px solid #111;padding:2.5mm;font-weight:700;font-size:9pt;text-align:center}
-.sheet .src{margin-top:6mm;font-size:8pt;color:#555;border-top:1px solid #ccc;padding-top:2mm}
-.sheet h5{font:700 10.5pt Arial,sans-serif;margin:4mm 0 1.5mm;text-transform:uppercase}
-.sheet p{margin:1.5mm 0}
+.sheet.land svg.r1{width:100%;height:auto;display:block;border:1.5px solid #000;margin-top:2mm}
+.sheet.it td,.sheet.it li,.sheet.it p{font-style:italic}
+.sheet .hd{text-align:right;font-size:8.5pt;line-height:1.3}
+.sheet .ft{font:700 13pt/1.3 Arial,"Liberation Sans",sans-serif;text-align:center;margin:1mm 0 6mm;text-transform:uppercase}
+.sheet .ftb{font:700 10.5pt/1.3 Arial,"Liberation Sans",sans-serif;text-align:center;margin:4mm 0 5mm}
+.sheet .ctr{text-align:center}
+.sheet p{margin:1.1mm 0}
 .sheet ul,.sheet ol{margin:1mm 0;padding-left:6mm}
-.sheet .sig{display:grid;grid-template-columns:auto 3mm 1fr;gap:1.5mm 1mm;font-size:9.5pt;margin-top:3mm}
-.sheet .sig span:nth-child(3n){border-bottom:1px dotted #888}
-/* flowchart */
-.fc{display:grid;grid-template-columns:34mm 1fr;border:1px solid #333;font-size:9.4pt}
-.fc>div{padding:2mm 2.5mm;border-bottom:1px solid #333}
-.fc>div:nth-child(odd){border-right:1px solid #333;font-weight:700;background:#f2f5f7;font-size:8.8pt}
-.fc .hh{background:#1f3a4d!important;color:#fff;font-weight:700;text-align:center}
-.fc .term{display:block;width:max-content;margin:0 auto;border:1.4px solid #111;border-radius:20mm;padding:1.2mm 7mm;font-weight:700}
-.fc .st{border:1.3px solid #111;padding:2mm 2.5mm;background:#fff}
-.fc .dec{border:1.6px dashed #b3261e;background:#fff5f4;padding:2mm 2.5mm;font-weight:700;text-align:center}
-.fc .dec small{display:block;font-weight:400;margin-top:1mm}
-.fc .arw{text-align:center;font-size:12pt;line-height:1;color:#555}
-
-.scan{display:grid;gap:4mm;align-content:start}
-.scan .big{font:800 22pt/1.1 Arial,sans-serif;margin-top:20mm}
+.sheet li{margin:.6mm 0}
+.sheet ul.circ{list-style:circle}
+.sheet h5{font:700 10.5pt Arial,"Liberation Sans",sans-serif;margin:5mm 0 2mm}
+.sheet .src{margin-top:6mm;font-size:7.5pt;color:#555;border-top:1px solid #ccc;padding-top:1.5mm}
+.sheet table{border-collapse:collapse;width:100%;font-size:9.6pt}
+.sheet th,.sheet td{border:1px solid #000;padding:1.4mm 2mm;vertical-align:top;text-align:left}
+.sheet td.e{height:7mm}
+.sheet td.e2{height:11mm}
+.sheet table.c td,.sheet table.c th{text-align:center;vertical-align:middle}
+/* key-value tables (L1, Rajah 1) */
+.sheet table.kv th{width:28%;font-weight:700;font-style:italic;background:#fff}
+.sheet table.kv ul{padding-left:5mm}
+.sheet table.blue th{text-align:center;font-weight:700;font-style:italic}
+.sheet table.blue th.bh{background:#0a86d6;color:#fff;text-align:center}
+.sheet table.blue tr>th:first-child:not(.bh){text-align:left}
+/* forms */
+.sheet.fm{font-size:9.6pt;line-height:1.32}
+.sheet .cols{display:grid;grid-template-columns:1fr 1fr;gap:6mm;align-items:start}
+.sheet .bar{background:#e6e6e6;font-weight:700;padding:1.2mm 2mm;margin:4mm 0 2mm}
+.sheet .cols>div>.bar:first-child{margin-top:0}
+.sheet .f{display:grid;grid-template-columns:36mm 3mm 1fr;padding:.6mm 0;align-items:start}
+.sheet .f.w{grid-template-columns:62mm 3mm 1fr}
+.sheet .f.s{grid-template-columns:30mm 3mm 1fr;padding:.3mm 0}
+.sheet .f.yn{grid-template-columns:44mm 3mm 1fr}
+.sheet .f.h2>span:last-child{min-height:10mm}
+.sheet .f.h3>span:last-child{min-height:17mm}
+.sheet .cb{display:inline-flex;gap:2mm;margin-right:4mm;align-items:baseline}
+.sheet .cb::before{content:"[\00a0\00a0\00a0\00a0]";white-space:pre;flex:none}
+.sheet .cbg{display:grid;gap:1mm;margin:1mm 0 2mm}
+.sheet .cbg .cb{display:flex}
+.sheet .cbg .cb.ind{margin-left:7mm}
+.sheet .cbg.two{grid-template-columns:1fr 1fr}
+.sheet .nb .cb{display:inline-flex;margin:.4mm 0}
+.sheet .ln{border-bottom:1px solid #000;height:5mm;margin-bottom:2mm}
+.sheet .bx{border:1.4px solid #000}
+.sheet .bx0{border:0}
+.sheet table.g th{font-weight:400;text-align:center}
+.sheet .warn{margin-top:4mm;border:1.5px solid #000;padding:2.5mm 3mm;font-weight:700;font-size:9.6pt;text-align:justify}
+/* worksheet 2A/2B */
+.sheet .ws{border:1.5px solid #000;padding:4mm 5mm;display:grid;gap:4mm;font-family:Calibri,Carlito,Arial,sans-serif;font-size:10.5pt}
+.sheet .ws table td,.sheet .ws table th{padding:.8mm 1.6mm}
+.sheet .ws-top{display:flex;justify-content:space-between;align-items:end;gap:6mm}
+.sheet .ws-top table{width:55%}
+.sheet .ws-box{border:1px solid #000;padding:2mm 3mm}
+.sheet .proc{display:grid;grid-template-columns:1fr 1fr;gap:3mm 0;padding:3mm 0 2mm 22mm}
+.sheet table.sigt{width:76%;margin:0 auto}
+.sheet table.sigt th{text-align:center}
+.sheet table.sigt td{height:6mm}
+.sheet p.it{font-style:italic}
+/* MKAK */
+.sheet .mk{border:1px solid #000;padding:3mm 3mm;font-size:7.6pt}
+.sheet .mk table{font-size:7.4pt;margin-top:-1px}
+.sheet .mk td,.sheet .mk th{padding:.8mm 1.2mm}
+.sheet .mk th.g{background:#9a9a9a;color:#000;text-align:left}
+.sheet .mk .bx2{width:7mm;border-width:2px}
+.sheet .mk-code{text-align:right;font-weight:700;font-size:8pt}
+.sheet .mk-t{text-align:center;font-weight:700;font-size:8.5pt;margin:4mm 0}
+/* KIMIA */
+.sheet.tnr .frame{font-family:"Times New Roman","Liberation Serif",Times,serif}
+.sheet .frame{border:1px solid #000;padding:5mm 6mm;font-size:9.6pt}
+.sheet .frame.sm{font-size:7.9pt;line-height:1.25;padding:4mm 5mm}
+.sheet .frame.sm table{font-size:7.9pt}
+.sheet .frame.sm li,.sheet .frame.sm p{margin:.3mm 0}
+.sheet .frame.sm h5{margin:2.4mm 0 1mm;font-size:8.6pt}
+.sheet .frame.sm td,.sheet .frame.sm th{padding:.5mm 1.5mm}
+.sheet .kim-code{text-align:right}
+.sheet .kim-t{text-align:center;font-size:12pt;margin:3mm 0}
+.sheet .kim-top{display:grid;grid-template-columns:1fr 45mm;gap:5mm;align-items:start}
+.sheet .seal{border:2px solid #000;height:38mm;text-align:center;padding-top:3mm}
+.sheet table.kim td{border-left:0;border-right:0;padding:2mm 1mm;line-height:1.9}
+.sheet table.kim{border-left:1px solid #000;border-right:1px solid #000}
+.sheet .u{display:inline-block;border-bottom:1px solid #000;width:75%;margin-left:3mm;height:4mm}
+.sheet .u.s{width:40%}
+.sheet table.kim2 th{text-align:center;font-weight:400}
+.sheet table.kim2 td.an{display:table-cell}
+.sheet table.kim2 td.an span{display:block;margin:1.3mm 0}
+.sheet table.yn2{width:70%;margin:4mm 0}
+.sheet table.yn2 td,.sheet table.yn2 th{border:0;padding:.6mm 2mm}
+.sheet table.yn2 th{text-decoration:underline;font-weight:400}
+/* CPRC */
+.sheet .cprc{font-size:8.6pt;font-family:Calibri,Carlito,Arial,sans-serif}
+.sheet .cprc .crest{height:20mm;width:auto}
+.sheet .cprc table th{width:42%;font-weight:700;background:#fff}
+.sheet .cprc table th i,.sheet .cprc table th{font-size:8.4pt}
+.sheet .cprc td.cl{width:4mm;text-align:center}
+.sheet .cprc table tr{height:12mm}
+.sheet .fn{font-size:8pt;text-align:center;margin-top:4mm}
+/* L13 / L16 */
+.sheet table.lh{width:94%;margin-left:6%;font-size:9.6pt}
+.sheet table.lh td{padding:2mm;vertical-align:middle;height:8mm}
+.sheet table.lh.sm{font-size:7.6pt;width:100%;margin-left:0}
+.sheet table.la{border:0}
+.sheet table.la td{border:0;padding:0 1.5mm;vertical-align:middle}
+.sheet table.la td.v{border:1px solid #000;height:15mm;width:55%}
+.sheet table.la td.n{width:6mm}
+.sheet table.la td.c{width:4mm;font-weight:700}
+.sheet table.la td.kl{text-align:right;font-weight:700;padding:2mm;vertical-align:top}
+.sheet table.la td.kk{padding:2mm 0}
+.sheet .sq{display:block}
+.sheet .sq::before{content:"";display:inline-block;width:3mm;height:3mm;border:1px solid #000;margin-right:1.5mm;vertical-align:-.3mm}
+.sheet .sig3{display:grid;grid-template-columns:55mm 6mm 1fr;row-gap:7mm;margin-top:14mm}
+.sheet .sig{display:grid;grid-template-columns:auto 2mm 1fr;gap:2mm 1mm}
+/* flowcharts */
+.sheet table.fc3{font-size:9.2pt;margin-top:1mm;line-height:1.3}
+.sheet .fc3 th{text-align:center;padding:2mm;vertical-align:middle}
+.sheet .fc3 td{vertical-align:middle}
+.sheet .fc3 td.r{width:23%;text-align:center}
+.sheet .fc3 td.pk{width:28%;padding:0;border-top:0;border-bottom:0;background:linear-gradient(#000,#000) center/1px 100% no-repeat}
+.sheet .fc3 tr.first td.pk{background-size:1px 50%;background-position:center bottom}
+.sheet .fc3 tr.last td.pk{background-size:1px 50%;background-position:center top}
+.sheet .fc3 tr.last td.pk{border-bottom:1px solid #000}
+.sheet .fc3 tr:nth-child(2) td.pk{border-top:1px solid #000}
+.sheet .fc3 td.t{padding:1.3mm 2.2mm;text-align:justify}
+.sheet .fc3 td.t.ct{text-align:center}
+.sheet .fc3 td.t .num{display:grid;grid-template-columns:6mm 1fr}
+.sheet .fc3 td.t ul{padding-left:4.5mm;margin:.6mm 0}
+.sheet .fc3 td.t ul ul{list-style:circle}
+.pkw{position:relative;display:flex;justify-content:center;align-items:center;min-height:11mm;padding:1.2mm 0}
+.pkw .o{width:9mm;height:9mm;border-radius:50%;border:1.3px solid #000;background:#fff}
+.pkw .rc{width:15mm;height:7mm;border:1.3px solid #000;background:#fff}
+.pkw .dm{width:8.5mm;height:8.5mm;border:1.3px solid #000;background:#fff;transform:rotate(45deg)}
+.pkw .lb{position:absolute;font-size:7.5pt;line-height:1.15;text-align:left}
+.pkw .lb.tr{left:calc(50% + 7mm);top:0;max-width:21mm}
+.pkw .lb.ya{right:calc(50% + 6.5mm);top:22%}
+.pkw .lb.td{left:calc(50% + 2.5mm);bottom:-.6mm}
+.pkw .lb.tdr{left:calc(50% + 8mm);top:30%}
+.pkw.br{gap:0;justify-content:space-around;background:linear-gradient(#000,#000) center 2mm/62% 1px no-repeat}
+.pkw.br .rc{margin-top:5mm}
+.pkw .side{position:absolute;left:2mm;top:50%;transform:translateY(-50%);width:13mm;height:7mm;border:1.3px solid #000;background:#fff}
+.pkw.off .rc{transform:translateX(-14mm)}
+.sheet a.fl{display:inline-block;font:700 7.6pt Arial,sans-serif;text-decoration:none;color:#0f6b6f;border:1px solid #0f6b6f;border-radius:3px;padding:.3mm 1.4mm;margin:.6mm 1mm 0 0;background:#e9f5f4}
+.sheet a.fl:hover{background:#0f6b6f;color:#fff}
+@media (max-width:640px){
+  .sheet{padding:8mm 6mm;min-height:auto;font-size:9.5pt}
+  .sheet .cols{grid-template-columns:1fr}
+  .sheet .src{position:static;margin-top:6mm}
+  .sheet .f,.sheet .f.w{grid-template-columns:34% 3mm 1fr}
+}
 
 footer{border-top:1px solid var(--line);padding-block:24px;font-size:.85rem;color:var(--muted)}
 footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
@@ -291,11 +407,14 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 
 @media print{
   @page{size:A4;margin:0}
-  body{background:#fff}
-  body::before,.brand,.hero,#home,.vbar,footer{display:none!important}
-  .sheets{padding:0;gap:0}
-  .sheet{box-shadow:none;page-break-after:always;max-width:none}
+  html,body{background:#fff!important}
+  :root{padding:0!important}
+  body::before,.brand,.hero,#home,.vbar,.vnote,.pager,footer{display:none!important}
+  .sheets{padding:0!important;gap:0;display:block;overflow:visible}
+  .sheet{box-shadow:none;margin:0;width:210mm;max-width:none;min-height:297mm;height:297mm;overflow:hidden;break-after:page;page-break-after:always}
+  .sheet:last-child{break-after:auto;page-break-after:auto}
   .lview:not(.on){display:none!important}
+  .sheet a.fl{display:none}
 }
 </style>
 
@@ -363,6 +482,8 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
       <b>Talian makmal</b>
       MKAK Sungai Buloh<br><span class="mono">03-6126 1200</span> ext. <span class="mono">1287</span>
       <p class="small muted" style="margin-top:8px">Hubungi sebelum menghantar spesimen.</p>
+      <b style="margin-top:12px">Jabatan Kimia Alor Setar</b>
+      <span class="mono">04-735 7001</span>
     </div>
   </nav>
 
@@ -674,7 +795,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
     </div>
     <div class="box">
       <div class="doc">
-        <div class="cover" aria-hidden="true"><span>GARIS PANDUAN PENGURUSAN WABAK KERACUNAN METANOL</span><b>Ed. 3</b><span>KKM 2026</span></div>
+        <img class="coverimg" src="assets/gp-kulit-metanol.jpg" alt="Kulit Garis Panduan Pengurusan Wabak Keracunan Metanol Edisi Ketiga 2026">
         <div>
           <span class="tag">Garis panduan</span>
           <h3 style="margin-top:10px">GP Pengurusan Wabak Keracunan Metanol, Edisi Ketiga 2026</h3>
@@ -684,7 +805,8 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
             <dt>Penerbit</dt><dd>BKP, KKM</dd>
           </dl>
           <div class="btns">
-            <a class="btn pri" href="https://drive.google.com/file/d/100AvQzBNw97L-8w9XMI6DLMQ5MbWapvu/view" target="_blank" rel="noopener">Versi cetak</a>
+            <a class="btn pri" href="files/GP_Pengurusan_Wabak_Keracunan_Metanol_Edisi3_2026.pdf" target="_blank" rel="noopener">Buka GP (PDF)</a>
+            <a class="btn" href="https://drive.google.com/file/d/100AvQzBNw97L-8w9XMI6DLMQ5MbWapvu/view" target="_blank" rel="noopener">Versi cetak</a>
             <a class="btn" href="https://drive.google.com/file/d/1sa7g56a659lkH9eZRLyF8NWo1mhvImoj/view" target="_blank" rel="noopener">Versi e-book</a>
           </div>
         </div>
@@ -721,7 +843,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 <!-- ================= 06 LAMPIRAN ================= -->
 <section class="sec" id="lampiran">
   <h2>Lampiran, carta alir &amp; borang</h2>
-  <p class="muted" style="max-width:70ch">Lampiran berasaskan teks dibina semula dalam format A4 untuk dicetak. Lampiran berlabel jingga ialah borang agensi atau lembaran kerja yang perlu dirujuk terus pada GP asal.</p>
+  <p class="muted" style="max-width:70ch">Setiap borang dan carta alir dibina semula dalam format A4 untuk dicetak terus. Salinan PDF setiap borang dan templat Word yang boleh disunting turut disediakan.</p>
   <div id="lampIndex"></div>
 </section>
   </main>
@@ -730,148 +852,228 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 
 <!-- ================= LAMPIRAN VIEWS ================= -->
 <div id="views">
-  <div class="vbar gut"><div class="wrap">
-    <button class="btn" type="button" id="vBack">← Kembali ke hub</button>
-    <h2 id="vTitle"></h2>
-    <div style="display:flex;gap:8px;flex-wrap:wrap">
-      <button class="btn" type="button" id="vPrev">‹</button>
-      <button class="btn" type="button" id="vNext">›</button>
-      <button class="btn amb" type="button" id="vPrint">Cetak</button>
-    </div>
-  </div></div>
-  <div class="gut" id="viewHost">
 
-<!-- R1 Rajah 1 -->
-<section class="lview" id="rajah-1"><div class="sheets"><div class="sheet">
-  <div class="lno">RAJAH 1</div>
-  <div class="ft">Definisi kes keracunan metanol</div>
-  <div class="fc" style="grid-template-columns:1fr">
-    <div><span class="term">MULA</span></div>
-    <div class="dec">Pengambilan minuman beralkohol atau bahan berpotensi mengandungi metanol dalam 5 hari sebelum bergejala?<small>TIDAK → bukan kes keracunan metanol</small></div>
-    <div class="arw">▼ YA</div>
-    <div class="dec">Sekurang-kurangnya satu gejala dalam 5 hari selepas pengambilan?<small>Penglihatan kabur tiba-tiba · pernafasan · gastrousus · saraf pusat</small><small>TIDAK → pantau dan nasihat segera ke hospital jika bergejala</small></div>
-    <div class="arw">▼ YA</div>
-    <div class="st" style="text-align:center;font-weight:700">KES DISYAKI (SUSPECTED CASE)</div>
-    <div class="arw">▼</div>
-    <div class="dec">Hubung kait epidemiologi dengan kes disahkan?<small>YA → KES BERKEMUNGKINAN (Situasi 1)</small></div>
-    <div class="arw">▼ TIDAK</div>
-    <div class="dec">HAGMA (2 daripada: pH &lt; 7.35; HCO₃ &lt; 20 mmol/L; AG &gt; 12 mEq/L) ATAU osmolal gap &gt; 10 mOsm/L?<small>YA → KES BERKEMUNGKINAN (Situasi 2) · TIDAK → kekal KES DISYAKI</small></div>
-    <div class="arw">▼</div>
-    <div class="dec">Metanol dikesan dalam darah atau urin?<small>YA → KES DISAHKAN (CONFIRMED CASE)</small></div>
-    <div><span class="term">TAMAT</span></div>
-  </div>
-  <div class="src">Dibina semula daripada Seksyen 4.1 dan Rajah 1, GP Pengurusan Wabak Keracunan Metanol Edisi Ketiga 2026, BKP KKM.</div>
+<!-- RAJAH 1 -->
+<section class="lview" id="rajah-1"><div class="sheets"><div class="sheet land">
+  <div class="ft">Definisi kes</div>
+  <svg class="r1" viewBox="0 0 1060 640" role="img" aria-label="Carta alir definisi kes keracunan metanol">
+    <defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#000"/></marker></defs>
+    <g fill="#fff" stroke="#000" stroke-width="2">
+      <ellipse cx="530" cy="44" rx="44" ry="26"/>
+      <rect x="430" y="98" width="200" height="34"/>
+      <polygon points="530,152 580,182 530,212 480,182"/>
+      <rect x="350" y="240" width="110" height="34" stroke-width="2.6"/>
+      <polygon points="405,296 455,328 405,360 355,328"/>
+      <rect x="215" y="418" width="130" height="50" stroke-width="2.6"/>
+      <polygon points="560,410 660,443 560,476 460,443"/>
+      <polygon points="295,498 375,528 295,558 215,528"/>
+      <polygon points="705,470 780,506 705,542 630,506"/>
+      <rect x="70" y="580" width="140" height="44"/>
+      <rect x="370" y="580" width="130" height="44"/>
+      <rect x="640" y="580" width="130" height="44"/>
+      <rect x="830" y="580" width="140" height="44"/>
+    </g>
+    <g stroke="#000" stroke-width="2" fill="none" marker-end="url(#ah)">
+      <path d="M530 70V96"/><path d="M530 132V150"/>
+      <path d="M480 182H405V238"/>
+      <path d="M580 182H900V578"/>
+      <path d="M405 274V294"/>
+      <path d="M355 328H280V416"/>
+      <path d="M455 328H560V408"/>
+      <path d="M460 443H347"/>
+      <path d="M660 443H705V468"/>
+      <path d="M280 468V496"/>
+      <path d="M215 528H140V578"/>
+      <path d="M375 528H435V578"/>
+      <path d="M705 542V578"/>
+      <path d="M780 506H898"/>
+    </g>
+    <g font-family="Arial, sans-serif" font-size="15" text-anchor="middle" fill="#000">
+      <text x="530" y="49">MULA</text>
+      <text x="530" y="120">Sejarah pengambilan alkohol</text>
+      <text x="530" y="187">Gejala?</text>
+      <text x="405" y="262">Kes Disyaki</text>
+      <text x="405" y="325">Epid</text><text x="405" y="342">Link?</text>
+      <text x="280" y="439">Kes</text><text x="280" y="457">Berkemungkinan</text>
+      <text x="560" y="440">High anion gap/</text><text x="560" y="457">Osmolal gap?</text>
+      <text x="295" y="525">Darah / Urin</text><text x="295" y="542">kesan metanol?</text>
+      <text x="705" y="496">Darah / Urin</text><text x="705" y="512">kesan</text><text x="705" y="528">metanol?</text>
+      <text x="140" y="607">Kes Disahkan</text>
+      <text x="435" y="598">Kes</text><text x="435" y="615">Berkemungkinan</text>
+      <text x="705" y="607">Kes Disahkan</text>
+      <text x="900" y="598">Bukan Keracunan</text><text x="900" y="615">Metanol</text>
+    </g>
+    <g font-family="Arial, sans-serif" font-size="14" font-weight="700" fill="#000">
+      <text x="452" y="176">Ya</text><text x="590" y="176">Tidak</text>
+      <text x="330" y="320">Ya</text><text x="468" y="320">Tidak</text>
+      <text x="400" y="436">Ya</text><text x="672" y="436">Tidak</text>
+      <text x="180" y="520">Ya</text><text x="384" y="520">Tidak</text>
+      <text x="712" y="560">Ya</text><text x="792" y="498">Tidak</text>
+    </g>
+  </svg>
+  <table class="kv" style="margin-top:4mm">
+    <tr><th>Kes disyaki</th><td>Sejarah pengambilan minuman beralkohol / bahan berpotensi mengandungi metanol dalam 5 hari sebelum bergejala <b>DAN</b> sekurang-kurangnya satu gejala (penglihatan kabur tiba-tiba; hiperventilasi / sesak nafas; loya / muntah / sakit perut; sakit kepala / keliru / sawan / pengsan / koma) dalam 5 hari selepas pengambilan.</td></tr>
+    <tr><th>Kes berkemungkinan</th><td>Kes disyaki <b>DAN</b> hubung kait epidemiologi dengan kes disahkan (Situasi 1); <b>ATAU</b> kes disyaki <b>DAN</b> HAGMA (2 daripada: pH arteri &lt; 7.35, HCO₃ &lt; 20 mmol/L, anion gap &gt; 12 mEq/L) atau osmolal gap &gt; 10 mOsm/L (Situasi 2).</td></tr>
+    <tr><th>Kes disahkan</th><td>Kes disyaki atau berkemungkinan yang ujian darah atau urin mengesan metanol.</td></tr>
+  </table>
 </div></div></section>
 
-<!-- L1 -->
+<!-- LAMPIRAN 1 -->
 <section class="lview" id="lampiran-1"><div class="sheets">
-<div class="sheet">
-  <div class="lno">LAMPIRAN 1</div>
-  <div class="ft">Rawatan kes methanol / ethylene glycol poisoning</div>
-  <table>
-    <tr><th style="width:24%">Diagnosis</th><td>History of methanol or ethylene glycol ingestion with a wide anion gap metabolic acidosis. Patients may also present with visual disturbances, neurologic deficit, abdominal pain and vomiting, difficulty breathing or hyperventilation. A wide anion gap can be used in lieu of osmol gap if serum ethanol cannot be measured.<br><b>Anion gap</b> = (K + Na) − (HCO₃ + Cl), mmol/L.<br><b>Osmol gap</b> = measured − calculated osmolality; calculated = 2(Na + K) + urea + glucose + ethanol (mmol/L). Normal −2 ± 6 mOsm/L. A gap &gt; 10 is clinically significant but not diagnostic; a markedly elevated gap is strongly suggestive of toxic alcohol ingestion. The osmol gap is wide early and normalises later.</td></tr>
-    <tr><th>Baseline investigations</th><td>ABG, RP, RBS, blood ethanol and serum osmolality. Coagulation profile, LFT, CE, ECG, CT brain and CXR as indicated. Blood and urine methanol in selected laboratories: blood 3 ml in grey-cap bottle; urine 25 ml in universal container with sodium fluoride or 3 ml in grey-cap bottle; specimen of alleged toxin; preferably before treatment. Serum formate is not available in Malaysia.</td></tr>
-    <tr><th>Pre-hospital care</th><td>Assess airway, breathing, circulation; ventilate and insert LMA if necessary. IV line and fluid bolus if hypotensive. Check DXT; give dextrose if &lt; 4.0 mmol/L. Verify history and bring the bottle to ED if possible. Triage to red or yellow zone after consulting the emergency physician.</td></tr>
-    <tr><th>In-hospital management</th><td>Stabilise ABC. Fluid boluses guided by urine output and point-of-care ultrasound; inotropes or vasopressors may be needed. Nasogastric aspiration with protected airway within 1 hour of consumption. Activated charcoal generally not recommended except for significant recent ingestion or binding co-ingestants. Sodium bicarbonate infusion for severe acidosis after fluid resuscitation.<br><b>Vitamins:</b> IV folinic acid / leucovorin 1 mg/kg up to 50 mg every 4–6 h (methanol); IV thiamine 100 mg OD and IV/PO pyridoxine 50 mg every 4–6 h (ethylene glycol).<br><b>Antidote:</b> fomepizole (preferred) or ethanol as soon as possible. Dialysis immediately for oliguric renal failure. CT brain for coma or status epilepticus. Continue until blood methanol &lt; 20 mg/dL and/or clinical improvement with correction of acidosis, osmol gap and renal function.</td></tr>
+<div class="sheet it">
+  <div class="ft">Rawatan kes <i>methanol/ethylene glycol poisoning</i></div>
+  <table class="kv">
+    <tr><th>DIAGNOSIS</th><td><ul>
+      <li>History of methanol or ethylene glycol ingestion with a wide anion gap metabolic acidosis.</li>
+      <li>Patients may also present with visual disturbances, neurologic deficit, abdominal pain and vomiting, difficulty breathing or hyperventilation.</li>
+      <li>A <b>wide anion gap</b> can be used to diagnose poisoning in lieu of osmol gap if serum ethanol levels cannot be measured.</li>
+      <li>Anion gap measurement: [(K+Na)-(HCO3+Cl)], all units in mmol/l.</li>
+      <li>In early presentation a wide osmol gap will be detected but this gap normalizes later. Measured osmolality-calculated osmolality = Osmol gap.</li>
+      <li>Calculated osmolality: 2(Na + K) + Urea + Glucose + Ethanol (all units in mmol/l).</li>
+      <li>Normal osmol gap ranges from -2 ± 6 mOsm/L. A gap of more than 10 is clinically significant but is not diagnostic of toxic alcohol ingestion. A markedly elevated osmol gap is strongly suggestive of toxic alcohol ingestion.</li></ul></td></tr>
+    <tr><th>BASELINE INVESTIGATIONS</th><td><ul>
+      <li>ABG</li>
+      <li>RP, RBS, blood ethanol level and serum osmolality level to calculate osmol gap.</li>
+      <li>Coagulation profile, LFT, CE, ECG as indicated.</li>
+      <li>CT Brain and CXR as indicated.</li>
+      <li>Blood and urine methanol levels can be measured in selected laboratories, the following must be sent:<ol type="i"><li>Blood: 3ml in grey cover bottle;</li><li>Urine: 25ml in universal container with sodium fluoride or 3 ml in grey cover bottle;</li><li>Specimen of alleged toxin;</li><li><b>Sample should preferably be taken before commencing treatment.</b></li></ol></li>
+      <li>A serum formate level has been shown to accurately diagnose methanol poisoning but is currently unavailable in Malaysia.</li></ul></td></tr>
   </table>
-  <h5>Fomepizole</h5>
-  <p>Loading 15 mg/kg IV, then 10 mg/kg IV every 12 h for doses 2–5; subsequent doses 15 mg/kg every 12 h. Dilute each dose in 100 ml NS or D5% over 30 minutes. During dialysis: same doses, given 6 h after the first dose and every 4 h thereafter. Monitor vital signs (bradycardia, hypotension). Decide after consensus due to high cost; may be given on day 1 followed by ethanol.</p>
 </div>
-<div class="sheet">
-  <div class="lno">LAMPIRAN 1 (sambungan)</div>
-  <h5>Ethanol</h5>
-  <table>
-    <tr><th></th><th>Oral ethanol 20%</th><th>Intravenous ethanol 10%</th></tr>
-    <tr><th>Loading dose</th><td>0.8 g/kg (5 ml/kg) diluted in juice, orally or via NGT</td><td>0.8 g/kg (10 ml/kg) over 20–60 minutes as tolerated</td></tr>
-    <tr><th>Maintenance: non-drinker</th><td>80–130 mg/kg/h (0.5–0.8 ml/kg/h)</td><td>80–130 mg/kg/h (1.0–1.6 ml/kg/h)</td></tr>
-    <tr><th>Maintenance: chronic alcoholic</th><td>150 mg/kg/h (0.9 ml/kg/h)</td><td>150 mg/kg/h (1.9 ml/kg/h)</td></tr>
-    <tr><th>Maintenance: during dialysis</th><td>250–350 mg/kg/h (1.6–2.0 ml/kg/h)</td><td>250–350 mg/kg/h (3.1–4.4 ml/kg/h)</td></tr>
+<div class="sheet it">
+  <table class="kv">
+    <tr><th>PRE-HOSPITAL CARE</th><td><ul>
+      <li>Assess airway, breathing and circulation.</li><li>Provide ventilation and insert LMA if necessary.</li><li>Insert an IV line and administer fluid bolus if the patient is noted to be hypotensive.</li><li>Check DXT and administer Dextrose if DXT is less than 4.0 mmol.</li><li>Verify history of toxic alcohol ingestion and bring the bottle to ED if possible.</li><li>Triage to red or yellow zone after consultation with managing emergency physician.</li></ul></td></tr>
+    <tr><th>IN-HOSPITAL MANAGEMENT</th><td><ul>
+      <li>Assess airway, breathing and circulation, stabilize as necessary. Fluid boluses to correct fluid deficit guided by urine output and preferably point of care ultrasound. Inotropes and vasopressors may be required.</li>
+      <li>Nasogastric aspiration with a protected airway can be performed in patients who present within 1 hour of consumption.</li>
+      <li>Activated charcoal is generally not recommended except in cases of significant, recent ingestion or in cases of co-ingestion of toxins that can be bound by activated charcoal.</li>
+      <li>Sodium bicarbonate as infusion can be given to correct severe acidosis after adequate fluid resuscitation.</li>
+      <li>The following vitamins should be administered:<ol type="i"><li>IV Folinic acid/Leucovorin calcium- 1mg/kg up to 50mg every 4-6 hours (Methanol);</li><li>IV Thiamine 100mg OD (Ethylene glycol);</li><li>IV/PO Pyridoxine 50mg every 4-6 hours (Ethylene glycol).</li></ol></li>
+      <li>Fomepizole or ethanol should be administered as soon as possible to block conversion of toxic alcohols. Fomepizole is the preferred antidote as it is easily administered with fewer side effects and monitoring requirements as compared to ethanol. For ethanol to be an effective antidote serum levels must be carefully titrated and maintained.</li>
+      <li>Dialysis should be commenced immediately if patient shows signs of oliguric renal failure. Other indications are listed below.</li>
+      <li>Patients presenting in a comatose state or with status epilepticus will require a CT brain.</li>
+      <li>Treatment should be continued until blood methanol level is less than 20mg/dL and/or the patient shows clinical improvement with correction of metabolic acidosis, osmol gap, and renal function.</li></ul></td></tr>
   </table>
-  <p>If ethanol was co-ingested, modify the loading dose so that blood ethanol does not exceed 100–150 mg/dL. Ref: Micromedex Vol 155, 3/2013.</p>
-  <h5>Preparation (undenatured alcohol 96%, internal use)</h5>
-  <table>
-    <tr><th style="width:30%">Oral 20% v/v</th><td>125 ml alcohol 96% + distilled water up to 600 ml. Store below 25 °C; 3 months or raw-material expiry, whichever first.</td></tr>
-    <tr><th>IV 10% v/v</th><td>58 ml alcohol 96% into 500 ml D5%. Stable 24 hours.</td></tr>
+</div>
+<div class="sheet it">
+  <p><b>Fomepizole :</b></p>
+  <ul class="circ">
+    <li>A loading dose of 15mg/kg IV followed by 10mg/kg IV every 12 hours for the subsequent 2nd to 5th doses. Each dose should be diluted in 100ml NS or 5% Dextrose and infused over 30 minutes.</li>
+    <li>Subsequent doses if required: 15mg/kg IV every 12 hours.</li>
+    <li>In patients undergoing dialysis same dosages are administered except that the drug is given 6 hours after the first dose and 4 hours thereafter.</li>
+    <li>Vital sign monitoring is required during infusion as the drug may cause bradycardia and hypotension.</li>
+    <li>Due to its high cost, administration of fomepizole should be decided after consensus during breakouts. Fomepizole may be administered for the first day of treatment followed by ethanol infusion subsequently.</li>
+  </ul>
+  <p style="margin-top:4mm"><b>Ethanol :</b><br>The chart below can be used as a guide for dosing:</p>
+  <table class="blue">
+    <tr><th colspan="2" class="bh">LOADING DOSE</th></tr>
+    <tr><th>Oral Ethanol 20%</th><th>Intravenous Ethanol 10%</th></tr>
+    <tr><td>0.8 gm/kg (5ml/kg) diluted in juice administered orally or via a nasogastric tube</td><td>0.8gm/kg (10ml/kg) administered over 20 to 60 minutes as tolerated</td></tr>
+    <tr><td colspan="2">If the patient concurrently has ingested ethanol, then the ethanol loading dose must be modified so that the blood ethanol level does not exceed 100 to 150 mg/dL</td></tr>
   </table>
-  <p>Titrate to blood ethanol 100 mg/dL, or to clinical response if not measurable. Monitor in ICU for IV infusion (hypotension, tachycardia, CNS/respiratory depression, hypoglycaemia, electrolyte derangement, gastritis). Preferably avoid in paediatric and pregnant patients.</p>
-  <h5>Dialysis indications</h5>
-  <ul><li>Severe metabolic acidosis (pH &lt; 7.20) persistent despite resuscitation and antidote</li><li>Signs of end-organ toxicity</li><li>Oliguric or anuric renal failure</li><li>Blood methanol &gt; 50 mg/dL</li></ul>
-  <h5>Treatment of suspected cases</h5>
-  <p>Admit patients with nausea, vomiting, drowsiness, inebriation, visual abnormality or abdominal pain for work-up. Send blood and urine methanol for all suspected cases. Clinically well, asymptomatic patients may be discharged with advice after notification.</p>
-  <h5>Prognosis</h5>
-  <p>Generally good with early presentation, rapid resuscitation, antidote and dialysis when indicated. Coma on arrival and lesions in the putamen, thalamus, external capsule and white matter on CT brain are associated with poor outcome.</p>
-  <div class="src">Sumber: Lampiran 1, GP Pengurusan Wabak Keracunan Metanol Edisi Ketiga 2026, BKP KKM.</div>
+  <table class="blue" style="margin-top:5mm">
+    <tr><th colspan="3" class="bh">MAINTENANCE DOSE</th></tr>
+    <tr><th>Patient</th><th>Oral Ethanol 20%</th><th>Intravenous Ethanol 10%</th></tr>
+    <tr><td>Non-drinker</td><td>80 to 130 mg/kg/hr (0.5 - 0.8ml/kg/hr) PO or via nasogastric tube</td><td>80 to 130 mg/kg/hr (1.0 - 1.6 ml/kg/hr)</td></tr>
+    <tr><td>Chronic alcoholic</td><td>150 mg/kg/hr (0.9ml/kg/hr) PO or via nasogastric tube</td><td>150 mg/kg/hr (1.9ml/kg/hr)</td></tr>
+    <tr><td>During dialysis</td><td>250 to 350 mg/kg/hr (1.6 - 2.0ml/kg/hr) PO or via nasogastric tube</td><td>250 to 350 mg/kg/hr (3.1 - 4.4ml/kg/hr)</td></tr>
+  </table>
+  <p>Ref: Micromedex Vol 155, 3/2013</p>
+</div>
+<div class="sheet it">
+  <p class="ctr"><b>PREPARATION GUIDE FOR ORAL ETHANOL 20% V/V SOLUTION AND INTRAVENOUS ETHANOL 10% V/V SOLUTION (UNDENATURED)</b></p>
+  <table class="blue">
+    <tr><th></th><th class="bh" style="text-align:left">Undenatured alcohol 96% (for internal use only)</th></tr>
+    <tr><th>Indication</th><td>Methanol poisoning</td></tr>
+    <tr><th>Reconstitution</th><td>Not required</td></tr>
+    <tr><th>Further dilution</th><td><b><u>Oral ethanol 20% v/v solution</u></b><br>125ml of alcohol 96% added with distilled water up to 600ml<br><br><b><u>IV ethanol 10% v/v solution</u></b><br>58ml of alcohol 96% added into 500ml of D5%</td></tr>
+    <tr><th>Diluent</th><td>Oral: distilled water, IV: D5%</td></tr>
+    <tr><th>Storage &amp; stability</th><td>Store at room temperature, below 25°C<br>After dilution:<br>Oral: 3 months from the date of preparation or according to the expiry date of the raw material (whichever comes first)<br>IV: 24 hours</td></tr>
+  </table>
+  <ul>
+    <li>Treatment should be titrated to a blood ethanol level of 100mg/dL. If your hospital does not have blood ethanol measurement, titrate ethanol infusion to patient's clinical condition i.e. patient shows improvement without adverse effects.</li>
+    <li>Patients must be monitored in ICU if IV ethanol infusion is given-potential adverse effects of hypotension, tachycardia, CNS/respiratory depression, hypoglycemia, electrolyte derangement, and gastritis.</li>
+    <li>Ethanol infusion is preferably avoided in pediatric and pregnant patients.</li>
+  </ul>
+  <p style="margin-top:4mm"><b>Dialysis :</b></p>
+  <ul><li>Treatment with just ethanol/fomepizole infusion without hemodialysis has been successful in patients who are minimally toxic, without renal impairment. Dialysis is indicated if any of the following is present:<ul class="circ"><li>Severe metabolic acidosis (pH&lt;7.20) which is persistent despite resuscitative measures and antidote administration</li><li>Signs of end organ toxicity oliguric or anuric renal failure</li><li>Blood methanol level of more than 50mg/dL</li></ul></li></ul>
+</div>
+<div class="sheet it">
+  <p><b>Treatment of Suspected Cases :</b></p>
+  <ul>
+    <li>Patients with symptoms of nausea, vomiting, drowsiness, inebriation, visual abnormalities and abdominal pain must be admitted for further investigation and work up to rule out other pathology.</li>
+    <li>Blood and urine for methanol must be sent for all patients fulfilling criteria of suspected cases.</li>
+    <li>Patients who are clinically well and asymptomatic may be discharged home with advice after notification.</li>
+  </ul>
+  <p style="margin-top:4mm"><b>Prognosis:</b></p>
+  <ul>
+    <li>Prognosis is generally good for patients who present early to hospital even in severe poisoning. Identification of the poisoning with rapid resuscitation, antidote administration and dialysis when indicated is crucial.</li>
+    <li>Patients who present in a comatose state on arrival have been shown to have poor neurological recovery even with dialysis.(1)</li>
+    <li>The presence of lesions in the putamen, thalamus, external capsule and white matter on CT brain are associated with poor clinical outcome.(2,3)</li>
+  </ul>
+  <p style="margin-top:4mm">Ref :</p>
+  <ol style="font-size:9.5pt">
+    <li>Md Noor J, Hawari R, Mokhtar MF, Yussof SJ, Chew N, Norzan NA, et al. Methanol outbreak: a Malaysian tertiary hospital experience. International Journal of Emergency Medicine. 2020 Feb 7;13</li>
+    <li>Taheri MS, Moghaddam HH, Moharamzad Y, Dadgari S, Nahvi V. The value of brain CT findings in acute methanol toxicity. European Journal of Radiology. 2008 Dec 20;73(2):211–4</li>
+    <li>Sasani MR, Molavi Vardanjani H, Mehdipour Namdar Z, Jeddi M, Seif S, Sedighi S, et al. Prognosis of Methanol Poisoning in a Developing Setting. Archives of Iranian Medicine. 2024 Mar 1;27(3):127–34</li>
+  </ol>
 </div>
 </div></section>
 
-<!-- L3 -->
-<section class="lview" id="lampiran-3"><div class="sheets"><div class="sheet">
-  <div class="lno">LAMPIRAN 3</div>
-  <div class="ft">Carta alir pelaporan kes keracunan metanol</div>
-  <div class="fc">
-    <div class="hh">TANGGUNGJAWAB</div><div class="hh">PROSES KERJA</div>
-    <div></div><div><span class="term">Mula</span></div>
-    <div>Hospital / Klinik Kesihatan</div><div class="st">1. Diagnosis kes disyaki (suspected) / kes berkemungkinan (probable) keracunan metanol.</div>
-    <div>Hospital / Klinik Kesihatan</div><div class="dec">Ada unsur jenayah / kematian?<small>YA → 2. Membuat laporan polis · TIDAK → terus ke langkah 3</small></div>
-    <div>Hospital / Klinik Kesihatan</div><div class="st">3. Melengkapkan Borang Notifikasi Keracunan Metanol dan menghantar kepada PKD dalam tempoh 24 jam selepas diagnosis.</div>
-    <div>Pejabat Kesihatan Daerah (PKD)</div><div class="st">4. Membuat pengesahan kes dan menghantar borang notifikasi yang disahkan kepada JKN.</div>
-    <div>Jabatan Kesihatan Negeri (JKN)</div><div class="st">5. Menghantar borang notifikasi yang telah disahkan kepada IPKKM dalam tempoh 24 jam selepas PKD menerima notifikasi daripada hospital atau klinik kesihatan.</div>
-    <div>Hospital (UKA) / PKD</div><div class="st">6. Menyediakan laporan kes: laporan awal setelah siasatan; aktiviti kawalan dan pencegahan; menghantar ke JKN.</div>
-    <div>PKD</div><div class="dec">Wabak?<small>YA → 7. Menyediakan laporan tambahan: Pelaporan Kejadian Berkaitan Kesihatan ke CPRC; Laporan Harian · TIDAK → langkah 8</small></div>
-    <div>Jabatan Kesihatan Negeri (JKN)</div><div class="st">8. Membuat ulasan dan menghantar laporan awal yang telah disemak kepada IPKKM dalam tempoh 48 jam selepas PKD menerima notifikasi daripada hospital atau klinik kesihatan.</div>
-    <div>Pejabat Kesihatan Daerah (PKD)</div><div class="st">9. Menyediakan laporan akhir dan menghantar ke JKN.</div>
-    <div>Jabatan Kesihatan Negeri (JKN)</div><div class="st">10. Membuat ulasan dan menghantar laporan akhir yang lengkap kepada IPKKM: <b>Sporadik</b> dalam tempoh 48 jam selepas menerima keputusan makmal; <b>Wabak</b> selepas penutupan bilik gerakan.</div>
-    <div></div><div><span class="term">Tamat</span></div>
+<!-- LAMPIRAN 2A -->
+<section class="lview" id="lampiran-2a"><div class="sheets"><div class="sheet">
+  <div class="ft"><i>Worksheet for preparation oral ethanol 20% v/v solution (undenatured)</i></div>
+  <div class="ws">
+    <div class="ws-top"><b><u>WORKSHEET</u></b><table><tr><td><b>Date :</b></td><td><b>Batch No :</b></td></tr></table></div>
+    <table><tr><td style="width:50%">Name of preparation</td><td><b>Oral Ethanol</b></td></tr><tr><td>Concentration required</td><td>20% v/v</td></tr><tr><td>Volume</td><td>600ml</td></tr><tr><td>Quantity</td><td></td></tr><tr><td>Vehicle solution</td><td>Distilled water</td></tr></table>
+    <table class="c"><tr><th style="width:12%"></th><th>Item</th><th>Mfg.</th><th>B/N</th><th>Exp.</th><th>Qty.</th><th>Sign</th></tr>
+      <tr><th rowspan="2">STOCK ISSUED</th><td style="text-align:left">Ethanol 96% (Undenatured alcohol)</td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td style="text-align:left">Distilled water</td><td></td><td></td><td></td><td></td><td></td></tr></table>
+    <div class="ws-box"><b>PROCEDURES :</b><div class="proc"><span>Ethanol 96%</span><span>:&nbsp;&nbsp;125&nbsp;&nbsp;ml</span><span>Distilled water</span><span>:&nbsp;&nbsp;up to 600ml</span></div></div>
+    <table><tr><td style="width:50%"><b>STORAGE :</b> 25 °C</td><td><b>EXPIRY :</b> 3 months from date of preparation or according to expiry date of raw material (whichever comes first)</td></tr></table>
+    <table><tr><td style="width:18%"><b>LABEL</b></td><td>Name of drug / Conc. / Vol. / Vehicle Sol. / Date of Prep. / Exp. Date / Storage / Batch No.</td></tr></table>
+    <div class="ws-box"><b>REMARKS</b><ol><li>Mix undenatured alcohol 96% into parts of distilled water.</li><li>Add distilled water up to a final volume of 600ml.</li><li>Shake well.</li><li>Pack and label accordingly.</li></ol></div>
+    <table class="sigt"><tr><th>Preparation by :</th></tr><tr><td></td></tr><tr><th>Preparation checked by :</th></tr><tr><td></td></tr></table>
   </div>
-  <div class="src">Sumber: Lampiran 3, GP Pengurusan Wabak Keracunan Metanol Edisi Ketiga 2026, BKP KKM.</div>
+  <p class="it" style="margin-top:5mm">Sumber : British Pharmaceutical Codex, 1994</p>
 </div></div></section>
 
-<!-- L4 -->
-<section class="lview" id="lampiran-4"><div class="sheets"><div class="sheet">
-  <div class="lno">LAMPIRAN 4</div>
-  <div class="ft">Carta alir pengurusan kes Brought in Dead (BID) disyaki keracunan metanol</div>
-  <div class="fc">
-    <div class="hh">TANGGUNGJAWAB</div><div class="hh">PROSES KERJA</div>
-    <div></div><div><span class="term">Mula</span></div>
-    <div>Hospital / Polis Diraja Malaysia (PDRM)</div><div class="st">1. Mengurus mayat yang dibawa ke hospital: pengesahan kematian oleh pegawai perubatan di Jabatan Kecemasan dan Trauma; membuat laporan polis; mendaftarkan penerimaan mayat di mortuari. Mayat yang dibawa oleh orang awam atau PDRM dihantar ke mortuari.</div>
-    <div>Polis Diraja Malaysia (PDRM)</div><div class="dec">Keperluan pemeriksaan bedah siasat forensik?</div>
-    <div>Polis Diraja Malaysia (PDRM)</div><div class="st">2. <b>Ya:</b> melengkapkan Borang Permintaan Pemeriksaan Mayat, Polis 61 Pin 4/68 dan memohon ujian metanol dalam pemeriksaan toksikologi.<br><b>Tidak:</b> membuat pengesahan punca kematian (Criminal Procedure Code, Akta 593).</div>
-    <div>Hospital</div><div class="st">3. Melepaskan mayat kepada waris selepas selesai prosedur dan dokumentasi berkaitan.</div>
-    <div></div><div><span class="term">Tamat</span></div>
+<!-- LAMPIRAN 2B -->
+<section class="lview" id="lampiran-2b"><div class="sheets"><div class="sheet">
+  <div class="ft"><i>Worksheet for preparation intravenous ethanol 10% v/v solution (undenatured)</i></div>
+  <div class="ws">
+    <div class="ws-top"><b><u>WORKSHEET</u></b><table><tr><td><b>Date :</b></td><td><b>Batch No :</b></td></tr></table></div>
+    <table><tr><td style="width:50%">Name of preparation</td><td><b>Intravenous Ethanol</b></td></tr><tr><td>Concentration required</td><td>10% v/v</td></tr><tr><td>Volume</td><td>558 ml</td></tr><tr><td>Quantity</td><td></td></tr><tr><td>Vehicle solution</td><td>Dextrose 5%</td></tr></table>
+    <table class="c"><tr><th style="width:12%"></th><th>Item</th><th>Mfg.</th><th>B/N</th><th>Exp.</th><th>Qty.</th><th>Sign</th></tr>
+      <tr><th rowspan="2">STOCK ISSUED</th><td style="text-align:left">Ethanol 96% (Undenatured alcohol)</td><td></td><td></td><td></td><td></td><td></td></tr>
+      <tr><td style="text-align:left">Dextrose 5% (500ml)</td><td></td><td></td><td></td><td></td><td></td></tr></table>
+    <div class="ws-box"><b>PROCEDURES :</b><div class="proc"><span>Ethanol 96%</span><span>:&nbsp;&nbsp;58&nbsp;&nbsp;ml</span><span>Dextrose 5%</span><span>:&nbsp;&nbsp;500&nbsp;&nbsp;ml</span></div></div>
+    <table><tr><td style="width:50%"><b>STORAGE :</b> 25 °C</td><td><b>EXPIRY :</b> 24 hours</td></tr></table>
+    <table><tr><td style="width:18%"><b>LABEL</b></td><td>Name of drug / Conc. / Vol. / Vehicle Sol. / Date of Prep. / Exp. Date / Storage / Batch No.</td></tr></table>
+    <div class="ws-box"><b>REMARKS</b><ol><li>Remove the lid of 500 ml Dextrose 5% and wipe with alcohol swab.</li><li>Syringe out 58 ml of Undenatured 96% Ethanol</li><li>Transfer the undenatured 96% ethanol into 500ml dextrose 5%.</li><li>Shake well.</li><li>Cover with parafilm</li><li>Supply to the ward with Intrapur Inline 0.2 micronmeter filter.</li></ol></div>
+    <table class="sigt"><tr><th>Preparation by :</th></tr><tr><td></td></tr><tr><th>Preparation checked by :</th></tr><tr><td></td></tr></table>
   </div>
-  <div class="src">Sumber: Lampiran 4, GP Pengurusan Wabak Keracunan Metanol Edisi Ketiga 2026, BKP KKM.</div>
+  <p class="it" style="margin-top:5mm">Sumber : British Pharmaceutical Codex, 1994</p>
 </div></div></section>
 
-<!-- L5 -->
-<section class="lview" id="lampiran-5"><div class="sheets"><div class="sheet">
-  <div class="lno">LAMPIRAN 5</div>
-  <div class="ft">Carta alir pengurusan kes Died in Department (DID) disyaki keracunan metanol</div>
-  <div class="fc">
-    <div class="hh">TANGGUNGJAWAB</div><div class="hh">PROSES KERJA</div>
-    <div></div><div><span class="term">Mula</span></div>
-    <div>Hospital</div><div class="st">1. Membuat laporan polis bagi kes kematian disyaki keracunan metanol di wad.</div>
-    <div>Polis Diraja Malaysia (PDRM)</div><div class="dec">Keperluan pemeriksaan bedah siasat forensik?</div>
-    <div>Polis Diraja Malaysia (PDRM)</div><div class="st">2. <b>Ya:</b> melengkapkan Borang Permintaan Pemeriksaan Mayat, Polis 61 Pin 4/68.<br><b>Tidak:</b> menggunakan cause of death (COD) yang disahkan oleh pakar perubatan atau pegawai perubatan.</div>
-    <div>Hospital</div><div class="st">3. Membawa mayat ke mortuari beserta dokumen berkaitan.</div>
-    <div>Hospital</div><div class="st">4. Melepaskan mayat kepada waris selepas selesai prosedur dan dokumentasi berkaitan.</div>
-    <div></div><div><span class="term">Tamat</span></div>
-  </div>
-  <div class="src">Sumber: Lampiran 5, GP Pengurusan Wabak Keracunan Metanol Edisi Ketiga 2026, BKP KKM.</div>
-</div></div></section>
+<!-- FLOWCHARTS (built by script) -->
+<section class="lview" id="lampiran-3"><div class="sheets"><div class="sheet"><div class="ft">Carta alir pelaporan kes keracunan metanol</div><div data-fc="L3"></div></div></div></section>
+<section class="lview" id="lampiran-4"><div class="sheets"><div class="sheet"><div class="ft">Carta alir pengurusan kes <i>brought in dead (BID)</i> disyaki keracunan metanol</div><div data-fc="L4"></div></div></div></section>
+<section class="lview" id="lampiran-5"><div class="sheets"><div class="sheet"><div class="ft">Carta alir pengurusan kes <i>died in department (DID)</i> disyaki keracunan metanol</div><div data-fc="L5"></div></div></div></section>
 
-<!-- L6 -->
+<!-- LAMPIRAN 6 -->
 <section class="lview" id="lampiran-6"><div class="sheets">
-<div class="sheet">
+<div class="sheet fm">
   <div class="hd">Bahagian Kawalan Penyakit, Kementerian Kesihatan Malaysia<br>NOTIFIKASI/METANOL.FCTC-2026</div>
-  <div class="lno" style="text-align:left">LAMPIRAN 6</div>
-  <div class="ft">Borang notifikasi keracunan metanol</div>
+  <div class="ftb">BORANG NOTIFIKASI KERACUNAN METANOL</div>
   <div class="cols">
     <div>
       <div class="bar">1. MAKLUMAT PELAPOR (KLINIK/HOSPITAL)</div>
       <div class="f"><span>Nama pelapor</span><span>:</span><span></span></div>
       <div class="f"><span>Jawatan &amp; gred</span><span>:</span><span></span></div>
       <div class="f"><span>Wad / unit</span><span>:</span><span></span></div>
-      <div class="f"><span>Fasiliti kesihatan / hospital</span><span>:</span><span></span></div>
+      <div class="f"><span>Fasiliti kesihatan/ hospital</span><span>:</span><span></span></div>
       <div class="f"><span>Negeri</span><span>:</span><span></span></div>
       <div class="f"><span>Daerah</span><span>:</span><span></span></div>
       <div class="f"><span>Tarikh notifikasi</span><span>:</span><span></span></div>
@@ -879,434 +1081,675 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
       <div class="bar">2. MAKLUMAT PESAKIT</div>
       <div class="f"><span>Nama</span><span>:</span><span></span></div>
       <div class="f"><span>No. pendaftaran</span><span>:</span><span></span></div>
-      <div class="f tall"><span>Alamat rumah</span><span>:</span><span></span></div>
+      <div class="f h3"><span>Alamat rumah</span><span>:</span><span></span></div>
       <div class="f"><span>No. telefon</span><span>:</span><span></span></div>
-      <div class="f"><span>No. KP / No. pasport</span><span>:</span><span></span></div>
+      <div class="f"><span>No. kad pengenalan/ No. passport</span><span>:</span><span></span></div>
       <div class="f"><span>Umur</span><span>:</span><span></span></div>
-      <div class="ck">Jantina: <i>Lelaki</i><i>Perempuan</i></div>
+      <div class="f"><span>Jantina</span><span>:</span><span><span class="cb">Lelaki</span><span class="cb">Perempuan</span></span></div>
       <div class="f"><span>Etnik</span><span>:</span><span></span></div>
       <div class="f"><span>Warganegara</span><span>:</span><span></span></div>
       <div class="f"><span>Status perkahwinan</span><span>:</span><span></span></div>
       <div class="f"><span>Status pekerjaan</span><span>:</span><span></span></div>
-      <div class="f tall"><span>Alamat tempat kerja</span><span>:</span><span></span></div>
-      <div class="bar">3. MAKLUMAT WARIS / PEMBERI MAKLUMAT</div>
+      <div class="f h2"><span>Alamat tempat kerja</span><span>:</span><span></span></div>
+      <div class="bar">3. MAKLUMAT WARIS ATAU PEMBERI MAKLUMAT (KELUARGA/ RAKAN/ MAJIKAN)</div>
       <div class="f"><span>Nama</span><span>:</span><span></span></div>
       <div class="f"><span>Hubungan</span><span>:</span><span></span></div>
       <div class="f"><span>No. telefon</span><span>:</span><span></span></div>
     </div>
     <div>
       <div class="bar">4. MAKLUMAT SITUASI AKUT</div>
-      <div class="ck"><b>Gejala klinikal:</b><br><i>Loya</i><i>Muntah</i><i>Sakit perut</i><i>Cirit-birit</i><i>Hiperventilasi</i><i>Sesak nafas</i><i>Pening / sakit kepala</i><i>Sawan</i><i>Pengsan / tidak sedar</i><i>Penglihatan kabur / buta</i><i>Tidak bergejala</i></div>
+      <p>Gejala klinikal :</p>
+      <div class="cbg two"><span class="cb">Loya</span><span class="cb">Muntah</span><span class="cb">Sakit perut</span><span class="cb">Cirit-birit</span><span class="cb">Hiperventilasi</span><span class="cb">Sesak nafas</span><span class="cb">Pening/ Sakit kepala</span><span class="cb">Sawan</span><span class="cb">Pengsan/ Tidak sedar diri</span><span class="cb">Penglihatan kabur/ Kebutaan</span><span></span><span class="cb">Tidak bergejala</span></div>
       <div class="f"><span>Tarikh mula gejala</span><span>:</span><span></span></div>
       <div class="f"><span>Waktu mula gejala</span><span>:</span><span></span></div>
-      <div class="ck"><b>Tempoh pendedahan hingga gejala:</b><br><i style="min-width:100%">Kurang daripada 6 jam</i><i style="min-width:100%">6 hingga 12 jam</i><i style="min-width:100%">&gt; 12 hingga 48 jam</i><i style="min-width:100%">&gt; 48 jam hingga 5 hari</i><i style="min-width:100%">Lebih daripada 5 hari</i></div>
-      <div class="ck"><b>Keadaan sewaktu mula dirawat:</b><br><i style="min-width:100%">Tidak memerlukan bantuan pernafasan</i><i style="min-width:100%">Bantuan pernafasan non-invasive</i><i style="min-width:100%">Bantuan pernafasan invasive</i><i style="min-width:100%">Meninggal dunia (Tarikh: ________)</i><i style="min-width:100%">BID (Tarikh: ________)</i></div>
+      <p>Tempoh antara pendedahan dengan gejala bermula :</p>
+      <div class="cbg"><span class="cb">Kurang daripada 6 jam selepas pendedahan</span><span class="cb">6 hingga 12 jam selepas pendedahan</span><span class="cb">Lebih daripada 12 hingga 48 jam selepas pendedahan</span><span class="cb">Lebih daripada 48 jam hingga 5 hari selepas pendedahan</span><span class="cb">Lebih daripada 5 hari selepas pendedahan</span></div>
+      <p>Keadaan sewaktu mula dirawat :</p>
+      <div class="cbg"><span class="cb">Tidak memerlukan bantuan pernafasan</span><span class="cb">Bantuan pernafasan <i>non-invasive</i> (cth: <i>nasal prong, face mask</i>)</span><span class="cb">Bantuan pernafasan <i>invasive</i> (cth : <i>intubation</i>)</span><span class="cb">Meninggal dunia (Tarikh : _________)</span><span class="cb">BID (Tarikh : _________)</span></div>
       <div class="f"><span>Tarikh akhir minum</span><span>:</span><span></span></div>
       <div class="f"><span>Waktu</span><span>:</span><span></span></div>
       <div class="f"><span>Kuantiti diambil (ml)</span><span>:</span><span></span></div>
       <div class="bar">5. KEPUTUSAN UJIAN YANG DIJALANKAN</div>
       <div class="f"><span>Tarikh ujian</span><span>:</span><span></span></div>
-      <div class="f"><span>Arterial pH <small>(☐ &lt; 7.35)</small></span><span>:</span><span></span></div>
-      <div class="f"><span>Serum HCO₃ <small>(☐ &lt; 20 mmol/L)</small></span><span>:</span><span></span></div>
-      <div class="f"><span>Serum anion gap <small>(☐ &gt; 12)</small></span><span>:</span><span></span></div>
+      <div class="f"><span><i>Arterial</i> pH</span><span>:</span><span><span class="cb">&lt; 7.35</span></span></div>
+      <div class="f"><span><i>Serum bicarbonate</i> (HCO3)</span><span>:</span><span><span class="cb">&lt; 20 mmol/L</span></span></div>
+      <div class="f"><span><i>Serum anion gap</i></span><span>:</span><span><span class="cb">&gt; 12mEq/L</span></span></div>
     </div>
   </div>
 </div>
-<div class="sheet">
+<div class="sheet fm">
   <div class="hd">Bahagian Kawalan Penyakit, Kementerian Kesihatan Malaysia<br>NOTIFIKASI/METANOL.FCTC-2026</div>
+  <div class="ftb">BORANG NOTIFIKASI KERACUNAN METANOL</div>
   <div class="cols">
     <div>
-      <div class="bar">5. KEPUTUSAN UJIAN (sambungan)</div>
-      <div class="f"><span>Osmolal gap</span><span>:</span><span></span></div>
-      <div class="f"><span>Serum creatinine</span><span>:</span><span></span></div>
+      <div class="f"><span><i>Osmolal gap</i></span><span>:</span><span></span></div>
+      <div class="f"><span><i>Serum creatinine</i></span><span>:</span><span></span></div>
       <div class="f"><span>Urea</span><span>:</span><span></span></div>
-      <div class="f"><span>Sodium</span><span>:</span><span></span></div>
-      <div class="f"><span>Potassium</span><span>:</span><span></span></div>
-      <div class="ck">Spesimen darah untuk metanol diambil: <i style="min-width:20%">Ya</i><i style="min-width:20%">Tidak</i></div>
-      <div class="ck">Spesimen urin untuk metanol diambil: <i style="min-width:20%">Ya</i><i style="min-width:20%">Tidak</i></div>
-      <div class="ck"><b>Masa pengambilan spesimen:</b><br><i style="min-width:100%">Sebelum rawatan etanol / dialisis</i><i style="min-width:100%">Selepas rawatan etanol / dialisis</i></div>
+      <div class="f"><span><i>Sodium</i></span><span>:</span><span></span></div>
+      <div class="f"><span><i>Potassium</i></span><span>:</span><span></span></div>
+      <p>Spesimen darah untuk ujian metanol diambil :</p><div class="cbg two"><span class="cb">Ya</span><span class="cb">Tidak</span></div>
+      <p>Spesimen urin untuk ujian metanol diambil :</p><div class="cbg two"><span class="cb">Ya</span><span class="cb">Tidak</span></div>
+      <p>Masa pengambilan spesimen darah/urin untuk ujian metanol :</p>
+      <div class="cbg"><span class="cb">Sebelum rawatan etanol / dialisis diberi</span><span class="cb">Selepas rawatan etanol / dialisis diberi</span></div>
       <div class="bar">6. RAWATAN YANG DITERIMA</div>
-      <div class="ck"><i>Etanol</i><i>Fomepizole</i><i>Dialisis</i><i>Tiada rawatan</i><i style="min-width:100%">Lain-lain: ____________</i></div>
+      <p>Jenis rawatan :</p>
+      <div class="cbg"><span class="cb">Etanol</span><span class="cb"><i>Fomepizole</i></span><span class="cb">Dialisis</span><span class="cb">Tiada rawatan diberi</span><span class="cb">Lain-lain: ____________________</span></div>
       <div class="bar">7. STATUS PRODUK YANG DISYAKI</div>
-      <div class="ck"><b>Sejarah pengambilan:</b><br><i>Minuman alkohol</i><i style="min-width:100%">Bahan berpotensi mengandungi metanol</i><i>Tidak</i></div>
+      <p>Sejarah pengambilan minuman beralkohol / metanol :</p>
+      <div class="cbg"><span class="cb">Ya</span><span class="cb ind">Minuman alkohol</span><span class="cb ind">Bahan yang berpotensi mengandungi metanol</span><span class="cb">Tidak</span></div>
       <div class="f"><span>Jenama</span><span>:</span><span></span></div>
-      <div class="ck"><b>Cara memperoleh:</b><br><i>Beli sendiri</i><i>Pemberian orang lain</i><i>Buatan sendiri</i></div>
-      <div class="ck">Unsur jenayah: <i style="min-width:20%">Ya</i><i style="min-width:20%">Tidak</i><br>Laporan polis dibuat: <i style="min-width:20%">Ya</i><i style="min-width:20%">Tidak</i><br>Sampel produk diperoleh: <i style="min-width:20%">Ya</i><i style="min-width:20%">Tidak</i></div>
+      <p>Cara memperoleh minuman beralkohol / bahan berpotensi mengandungi metanol :</p>
+      <div class="cbg"><span class="cb">Beli sendiri</span><span class="cb">Pemberian orang lain</span><span class="cb">Buatan sendiri</span></div>
+      <div class="f yn"><span>Terdapat unsur jenayah</span><span>:</span><span><span class="cb">Ya</span><span class="cb">Tidak</span></span></div>
+      <div class="f yn"><span>Laporan polis dibuat</span><span>:</span><span><span class="cb">Ya</span><span class="cb">Tidak</span></span></div>
+      <div class="f yn"><span>Sampel produk berjaya diperoleh</span><span>:</span><span><span class="cb">Ya</span><span class="cb">Tidak</span></span></div>
     </div>
     <div>
       <div class="bar">8. DIAGNOSIS</div>
       <div class="f"><span>Diagnosis (ICD-11)</span><span>:</span><span></span></div>
-      <div class="ck"><b>Kategori notifikasi:</b><br><i style="min-width:100%">Kes disyaki (suspected case)</i><i style="min-width:100%">Kes berkemungkinan (probable case)</i><i style="min-width:100%">Kes disahkan (confirmed case)</i></div>
-      <div class="ck">Hubung kait epidemiologi dengan kes disahkan: <i style="min-width:20%">Ya</i><i style="min-width:20%">Tidak</i></div>
-      <div class="f"><span>Nama kes disahkan</span><span>:</span><span></span></div>
-      <div class="f"><span>Hubungan dengan kes</span><span>:</span><span></span></div>
-      <div class="f"><span>Pegawai mendiagnosis (jawatan)</span><span>:</span><span></span></div>
+      <p>Kategori notifikasi :</p>
+      <div class="cbg"><span class="cb">Kes disyaki (<i>suspected case</i>)</span><span class="cb">Kes berkemungkinan (<i>probable case</i>)</span><span class="cb">Kes disahkan (<i>confirmed case</i>)</span></div>
+      <p>Mempunyai hubung kait secara epidemiologi dengan kes disahkan :</p><div class="cbg two"><span class="cb">Ya</span><span class="cb">Tidak</span></div>
+      <p>Jika Ya, nyatakan nama kes disahkan :</p><div class="ln"></div>
+      <p>Hubungan dengan kes disahkan :</p><div class="ln"></div>
+      <p>Pegawai yang membuat diagnosis (Jawatan) :</p><div class="ln"></div>
       <div class="f"><span>Tarikh diagnosis</span><span>:</span><span></span></div>
       <div class="f"><span>Masa diagnosis</span><span>:</span><span></span></div>
-      <div class="bar">9. PENGESAHAN KES OLEH PKD</div>
+      <div class="bar">9. PENGESAHAN KES OLEH PEJABAT KESIHATAN DAERAH</div>
       <div class="f"><span>Tarikh terima notifikasi</span><span>:</span><span></span></div>
       <div class="f"><span>Masa terima notifikasi</span><span>:</span><span></span></div>
-      <div class="f tall"><span>Ulasan PKD</span><span>:</span><span></span></div>
-      <div class="f"><span>Disahkan oleh (PKD): Nama</span><span>:</span><span></span></div>
-      <div class="f"><span>Jawatan</span><span>:</span><span></span></div>
-      <div class="f"><span>Tempat bertugas</span><span>:</span><span></span></div>
-      <div class="f"><span>Tarikh</span><span>:</span><span></span></div>
-      <div class="f"><span>Diterima oleh (JKN)</span><span>:</span><span></span></div>
-      <div class="f"><span>Tarikh / masa</span><span>:</span><span></span></div>
+      <p><b>ULASAN DARIPADA PEJABAT KESIHATAN DAERAH</b></p>
+      <div class="bx" style="height:24mm"></div>
+      <p>Disahkan oleh (Pejabat Kesihatan Daerah) :</p><div class="ln"></div>
+      <div class="f s"><span>Nama</span><span>:</span><span></span></div>
+      <div class="f s"><span>Jawatan</span><span>:</span><span></span></div>
+      <div class="f s"><span>Tempat bertugas</span><span>:</span><span></span></div>
+      <div class="f s"><span>Tarikh</span><span>:</span><span></span></div>
+      <p>Diterima oleh (Jabatan Kesihatan Negeri) :</p><div class="ln"></div>
+      <div class="f s"><span>Tarikh</span><span>:</span><span></span></div>
+      <div class="f s"><span>Masa</span><span>:</span><span></span></div>
     </div>
   </div>
   <div class="warn">JKN HENDAKLAH MENGHANTAR BORANG NOTIFIKASI YANG TELAH DISAHKAN KEPADA IPKKM DALAM TEMPOH 24 JAM SELEPAS PKD MENERIMA NOTIFIKASI DARIPADA HOSPITAL ATAU KLINIK KESIHATAN.</div>
-  <div class="src">Sumber: Lampiran 6, GP Pengurusan Wabak Keracunan Metanol Edisi Ketiga 2026, BKP KKM. Susun atur dibina semula; rujuk borang asal untuk penggunaan rasmi.</div>
 </div>
 </div></section>
 
-<!-- L9 -->
-<section class="lview" id="lampiran-9"><div class="sheets"><div class="sheet">
-  <div class="lno">LAMPIRAN 9</div>
-  <div class="ft">Carta alir pengambilan, penyimpanan dan penghantaran spesimen klinikal</div>
-  <div class="fc">
-    <div class="hh">TANGGUNGJAWAB</div><div class="hh">PROSES KERJA</div>
-    <div></div><div><span class="term">Mula</span></div>
-    <div>Hospital</div><div class="st">1. Mengambil spesimen darah dan urin:<br>• Darah: 3 ml (bekas sodium fluoride, penutup kelabu)<br>• Urin: 3 ml (bekas sodium fluoride, penutup kelabu) atau 25 ml (botol universal + 1% sodium fluoride)</div>
-    <div>Hospital</div><div class="st">2. Melengkapkan borang MKAK-BPU-U01/Rev2018, melabel spesimen dan menghantar spesimen ke makmal hospital dengan segera.</div>
-    <div>Hospital</div><div class="st">3. Menghantar spesimen segera ke makmal di bawah menggunakan cool box berisi ais mengikut SOP Transport of Biological Specimens in Malaysia. Jika penghantaran tertangguh, simpan pada 2–8 °C.<br><br>• Makmal Kesihatan Awam Kebangsaan (MKAK) Sungai Buloh, Unit Biokimia. Tel: 03-6126 1200 ext. 1287<br>• Jabatan Kimia Malaysia (KIMIA), Unit Toksikologi*<br><small>*Bantuan jika berlaku wabak</small></div>
-    <div>MKAK / KIMIA</div><div class="st">4. Memaklumkan keputusan makmal kepada pegawai pemohon. Salinan keputusan ujian metanol yang positif hendaklah dihantar kepada JKN dan IPKKM.</div>
-    <div></div><div><span class="term">Tamat</span></div>
+<!-- LAMPIRAN 7 -->
+<section class="lview" id="lampiran-7"><div class="sheets"><div class="sheet">
+  
+  <div class="mk">
+    <div class="mk-code">MKAK-BPU-U01/Rev2018</div>
+    <div class="mk-t">BORANG PERMOHONAN UJIAN MAKMAL (SPESIMEN KLINIKAL)<br>MAKMAL KESIHATAN AWAM ................................</div>
+    <p><b>NO RUJUKAN MAKMAL (MKA) :</b></p>
+    <table>
+      <tr><th colspan="6" class="g">A. MAKLUMAT PESAKIT</th></tr>
+      <tr><td colspan="2">Nama Pesakit:</td><td>Umur:</td><td colspan="3" rowspan="2">No Rujukan Pesakit (R/N):</td></tr>
+      <tr><td colspan="2">No K.P/ Lain-lain:</td><td>Jantina: L / P</td></tr>
+      <tr><td colspan="2">Warga Negara:</td><td>Bangsa:</td><td colspan="3">Wad:</td></tr>
+      <tr><td colspan="2" rowspan="2">Alamat pesakit:</td><td>Pekerjaan:</td><td colspan="3">Status perkahwinan Tanda (√) yang berkenaan:</td></tr>
+      <tr><td>No. Tel.:</td><td>☐ Bujang</td><td>☐ Berkahwin</td><td>☐ Lain-lain</td></tr>
+    </table>
+    <table>
+      <tr><th colspan="4" class="g" style="width:48%">B. TUJUAN PERSAMPELAN Tanda (√) yang berkenaan</th><th colspan="2" class="g">C. LAIN-LAIN MAKLUMAT</th></tr>
+      <tr><td>Wabak/ Kluster</td><td class="bx2"></td><td>Pesakit (Ada gejala)</td><td class="bx2"></td><td colspan="2" rowspan="3" style="vertical-align:top"><b>Lokaliti kejadian:</b></td></tr>
+      <tr><td>Survelan</td><td class="bx2"></td><td>Kes</td><td class="bx2"></td></tr>
+      <tr><td>Diagnostik</td><td class="bx2"></td><td>Kontak</td><td class="bx2"></td></tr>
+      <tr><td>Projek</td><td class="bx2"></td><td>Kluster</td><td class="bx2"></td><td>Sejarah melancong: Ada / Tiada</td><td>Negara:</td></tr>
+      <tr><td>Lain-lain</td><td class="bx2"></td><td colspan="2"></td><td>Tarikh keluar:</td><td>Tarikh masuk:</td></tr>
+    </table>
+    <table>
+      <tr><th class="g" style="width:36%">D. RINGKASAN KLINIKAL</th><th colspan="6" class="g">Tanda (√) yang berkenaan</th></tr>
+      <tr><td rowspan="5"></td><th>Tanda dan Gejala</th><th>Ada (√)</th><th>Tarikh <i>onset</i></th><th>Tanda dan Gejala</th><th>Ada (√)</th><th>Tarikh <i>onset</i></th></tr>
+      <tr><td>1) Demam ( &nbsp;°C )</td><td></td><td></td><td>6)</td><td></td><td></td></tr>
+      <tr><td>2) Selsema</td><td></td><td></td><td>7)</td><td></td><td></td></tr>
+      <tr><td>3) Cirit-birit</td><td></td><td></td><td>8)</td><td></td><td></td></tr>
+      <tr><td>4) Muntah</td><td></td><td></td><td>9)</td><td></td><td></td></tr>
+      <tr><td colspan="7">Status &amp; tarikh imunisasi berkaitan: Ada ________ Tarikh ________ Tiada ________ Tidak diketahui ________</td></tr>
+    </table>
+    <table>
+      <tr><th colspan="5" class="g">E. MAKLUMAT SPESIMEN</th></tr>
+      <tr><th>Jenis Spesimen</th><th>Jenis ujian dipohon</th><th>Tarikh diambil</th><th>Tarikh dihantar</th><th style="width:34%;text-align:left">Tanda Tangan Pegawai yang mengambil spesimen <i style="font-weight:400">(sila cop)</i></th></tr>
+      <tr><td class="e"></td><td></td><td></td><td></td><td rowspan="4"></td></tr>
+      <tr><td class="e"></td><td></td><td></td><td></td></tr><tr><td class="e"></td><td></td><td></td><td></td></tr><tr><td class="e"></td><td></td><td></td><td></td></tr>
+      <tr><td colspan="5"><b>* Nota:</b> <i>Sila rujuk Service Handbook Makmal Kesihatan Awam Kebangsaan untuk maklumat lanjut tentang spesimen</i></td></tr>
+    </table>
+    <table>
+      <tr><th colspan="3" class="g" style="width:50%">F. BUTIRAN PEMOHON</th><th colspan="3" class="g">G. BUTIRAN MAKMAL TRANSIT</th></tr>
+      <tr><td>Nama</td><td colspan="2"></td><td>Nama</td><td colspan="2"></td></tr>
+      <tr><td>Jawatan</td><td colspan="2"></td><td>Jawatan</td><td colspan="2"></td></tr>
+      <tr><td>Tempat bertugas (sila cop)</td><td colspan="2" class="e"></td><td>Tempat bertugas (sila cop)</td><td colspan="2"></td></tr>
+      <tr><td colspan="2">No H/P:</td><td>Email:</td><td colspan="2">No tel &amp; samb.</td><td>Email:</td></tr>
+      <tr><td colspan="3">KK/PKD/Hospital:</td><td colspan="3">Nama Pusat Transit:</td></tr>
+      <tr><td colspan="2">Daerah:</td><td>Negeri:</td><td colspan="2">Daerah:</td><td>Negeri:</td></tr>
+    </table>
+    <table>
+      <tr><th colspan="5" class="g">H. MAKMAL (untuk kegunaan MKA):</th></tr>
+      <tr><th style="text-align:left">Unit Pengurusan Spesimen</th><th colspan="2" style="text-align:left">Makmal</th><th colspan="2" style="text-align:left">Catatan</th></tr>
+      <tr><td>Suhu: &nbsp;&nbsp;°C</td><td>Jenis sampel:</td><td>Terima / Tolak</td><td colspan="2" rowspan="4"></td></tr>
+      <tr><td>Sampel: Terima / Tolak</td><td>Sampel dlm transport media: Ya / Tidak</td><td>Suhu: &nbsp;&nbsp;°C</td></tr>
+      <tr><td>Nama Penerima :</td><td colspan="2">Nama Penerima:</td></tr>
+      <tr><td>Tarikh &amp; masa:</td><td colspan="2">Tarikh &amp; Masa:</td></tr>
+      <tr><td colspan="3">Keputusan ujian disahkan oleh :</td><td colspan="2">Tarikh:</td></tr>
+    </table>
   </div>
-  <div class="src">Sumber: Lampiran 9, GP Pengurusan Wabak Keracunan Metanol Edisi Ketiga 2026, BKP KKM.</div>
 </div></div></section>
 
-<!-- L10 -->
-<section class="lview" id="lampiran-10"><div class="sheets"><div class="sheet">
-  <div class="lno">LAMPIRAN 10</div>
-  <div class="ft">Carta alir pengambilan, penyimpanan dan penghantaran spesimen klinikal kes kematian</div>
-  <div class="fc">
-    <div class="hh">TANGGUNGJAWAB</div><div class="hh">PROSES KERJA</div>
-    <div></div><div><span class="term">Mula</span></div>
-    <div>Hospital</div><div class="st">1. Mengambil dan melabel spesimen darah, urin, vitreous humour, cecair hempedu (bile) dan gastric content.</div>
-    <div>Hospital &amp; Polis Diraja Malaysia (PDRM)</div><div class="st">2. Menghantar spesimen darah, urin, vitreous humour, cecair hempedu dan gastric content ke KIMIA bersama Borang KIMIA 15-Pin.3/2020 melalui pegawai penyiasat polis;<br><b>ATAU</b><br>menghantar spesimen darah, urin dan vitreous humour (bekas sodium fluoride, vacutainer penutup kelabu) ke MKAK (contohnya kes DID) bersama Borang MKAK-BPU-U01/Rev2018 yang lengkap.<br><br>*Hantar segera menggunakan kotak sejuk berisi ais mengikut SOP Transport of Biological Specimens in Malaysia. Simpan pada 2–8 °C jika penghantaran tertangguh.</div>
-    <div>MKAK / KIMIA</div><div class="st">3. Memaklumkan keputusan makmal kepada pegawai pemohon. Salinan keputusan ujian metanol yang positif hendaklah dihantar kepada JKN dan IPKKM.</div>
-    <div></div><div><span class="term">Tamat</span></div>
+<!-- LAMPIRAN 8 -->
+<section class="lview" id="lampiran-8"><div class="sheets">
+<div class="sheet tnr">
+  
+  <div class="frame">
+    <div class="kim-code">(Kimia 15-Pin. 3/2020)</div>
+    <div class="kim-t">BORANG PERMOHONAN BAGI PEMERIKSAAN FORENSIK / TOKSIKOLOGI</div>
+    <div class="kim-top"><div><p>Borang ini perlulah dilengkapkan dengan jelas oleh Pegawai Perubatan dan disertakan bersama spesimen kepada:</p>
+      <p style="margin-left:6mm">JABATAN KIMIA MALAYSIA<br>*PETALING JAYA (03-79853000)/ IPOH (05-5477744)/ <b>ALOR SETAR (04-7357001)</b>/ PULAU PINANG (04-2228300)/ MELAKA (06-2331406)/ JOHOR BAHRU (07-2226366)/ KUANTAN (09-5662400)/ K. TERENGGANU (09-6203077)/ KOTA BHARU (09-7647632)/ KUCHING (082-313011)/ SIBU (084-213890)/ BINTULU (086-334211)/ KOTA KINABALU (088-259090).</p></div>
+      <div class="seal">Cop Meterai/Seal Keselamatan</div></div>
+    <p>Bahagian 1:</p>
+    <p>a)&nbsp;&nbsp;&nbsp;Butiran Kes &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Hidup ☐ &nbsp;&nbsp;&nbsp;&nbsp; Mati ☐ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Tandakan (√) yang berkenaan<br><span style="margin-left:8mm">* Bulatkan yang berkenaan</span></p>
+    <table class="kim">
+      <tr><td colspan="2">Nama (HURUF BESAR):<span class="u"></span><br>No.Kad Pengenalan/ Passport/ Surat Beranak:<span class="u"></span></td></tr>
+      <tr><td>No. Pendaftaran Hospital: <span class="u s"></span><br>No. Autopsi: <span class="u s"></span><br>Pekerjaan: <span class="u s"></span></td><td>Jantina: *Lelaki/Perempuan<br>Umur: <span class="u s"></span><br>Warganegara: <span class="u s"></span></td></tr>
+      <tr><td colspan="2">Tarikh dan masa kemasukan: ____________ a.m./p.m. pada: ________________<br>Tarikh dan masa kematian: ____________ a.m./p.m. pada: ________________</td></tr>
+      <tr><td colspan="2">Balai Polis: ______________________ &nbsp;&nbsp; No. Repot Polis: ______________________</td></tr>
+    </table>
+    <p>b)&nbsp;&nbsp;&nbsp;Keadaan Kes: &nbsp;*Makan racun atau ubat/jatuh dari bangunan/kemalangan jalanraya/ gantung diri/mati mengejut/mati lemas/jasad reput<br><span style="margin-left:8mm">Lain-lain: ______________________________________________</span></p>
+    <p>c)&nbsp;&nbsp;&nbsp;Bawah pengawasan pegawai perubatan: &nbsp;*Ya/Tidak<br><span style="margin-left:8mm">Jika ada, apakah rawatan yang diberikan (termasuk ubatan): ______________________________</span></p>
+    <p>d)&nbsp;&nbsp;&nbsp;Pemindahan darah dijalankan semasa pengawasan/sebelum kematian: &nbsp;*Ya/Tidak/Tidak diketahui</p>
+    <p style="margin-left:8mm"><b>Nota: Analisis toksikologi tidak akan memberi apa-apa makna sekiranya spesimen darah diambil selepas proses pemindahan darah.</b></p>
   </div>
-  <div class="src">Sumber: Lampiran 10, GP Pengurusan Wabak Keracunan Metanol Edisi Ketiga 2026, BKP KKM.</div>
+</div>
+<div class="sheet tnr">
+  <div class="frame">
+    <div class="kim-code">(Kimia 15-Pin. 3/2020)</div>
+    <p>Bahagian 2:</p><p>a)&nbsp;&nbsp;&nbsp;Butiran Spesimen</p>
+    <table class="kim2">
+      <tr><th>Spesimen</th><th>Tandaan</th><th>Masa dan Tarikh diambil</th><th>Analisis diperlukan</th></tr>
+      <tr><td>Darah</td><td></td><td></td><td rowspan="9" class="an"><span>☐ Alkohol</span><span>☐ Racun makhluk perosak</span><span>☐ Dadah</span><span>☐ Bahan Kakisan / Asid</span><span>☐ Gas karbon monoksida</span><span>☐ Logam</span><span>☐ Bahan Pelarut</span><span>☐ Lain-lain (nyatakan)</span></td></tr>
+      <tr><td>Air Kencing</td><td></td><td></td></tr><tr><td>Kandungan Perut</td><td></td><td></td></tr><tr><td>Cucian Perut/ Muntah</td><td></td><td></td></tr><tr><td>Hempedu (bile)</td><td></td><td></td></tr><tr><td>Lain-lain (sila nyatakan) :</td><td></td><td></td></tr><tr><td class="e"></td><td></td><td></td></tr><tr><td class="e"></td><td></td><td></td></tr><tr><td class="e"></td><td></td><td></td></tr>
+    </table>
+    <table class="yn2"><tr><td></td><td></td><th>Ya</th><th>Tidak</th></tr>
+      <tr><td rowspan="2">Bahan Pengawet Sodium Fluoride digunakan:</td><td>Darah</td><td>☐</td><td>☐</td></tr><tr><td>Air Kencing</td><td>☐</td><td>☐</td></tr>
+      <tr><td rowspan="3">Anticoagulant: (Hanya dalam darah)</td><td>Sodium Oxalate</td><td>☐</td><td>☐</td></tr><tr><td>Sodium Citrate</td><td>☐</td><td>☐</td></tr><tr><td colspan="3">Lain-lain(sila nyatakan) ____________</td></tr></table>
+    <p>b)&nbsp;&nbsp;&nbsp;Simptom &nbsp; __________________________________________________________</p>
+    <p>c)&nbsp;&nbsp;&nbsp;Hal-hal berkaitan (yang difikirkan perlu dinyatakan seperti jenis racun disyaki)<br>__________________________________________________________________</p>
+    <p>d)&nbsp;&nbsp;&nbsp;Verifikasi status kes berkaitan COVID-19 : Tandakan (√) yang berkenaan &nbsp;&nbsp; Positif Covid19 ☐ &nbsp;&nbsp; Negatif Covid19 ☐ &nbsp;&nbsp; Tidak Berkaitan ☐</p>
+    <p>e)&nbsp;&nbsp;&nbsp;Lain-Lain virus yang dikesan, Sila Nyatakan (cth:HIV, Hepatitis, etc) : ____________________</p>
+    <div class="sig" style="margin-top:6mm"><span>Tandatangan:</span><span></span><span></span><span>Nama Pegawai Perubatan:</span><span></span><span></span><span>Jawatan:</span><span></span><span></span><span>Hospital</span><span></span><span></span><span>Telefon:</span><span></span><span></span></div>
+  </div>
+</div>
+</div></section>
+
+<!-- LAMPIRAN 8A -->
+<section class="lview" id="lampiran-8a"><div class="sheets"><div class="sheet tnr">
+  
+  <div class="frame sm">
+    <div class="kim-code">(Kimia 15-Pin. 3/2020)</div>
+    <p class="ctr"><b><u>GARIS PANDUAN</u></b><br>(Sila hubungi Jabatan Kimia Malaysia yang berhampiran bagi mendapatkan khidmat nasihat atau layari laman web di <u>www.kimia.gov.my</u>)</p>
+    <p class="ctr">SPESIMEN UNTUK ANALISIS BAGI KES TOKSIKOLOGI</p>
+    <h5>1.&nbsp;&nbsp;Spesimen yang sesuai</h5>
+    <table><tr><th>Spesimen</th><th>Kuantiti</th></tr>
+      <tr><td>Darah</td><td>10 mL (ante-mortem)<br>25 ml (peripheral-post mortem)</td></tr><tr><td>Air Kencing</td><td>25 ml</td></tr><tr><td>Vitreous Humor</td><td>semua</td></tr><tr><td>Cucian Perut/Muntah</td><td>semua</td></tr><tr><td>Kandungan Perut</td><td>semua</td></tr><tr><td>Hempedu (jika perlu)</td><td>semua</td></tr><tr><td>Otak (jika perlu)</td><td>100 gm</td></tr><tr><td>Hati (jika perlu)</td><td>100 gm</td></tr><tr><td>Buah pinggang (jika perlu)</td><td>50 gm</td></tr></table>
+    <ol type="i"><li>Dalam kes post-mortem di mana mayat dalam keadaan 'putrefied' adalah dinasihatkan mengambil darah, air kencing dan vitreous humour untuk analisis alkohol.</li><li>Spesimen darah sepatutnya diambil dari "cubital fossa, femoral or other peripheral vein". Dalam kes post-mortem pengambilan spesimen darah dari jantung, 'abdominal or thoracic cavities' tidak digalakkan.</li></ol>
+    <h5>2.&nbsp;&nbsp;Bekas untuk spesimen dan bahan pengawet</h5>
+    <ol type="i"><li>Spesimen darah dan air kencing hendaklah diisi ke dalam tiub/botol/bekas plastik yang mengandungi sodium fluoride (bahan pengawet) dalam kepekatan sekurang-kurangnya 1-2%.</li><li>Spesimen darah (ante-mortem), mesti mengandungi anticoagulant sodium oxalate/citrate dalam kepekatan 0.5% bagi menghalang proses pembekuan (clotting).</li><li>Spesimen organ dan tisu hendaklah diisi ke dalam botol/bekas kaca yang sesuai</li><li>Jangan gunakan Formalin sebagai bahan pengawet untuk specimen organ dan tisu. Sila gunakan Saturated Saline.</li><li>Pastikan bekas untuk specimen tiada kebocoran.</li></ol>
+    <h5>3.&nbsp;&nbsp;Perlabelan</h5>
+    <p>Bekas spesimen sekurang-kurangnya mempunyai keterangan/label seperti berikut:</p>
+    <ol type="i"><li>Nama:</li><li>Spesimen:</li><li>No.Pendaftaran Hospital</li><li>Masa dan tarikh diambil</li><li>No.Repot Polis (jika berkaitan)</li><li>Bahan Pengawet: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ada/Tiada</li></ol>
+    <h5>4.&nbsp;&nbsp;Meterai</h5><p>Bekas mesti dimeterai dengan terang.</p>
+    <h5>5.&nbsp;&nbsp;Antiseptik</h5><p>Alkohol tidak boleh digunakan untuk tujuan pencucian kulit pesakit semasa spesimen darah diambil. Gunakan antiseptik yang sesuai.</p>
+    <h5>6.&nbsp;&nbsp;Penghantaran</h5>
+    <ol type="i"><li>Semua spesimen untuk analisis mesti diserahkan bersama Borang Kimia 15 yang telah diisikan oleh Pegawai Perubatan.</li><li>Borang mesti disimpan berasingan dari spesimen.</li><li>Jika kes polis, spesimen dan borang Kimia 15 mesti diserahkan oleh pihak polis bersama borang Polis 31.</li><li>Spesimen mesti diserahkan untuk analisis dengan segera.</li><li>Sekiranya berlaku kelewatan spesimen mesti disimpan dalam peti sejuk.</li></ol>
+    <p class="ctr" style="margin-top:3mm"><b><u>SPESIMEN BAGI UJIAN DNA</u></b></p>
+    <ol type="i"><li>Spesimen darah cecair hendaklah dipungut dalam tiub/botol yang mengandungi EDTA. Jangan tambah bahan pengawet seperti Sodium Fluoride.</li><li>Sekiranya terdapat kad FTA, kad tersebut harus digunakan untuk pungutan darah. Darah pada kad FTA hendaklah dibiarkan kering pada suhu bilik dan dilabelkan dengan lengkap seperti yang diterangkan diperenggan 3.</li><li>Tisu, tulang, rambut dan kuku hendaklah diletakkan di dalam bekas kering yang telah di seterilkan tanpa diisi sebarang pengawet seperti Formalin.</li><li>Swab dari bahagian "Vaginal, Anal and Rectal" hendaklah menggunakan putik kapas yang di seteril dan diletakkan di dalam tiub tanpa sebarang reagen atau additif</li></ol>
+  </div>
 </div></div></section>
 
-<!-- L11A -->
+<section class="lview" id="lampiran-9"><div class="sheets"><div class="sheet"><div class="ft">Carta alir pengambilan, penyimpanan dan penghantaran spesimen klinikal</div><div data-fc="L9"></div></div></div></section>
+<section class="lview" id="lampiran-10"><div class="sheets"><div class="sheet"><div class="ft">Carta alir pengambilan, penyimpanan dan penghantaran spesimen klinikal kes kematian</div><div data-fc="L10"></div></div></div></section>
+
+<!-- LAMPIRAN 11A -->
 <section class="lview" id="lampiran-11a"><div class="sheets">
-<div class="sheet">
+<div class="sheet fm">
   <div class="hd">Bahagian Kawalan Penyakit, Kementerian Kesihatan Malaysia<br>SIASATAN.01/METANOL.FCTC-2026</div>
-  <div class="lno" style="text-align:left">LAMPIRAN 11A</div>
-  <div class="ft">Borang 1: Siasatan kes keracunan metanol (siasatan di hospital)</div>
+  <div class="ftb">BORANG 1: SIASATAN KES KERACUNAN METANOL (SIASATAN DI HOSPITAL)</div>
   <div class="cols">
     <div>
       <div class="bar">1. BUTIRAN PESAKIT</div>
       <div class="f"><span>Nama</span><span>:</span><span></span></div>
-      <div class="f"><span>No. KP / No. pasport</span><span>:</span><span></span></div>
-      <div class="f"><span>Tempoh di Malaysia (bukan warganegara)</span><span>:</span><span></span></div>
-      <div class="ck"><b>Status warga asing:</b><br><i style="min-width:100%">Pendatang Asing Tanpa Izin (PATI)</i><i style="min-width:100%">Pendatang Asing Dengan Izin (PADI)</i><i style="min-width:100%">Pemegang kad UNHCR</i></div>
+      <div class="f"><span>No. kad pengenalan/ No. passport</span><span>:</span><span></span></div>
+      <p>Tempoh berada di Malaysia (jika bukan warganegara Malaysia) : ______________</p>
+      <p>Status warga asing :</p>
+      <div class="cbg"><span class="cb">Pendatang Asing Tanpa Izin (PATI)</span><span class="cb">Pendatang Asing Dengan Izin (PADI)</span><span class="cb">Pemegang kad UNHCR</span></div>
       <div class="f"><span>Pekerjaan utama</span><span>:</span><span></span></div>
-      <div class="ck">Status pekerjaan: <i style="min-width:22%">Tetap</i><i style="min-width:22%">Kontrak</i><i style="min-width:22%">Sambilan</i></div>
-      <div class="f tall"><span>Alamat pekerjaan</span><span>:</span><span></span></div>
+      <p>Status pekerjaan :</p>
+      <div class="cbg"><span class="cb">Tetap</span><span class="cb">Kontrak</span><span class="cb">Sambilan</span></div>
+      <div class="f h3"><span>Alamat pekerjaan</span><span>:</span><span></span></div>
       <div class="f"><span>Nama majikan</span><span>:</span><span></span></div>
       <div class="f"><span>No. telefon majikan</span><span>:</span><span></span></div>
       <div class="f"><span>Tarikh siasatan</span><span>:</span><span></span></div>
-      <p style="font-size:8.5pt"><i>*Sila sahkan butiran pada borang notifikasi keracunan metanol adalah benar.</i></p>
-      <div class="bar">2. BUTIRAN WARIS (jika kes tidak dapat memberi maklumat)</div>
-      <div class="f"><span>No. telefon rakan / keluarga di Malaysia</span><span>:</span><span></span></div>
+      <p><b>*Sila sahkan butiran pada borang notifikasi keracunan metanol adalah benar</b></p>
+      <div class="bar">2. BUTIRAN WARIS<br>(Jika kes tidak dapat memberi maklumat)</div>
+      <p>No. telefon rakan/ keluarga di Malaysia :</p><div class="ln"></div>
       <div class="bar">3. PENGURUSAN DI HOSPITAL</div>
       <div class="f"><span>Tarikh masuk hospital</span><span>:</span><span></span></div>
-      <div class="ck"><b>Status pesakit sewaktu siasatan:</b><br><i style="min-width:100%">Tidak memerlukan bantuan pernafasan</i><i style="min-width:100%">Bantuan pernafasan non-invasive</i><i style="min-width:100%">Bantuan pernafasan invasive</i><i style="min-width:100%">Meninggal dunia (Tarikh: ______)</i><i style="min-width:100%">BID (Tarikh: ______)</i></div>
-      <div class="f"><span>Tarikh spesimen untuk metanol: Darah</span><span>:</span><span></span></div>
-      <div class="f"><span>Urin</span><span>:</span><span></span></div>
+      <p>Status pesakit sewaktu siasatan :</p>
+      <div class="cbg"><span class="cb">Tidak memerlukan bantuan pernafasan</span><span class="cb">Bantuan pernafasan <i>non-invasive</i> (cth: <i>nasal prong, face mask</i>)</span><span class="cb">Bantuan pernafasan <i>invasive</i> (cth : <i>intubation</i>)</span><span class="cb">Meninggal dunia (Tarikh : _________)</span><span class="cb">BID (Tarikh : _________)</span></div>
     </div>
     <div>
+      <p>Tarikh pengambilan spesimen darah / urin untuk ujian metanol</p>
+      <p>Darah : ______________ &nbsp;&nbsp; Urin : ______________</p>
       <div class="bar">4. MAKLUMAT PENGAMBILAN MINUMAN BERALKOHOL</div>
-      <div class="f"><span>Kekerapan minum: sehari / seminggu</span><span>:</span><span></span></div>
+      <p>Kekerapan minum alkohol dalam sehari/ seminggu</p>
+      <div class="f s"><span>Sehari</span><span>:</span><span></span></div>
+      <div class="f s"><span>Seminggu</span><span>:</span><span></span></div>
       <div class="f"><span>Jenis alkohol</span><span>:</span><span></span></div>
-      <div class="ck"><b>Sumber minuman:</b><br><i style="min-width:100%">Kedai menjual minuman beralkohol</i><i>Buatan sendiri</i></div>
-      <div class="f tall"><span>Tempat (alamat) peroleh / beli terakhir</span><span>:</span><span></span></div>
-      <div class="f tall"><span>Tempat (alamat) minum terakhir</span><span>:</span><span></span></div>
-      <div class="f"><span>Kuantiti diambil kali terakhir (ml)</span><span>:</span><span></span></div>
-      <div class="ck">Minuman campuran: <i style="min-width:20%">Ya</i><i style="min-width:20%">Tidak</i></div>
-      <div class="f"><span>Jika Ya, nyatakan</span><span>:</span><span></span></div>
+      <p>Sumber minuman alkohol :</p>
+      <div class="cbg"><span class="cb">Kedai menjual minuman beralkohol</span><span class="cb">Buatan sendiri</span></div>
+      <p>Tempat (alamat) peroleh/beli minuman beralkohol terakhir :</p><div class="bx0" style="height:14mm"></div>
+      <p>Tempat (alamat) minum minuman beralkohol terakhir :</p><div class="bx0" style="height:14mm"></div>
+      <p>Kuantiti minuman beralkohol yang diambil kali terakhir (ml) : __________</p>
+      <p>Minuman campuran dengan minuman beralkohol terakhir : <span class="cb">Ya</span> <span class="cb">Tidak</span></p>
+      <div class="f"><span>Jika <b>Ya</b>, nyatakan</span><span>:</span><span></span></div>
       <div class="bar">5. PERGERAKAN DALAM MASA 5 HARI</div>
-      <div class="ck">Hadir majlis / perjumpaan dalam 5 hari sebelum bergejala: <i style="min-width:20%">Ya</i><i style="min-width:20%">Tidak</i></div>
-      <div class="f"><span>Jika Ya, nyatakan tempat</span><span>:</span><span></span></div>
+      <p>Menghadiri majlis / perjumpaan dalam masa 5 hari sebelum bergejala? :</p>
+      <div class="cbg two"><span class="cb">Ya</span><span class="cb">Tidak</span></div>
+      <p>Jika <b>Ya</b>, nyatakan :</p>
+      <div class="f h2"><span>Tempat</span><span>:</span><span></span></div>
       <div class="f"><span>Tarikh</span><span>:</span><span></span></div>
-      <div class="f"><span>Nama pembekal / penjual arak</span><span>:</span><span></span></div>
-      <div class="ck">Hubung kait epidemiologi dengan kes disahkan: <i style="min-width:20%">Ya</i><i style="min-width:20%">Tidak</i></div>
-      <div class="f"><span>Nama kes disahkan</span><span>:</span><span></span></div>
-      <div class="f"><span>Hubungan dengan kes disahkan</span><span>:</span><span></span></div>
+      <p>Nama pembekal / penjual arak :</p><div class="ln"></div>
+      <p>Ada hubung kait secara epidemiologi dengan kes disahkan : <span class="cb">Ya</span> <span class="cb">Tidak</span></p>
     </div>
   </div>
 </div>
-<div class="sheet">
-  <div class="hd">SIASATAN.01/METANOL.FCTC-2026</div>
-  <div class="bar">6. STATUS PRODUK YANG DISYAKI</div>
-  <div class="ck">Produk disyaki: <i>Minuman beralkohol</i><i>Bahan berpotensi mengandungi metanol</i></div>
+<div class="sheet fm">
+  <div class="hd">Bahagian Kawalan Penyakit, Kementerian Kesihatan Malaysia<br>SIASATAN.01/METANOL.FCTC-2026</div>
+  <div class="ftb">BORANG 1: SIASATAN KES KERACUNAN METANOL (SIASATAN DI HOSPITAL)</div>
   <div class="cols">
     <div>
+      <p>Jika <b>Ya</b>, nyatakan nama kes disahkan :</p><div class="ln"></div>
+      <p>Hubungan dengan kes disahkan :</p><div class="ln"></div>
+      <div class="bar">6. STATUS PRODUK YANG DISYAKI</div>
+      <p>Produk yang disyaki :</p>
+      <div class="cbg"><span class="cb">Minuman beralkohol</span><span class="cb">Bahan yang berpotensi mengandungi metanol</span></div>
       <div class="f"><span>Jenama</span><span>:</span><span></span></div>
       <div class="f"><span>Kandungan alkohol (%)</span><span>:</span><span></span></div>
-      <div class="f"><span>Campuran minuman lain (1, 2)</span><span>:</span><span></span></div>
     </div>
     <div>
-      <div class="ck">Sampel barang kes diperoleh: <i style="min-width:20%">Ya</i><i style="min-width:20%">Tidak</i></div>
-      <div class="f"><span>Tarikh dihantar ke makmal</span><span>:</span><span></span></div>
-      <div class="ck">Sampel proxy kes diperoleh: <i style="min-width:20%">Ya</i><i style="min-width:20%">Tidak</i></div>
-      <div class="f"><span>Tarikh proxy dihantar</span><span>:</span><span></span></div>
+      <p>Campuran minuman lain :</p><p>1.<br>2.</p>
+      <p>Sampel barang kes diperoleh :</p><div class="cbg two"><span class="cb">Ya</span><span class="cb">Tidak</span></div>
+      <p>Tarikh barang kes dihantar ke makmal untuk ujian metanol : ____________________</p>
+      <p>Sampel <i>proxy</i> kes diperoleh :</p><div class="cbg two"><span class="cb">Ya</span><span class="cb">Tidak</span></div>
+      <p>Tarikh sampel <i>proxy</i> dihantar ke makmal untuk ujian metanol : ____________________</p>
     </div>
   </div>
-  <h5>Pergerakan dalam tempoh 5 hari sebelum gejala bermula</h5>
-  <table><tr><th style="width:20%">Tarikh</th><th style="width:15%">Hari</th><th>Pergerakan</th></tr><tr><td class="e"></td><td></td><td></td></tr><tr><td class="e"></td><td></td><td></td></tr><tr><td class="e"></td><td></td><td></td></tr><tr><td class="e"></td><td></td><td></td></tr><tr><td class="e"></td><td></td><td></td></tr></table>
-  <h5>Individu yang minum bersama kes dan status gejala</h5>
-  <table><tr><th style="width:8%">Bil</th><th>Nama</th><th style="width:22%">No. telefon</th><th style="width:30%">Gejala (ada/tiada), nyatakan</th></tr><tr><td class="e"></td><td></td><td></td><td></td></tr><tr><td class="e"></td><td></td><td></td><td></td></tr><tr><td class="e"></td><td></td><td></td><td></td></tr></table>
-  <div class="bar">7. KEPUTUSAN MAKMAL</div>
-  <p>1. Spesimen pertama selepas kemasukan kes:</p>
-  <table><tr><th>Bil</th><th>Ujian</th><th>Bacaan</th><th>Tarikh diambil</th><th>Tarikh dihantar</th><th>Tarikh keputusan</th><th>Catatan</th></tr><tr><td>1</td><td>Metanol dalam darah</td><td class="e"></td><td></td><td></td><td></td><td></td></tr><tr><td>2</td><td>Metanol dalam urin</td><td class="e"></td><td></td><td></td><td></td><td></td></tr></table>
-  <p>2. Produk minuman beralkohol:</p>
-  <table><tr><th style="width:8%">Bil</th><th>Jenis produk</th><th>Tarikh hantar</th><th>Keputusan</th></tr><tr><td class="e"></td><td></td><td></td><td></td></tr><tr><td class="e"></td><td></td><td></td><td></td></tr></table>
+  <p style="margin-top:5mm">Pergerakan dalam tempoh (5) hari sebelum gejala bermula :</p>
+  <table class="g"><tr><th>Tarikh</th><th>Hari</th><th>Pergerakan</th></tr><tr><td class="e2"></td><td></td><td></td></tr><tr><td class="e2"></td><td></td><td></td></tr><tr><td class="e2"></td><td></td><td></td></tr><tr><td class="e2"></td><td></td><td></td></tr></table>
+  <p style="margin-top:5mm">Individu yang minum bersama kes dan status gejala</p>
+  <table class="g"><tr><th style="width:7%">Bil</th><th>Nama</th><th>No. telefon</th><th>Gejala (ada/tiada), nyatakan</th></tr><tr><td class="e2"></td><td></td><td></td><td></td></tr><tr><td class="e2"></td><td></td><td></td><td></td></tr><tr><td class="e2"></td><td></td><td></td><td></td></tr><tr><td class="e2"></td><td></td><td></td><td></td></tr></table>
 </div>
-<div class="sheet">
-  <div class="hd">SIASATAN.01/METANOL.FCTC-2026</div>
+<div class="sheet fm">
+  <div class="hd">Bahagian Kawalan Penyakit, Kementerian Kesihatan Malaysia<br>SIASATAN.01/METANOL.FCTC-2026</div>
+  <div class="ftb">BORANG 1: SIASATAN KES KERACUNAN METANOL (SIASATAN DI HOSPITAL)</div>
+  <div class="bar">7. KEPUTUSAN MAKMAL</div>
+  <p>1.&nbsp; Keputusan ujian makmal bagi spesimen pertama yang diambil selepas kemasukan kes :</p>
+  <table class="g c"><tr><th>Bil</th><th>Ujian</th><th>Bacaan</th><th>Catatan</th><th>Tarikh sampel diambil</th><th>Tarikh sampel dihantar</th><th>Tarikh keputusan diterima</th></tr><tr><td>1.</td><td style="text-align:left">Metanol dalam darah</td><td></td><td></td><td></td><td></td><td></td></tr><tr><td>2.</td><td style="text-align:left">Metanol dalam urin</td><td></td><td></td><td></td><td></td><td></td></tr></table>
+  <p>2.&nbsp; Keputusan makmal produk minuman beralkohol :</p>
+  <table class="g"><tr><th style="width:7%">Bil</th><th>Jenis produk</th><th>Tarikh hantar</th><th>Keputusan</th></tr><tr><td class="e"></td><td></td><td></td><td></td></tr><tr><td class="e"></td><td></td><td></td><td></td></tr><tr><td class="e"></td><td></td><td></td><td></td></tr></table>
   <div class="bar">8. TINDAKAN KAWALAN KERACUNAN METANOL</div>
-  <div class="f"><span>1. Tarikh laporan</span><span>:</span><span></span></div>
-  <div class="f tall"><span>2. Ringkasan kejadian</span><span>:</span><span></span></div>
-  <p>3. Pendidikan kesihatan:</p>
-  <table><tr><th>Tarikh</th><th>Tempat</th><th>Tarikh hantar</th></tr><tr><td class="e"></td><td></td><td></td></tr><tr><td class="e"></td><td></td><td></td></tr></table>
-  <div class="f"><span>4. Siasatan produk disyaki: Senarai KKM / Bukan senarai KKM</span><span>:</span><span></span></div>
-  <p>5. Penguatkuasaan bersepadu:</p>
-  <table><tr><th>Tarikh</th><th>Tempat</th><th>Hasil penemuan</th></tr><tr><td class="e"></td><td></td><td></td></tr><tr><td class="e"></td><td></td><td></td></tr></table>
+  <div class="f"><span>1.&nbsp; Tarikh laporan</span><span>:</span><span></span></div>
+  <div class="f h2"><span>2.&nbsp; Ringkasan kejadian</span><span>:</span><span></span></div>
+  <p>3.&nbsp; Pendidikan kesihatan :</p>
+  <table class="g"><tr><th>Tarikh</th><th>Tempat</th><th>Tarikh hantar</th></tr><tr><td class="e"></td><td></td><td></td></tr><tr><td class="e"></td><td></td><td></td></tr><tr><td class="e"></td><td></td><td></td></tr></table>
+  <p>4.&nbsp; Siasatan produk yang disyaki : Senarai KKM / Bukan senarai KKM (potong yang tidak berkenaan)</p>
+  <p>5.&nbsp; Penguatkuasaan bersepadu :</p>
+  <table class="g"><tr><th>Tarikh</th><th>Tempat</th><th>Hasil penemuan</th></tr><tr><td class="e"></td><td></td><td></td></tr><tr><td class="e"></td><td></td><td></td></tr><tr><td class="e"></td><td></td><td></td></tr></table>
   <div class="bar">9. RUMUSAN SIASATAN DAN TINDAKAN SUSULAN</div>
-  <div style="border:1px solid #333;height:50mm"></div>
-  <div class="sig"><span>Disediakan oleh: Nama</span><span>:</span><span></span><span>Jawatan</span><span>:</span><span></span><span>Tempat bertugas</span><span>:</span><span></span><span>Tarikh</span><span>:</span><span></span></div>
-  <div class="src">Sumber: Lampiran 11A, GP Pengurusan Wabak Keracunan Metanol Edisi Ketiga 2026, BKP KKM. Susun atur dibina semula.</div>
+  <div class="bx" style="height:16mm"></div>
+  <p>Disediakan oleh</p>
+  <div class="f s"><span>Nama</span><span>:</span><span></span></div><div class="f s"><span>Jawatan</span><span>:</span><span></span></div><div class="f s"><span>Tempat bertugas</span><span>:</span><span></span></div><div class="f s"><span>Tarikh</span><span>:</span><span></span></div>
 </div>
 </div></section>
 
-<!-- L11B -->
-<section class="lview" id="lampiran-11b"><div class="sheets"><div class="sheet">
+<!-- LAMPIRAN 11B -->
+<section class="lview" id="lampiran-11b"><div class="sheets">
+<div class="sheet fm">
   <div class="hd">Bahagian Kawalan Penyakit, Kementerian Kesihatan Malaysia<br>SIASATAN.02/METANOL.FCTC-2026</div>
-  <div class="lno" style="text-align:left">LAMPIRAN 11B</div>
-  <div class="ft">Borang 2: Siasatan kes keracunan metanol (pasukan di lapangan)</div>
+  <div class="ftb">BORANG 2: SIASATAN KES KERACUNAN METANOL (PASUKAN DI LAPANGAN)</div>
   <div class="bar">1. BUTIRAN PESAKIT</div>
-  <div class="cols"><div>
-    <div class="f"><span>Nama</span><span>:</span><span></span></div>
-    <div class="f"><span>No. KP / No. pasport</span><span>:</span><span></span></div>
-  </div><div>
-    <div class="f"><span>No. pendaftaran</span><span>:</span><span></span></div>
-    <div class="f"><span>Tarikh masuk hospital</span><span>:</span><span></span></div>
-  </div></div>
+  <div class="f w"><span>Nama</span><span>:</span><span></span></div>
+  <div class="f w"><span>No. kad pengenalan/ No. passport</span><span>:</span><span></span></div>
+  <div class="f w"><span>No. pendaftaran</span><span>:</span><span></span></div>
+  <div class="f w"><span>Tarikh masuk hospital</span><span>:</span><span></span></div>
   <div class="bar">2. LAWATAN KE PREMIS PENJUALAN / PEMPROSESAN PRODUK</div>
-  <div class="f tall"><span>Alamat tempat produk diperoleh / dibeli kali terakhir</span><span>:</span><span></span></div>
-  <div class="f"><span>Tarikh lawatan</span><span>:</span><span></span></div>
-  <div class="f tall"><span>Ringkasan penemuan di tempat kejadian</span><span>:</span><span></span></div>
-  <div class="ck">Sampel produk berjaya diperoleh: <i style="min-width:12%">Ya</i><i style="min-width:12%">Tidak</i></div>
-  <div class="f"><span>Tarikh sampel dihantar ke makmal</span><span>:</span><span></span></div>
-  <h5>Rumusan siasatan dan tindakan susulan</h5>
-  <div style="border:1px solid #333;height:28mm"></div>
-  <div class="sig"><span>Disediakan oleh: Nama</span><span>:</span><span></span><span>Jawatan</span><span>:</span><span></span><span>Tempat bertugas</span><span>:</span><span></span><span>Tarikh</span><span>:</span><span></span></div>
+  <div class="f w h2"><span>Alamat tempat produk diperoleh / dibeli kali terakhir</span><span>:</span><span></span></div>
+  <div class="f w"><span>Tarikh lawatan</span><span>:</span><span></span></div>
+  <div class="f w h2"><span>Ringkasan penemuan di tempat kejadian</span><span>:</span><span></span></div>
+  <div class="f w"><span>Sampel produk berjaya diperoleh</span><span>:</span><span><span class="cb">Ya</span> <span class="cb">Tidak</span></span></div>
+  <div class="f w"><span>Tarikh sampel produk dihantar ke makmal untuk ujian metanol</span><span>:</span><span></span></div>
+  <p style="margin-top:3mm"><b>RUMUSAN SIASATAN DAN TINDAKAN SUSULAN</b></p>
+  <div class="bx" style="height:20mm"></div>
+  <p>Disediakan oleh</p>
+  <div class="f s"><span>Nama</span><span>:</span><span></span></div><div class="f s"><span>Jawatan</span><span>:</span><span></span></div><div class="f s"><span>Tempat bertugas</span><span>:</span><span></span></div><div class="f s"><span>Tarikh</span><span>:</span><span></span></div>
   <div class="bar">3. ULASAN PEJABAT KESIHATAN DAERAH</div>
-  <div class="f"><span>Diagnosis akhir (ICD-11)</span><span>:</span><span></span></div>
-  <div class="ck">Kategori: <i>Kes disyaki</i><i>Kes berkemungkinan</i><i>Kes disahkan</i><i>Bukan keracunan metanol</i></div>
-  <div style="border:1px solid #333;height:18mm;margin-top:2mm"></div>
-  <div class="sig"><span>Disediakan oleh: Nama</span><span>:</span><span></span><span>Jawatan / Tarikh</span><span>:</span><span></span></div>
+  <div class="bx" style="height:20mm"></div>
+  <div class="f w"><span>Diagnosis akhir (ICD-11)</span><span>:</span><span></span></div>
+  <div class="f w"><span>Kategori notifikasi</span><span>:</span><span class="nb"><span class="cb">Kes disyaki (<i>Suspected Case</i>)</span><br><span class="cb">Kes berkemungkinan (<i>Probable Case</i>)</span><br><span class="cb">Kes disahkan (<i>Confirmed Case</i>)</span><br><span class="cb">Bukan keracunan metanol</span></span></div>
+  <p>Disediakan oleh</p>
+  <div class="f s"><span>Nama</span><span>:</span><span></span></div><div class="f s"><span>Jawatan</span><span>:</span><span></span></div><div class="f s"><span>Tempat bertugas</span><span>:</span><span></span></div><div class="f s"><span>Tarikh</span><span>:</span><span></span></div>
+</div>
+<div class="sheet fm">
+  <div class="hd">Bahagian Kawalan Penyakit, Kementerian Kesihatan Malaysia<br>SIASATAN.02/METANOL.FCTC-2026</div>
+  <div class="ftb">BORANG 2: SIASATAN KES KERACUNAN METANOL (PASUKAN DI LAPANGAN)</div>
   <div class="bar">4. ULASAN JABATAN KESIHATAN NEGERI</div>
-  <div style="border:1px solid #333;height:18mm"></div>
-  <div class="sig"><span>Disediakan oleh: Nama</span><span>:</span><span></span><span>Jawatan / Tarikh</span><span>:</span><span></span></div>
-  <div class="warn">JKN HENDAKLAH MENGHANTAR LAPORAN AWAL INI KEPADA IPKKM DALAM TEMPOH 48 JAM SELEPAS PKD MENERIMA NOTIFIKASI DARIPADA PIHAK HOSPITAL ATAU KLINIK KESIHATAN.</div>
-  <div class="src">Sumber: Lampiran 11B, GP Pengurusan Wabak Keracunan Metanol Edisi Ketiga 2026, BKP KKM. Susun atur dibina semula.</div>
-</div></div></section>
+  <div class="bx" style="height:26mm"></div>
+  <p>Disediakan oleh</p>
+  <div class="f s"><span>Nama</span><span>:</span><span></span></div><div class="f s"><span>Jawatan</span><span>:</span><span></span></div><div class="f s"><span>Tempat bertugas</span><span>:</span><span></span></div><div class="f s"><span>Tarikh</span><span>:</span><span></span></div>
+  <p style="margin-top:6mm"><b>JKN HENDAKLAH MENGHANTAR LAPORAN AWAL INI KEPADA IBU PEJABAT KEMENTERIAN KESIHATAN MALAYSIA DALAM TEMPOH 48 JAM SELEPAS PKD MENERIMA NOTIFIKASI DARIPADA PIHAK HOSPITAL ATAU KLINIK KESIHATAN.</b></p>
+</div>
+</div></section>
 
-<!-- L12 -->
-<section class="lview" id="lampiran-12"><div class="sheets"><div class="sheet">
-  <div class="lno">LAMPIRAN 12</div>
-  <div class="ft">Carta alir pengendalian sampel produk</div>
-  <div class="fc">
-    <div class="hh">TANGGUNGJAWAB</div><div class="hh">PROSES KERJA</div>
-    <div></div><div><span class="term">Mula</span></div>
-    <div>Pejabat Kesihatan Daerah (PKD)</div><div class="st">1. Mengambil sampel produk:<br>• Sampel produk formal (250 ml) atau sampel baki daripada hospital;<br>• Melabel sampel dengan maklumat pengenalan kes dan butiran produk serta melak sampel*;<br>• Memastikan suhu sampel sejuk / suhu bilik (tidak melebihi suhu bilik) dan tidak dibekukan.<br><small>*Mengikut SOP-PKKM-PD-03</small></div>
-    <div>Pejabat Kesihatan Daerah (PKD)</div><div class="st">2. Melengkapkan maklumat sampel menggunakan Borang Permintaan Analisis (Borang A), Peraturan 7(1), Akta Makanan 1983 dan Peraturan-Peraturan Makanan 1985.</div>
-    <div>Pejabat Kesihatan Daerah (PKD)</div><div class="st">3. Menghantar sampel produk bagi analisis metanol kepada:<br>• Makmal Keselamatan dan Kualiti Makanan (MKKM); atau<br>• Makmal Kesihatan Awam Kebangsaan (MKAK), Unit Standard dan Pelabelan Pemakanan</div>
-    <div>MKKM / MKAK</div><div class="st">4. Keputusan makmal dimaklumkan kepada pemohon. Salinan keputusan ujian metanol yang positif hendaklah dihantar kepada JKN dan IPKKM.</div>
-    <div></div><div><span class="term">Tamat</span></div>
+<!-- LAMPIRAN 11C -->
+<section class="lview" id="lampiran-11c"><div class="sheets">
+<div class="sheet">
+  
+  <div class="frame cprc">
+    <div class="ctr"><img class="crest" src="assets/jata-negara.png" alt="Jata Negara"><br><b>DISEASE CONTROL DIVISION<br>MINISTRY OF HEALTH<br>MALAYSIA</b></div>
+    <p class="ctr" style="margin-top:3mm"><b>FORMAT PELAPORAN KEJADIAN BERKAITAN KESIHATAN KE CPRC<sup>1</sup><br>HEALTH RELATED EVENT REPORTING FORMAT TO CPRC</b></p>
+    <table>
+      <tr><th>Date &amp; Time<br><i>Tarikh &amp; Masa</i></th><td class="cl">:</td><td></td></tr>
+      <tr><th>What do you want to report?<br><i>Apa yang anda ingin laporkan?</i><br>If disaster, is it</th><td class="cl">:<br><br>:</td><td>Kejadian Wabak/ Krisis/ Bencana/ <i>Unknown cause</i><br>Natural/ MCI/ CBRNe/ Penyakit Berjangkit</td></tr>
+      <tr><th>What happened?<br><i>Apa yang telah terjadi?</i></th><td class="cl">:</td><td></td></tr>
+      <tr><th>Please describe how and why?<br><i>Terangkan bagaimana dan kenapa ia terjadi?</i></th><td class="cl">:</td><td></td></tr>
+      <tr><th>Describe symptoms &amp; onset if related with the event?<br><i>Jelaskan gejala &amp; onset jika berkaitan dengan kejadian.</i></th><td class="cl">:</td><td></td></tr>
+      <tr><th>When did this happen (date, month, year, time)?<br><i>Bila peristiwa ini terjadi (tarikh, bulan, tahun, masa)?</i></th><td class="cl">:</td><td></td></tr>
+      <tr><th>Where did this happen?<br>(Village, district, institution, school etc.)<br><i>Dimanakah ianya terjadi? (Nama kampung, daerah, institusi, sekolah dll.)</i></th><td class="cl">:</td><td></td></tr>
+      <tr><th>Person affected/ infected?<br><i>Orang yang terlibat?</i><br>&nbsp;&nbsp;1) No of victim/ exposed<br>&nbsp;&nbsp;<i>1) Bilangan mangsa/ terdedah</i></th><td class="cl"></td><td></td></tr>
+      <tr><th>&nbsp;&nbsp;2) No of family involved<br>&nbsp;&nbsp;<i>2) Bilangan keluarga terlibat</i></th><td class="cl"></td><td></td></tr>
+      <tr><th>&nbsp;&nbsp;3) No of sick and Attack Rate<br>&nbsp;&nbsp;<i>3) Bilangan sakit dan kadar serangan</i></th><td class="cl"></td><td></td></tr>
+    </table>
+    <p class="fn"><sup>1</sup>CPRC- means State CPRC and National CPRC or Bilik Gerakan Daerah</p>
   </div>
-  <div class="src">Sumber: Lampiran 12, GP Pengurusan Wabak Keracunan Metanol Edisi Ketiga 2026, BKP KKM.</div>
-</div></div></section>
+</div>
+<div class="sheet">
+  
+  <div class="frame cprc">
+    <table>
+      <tr><th>&nbsp;&nbsp;4) No of admitted<br>&nbsp;&nbsp;<i>4) Bilangan masuk wad</i></th><td class="cl"></td><td colspan="2"></td></tr>
+      <tr><th>&nbsp;&nbsp;5) No of discharged<br>&nbsp;&nbsp;<i>5) Bilangan discaj</i></th><td class="cl"></td><td colspan="2"></td></tr>
+      <tr><th>&nbsp;&nbsp;6) No of treated as out pt<br>&nbsp;&nbsp;<i>6) Bilangan yang dirawat sebagai pesakit luar</i></th><td class="cl"></td><td colspan="2"></td></tr>
+      <tr><th>Has anyone died related to event? If yes, how many?<br><i>Kematian yang melibatkan kejadian? Jika Ya, berapa?</i></th><td class="cl">:<br><br>:</td><td colspan="2">Ya/ Tidak</td></tr>
+      <tr><th>Other information to inform<br><i>Lain-lain maklumat yang anda ingin sampaikan</i><br>Eg: health facility, health care worker, tourist, other agency affected etc<br><i>-eg: Adakah fasiliti Kesihatan, anggota, pelancong, agensi lain terlibat</i></th><td class="cl">:</td><td colspan="2"></td></tr>
+      <tr><th>Pasukan Bantuan diperlukan:</th><td class="cl">:</td><td>Ya/ Tidak</td><td>Bil Pasukan</td></tr>
+      <tr><th>1. Pasukan Kesihatan</th><td class="cl"></td><td>Ya/ Tidak</td><td></td></tr>
+      <tr><th>2. Pasukan Perubatan<br><br>3. Pasukan MHPRT<sup>2</sup></th><td class="cl"></td><td>Ya/ Tidak<br><br>Ya/ Tidak</td><td></td></tr>
+      <tr><th>Report Prepared by:<br><i>Laporan disediakan oleh:</i><br>Name (Nama):<br>Designation (Jawatan):<br>Phone No (No Telefon):<br>Tarikh &amp; Masa :</th><td class="cl">:</td><td colspan="2"></td></tr>
+      <tr><th>Ulasan Ketua Petugas CPRC Negeri<br>Name (Nama):<br>Designation (Jawatan):<br>Phone No (No Telefon):<br>Tarikh &amp; Masa :</th><td class="cl"></td><td colspan="2"></td></tr>
+    </table>
+    <p style="margin-top:4mm;font-size:11pt"><b><u>Received By:</u></b></p>
+    <p style="font-size:11pt">Signature:</p>
+    <p style="font-size:11pt">Name: <span style="margin-left:60mm">Designation:</span></p>
+    <p class="fn" style="margin-top:14mm"><sup>2</sup>MHPRT- Mental Health Psycosocial Response Team</p>
+  </div>
+</div>
+</div></section>
 
-<!-- L13 -->
+<section class="lview" id="lampiran-12"><div class="sheets"><div class="sheet"><div class="ft">Carta alir pengendalian sampel produk</div><div data-fc="L12"></div></div></div></section>
+
+<!-- LAMPIRAN 13 -->
 <section class="lview" id="lampiran-13"><div class="sheets">
 <div class="sheet">
   <div class="hd">Bahagian Kawalan Penyakit, Kementerian Kesihatan Malaysia<br>LAPORAN.HARIAN/METANOL.FCTC-2026</div>
-  <div class="lno" style="text-align:left">LAMPIRAN 13</div>
-  <div class="ft">Format laporan harian keracunan metanol</div>
-  <div class="cols"><div><div class="f"><span>Daerah</span><span>:</span><span></span></div></div><div><div class="f"><span>Tarikh / Masa</span><span>:</span><span></span></div></div></div>
-  <h5>1. Bilangan kes yang dilaporkan</h5>
-  <table><tr><th>Tarikh</th><td class="e"></td><td></td><td></td><td></td><td></td><th>Jumlah</th></tr><tr><th>Bilangan kes</th><td class="e"></td><td></td><td></td><td></td><td></td><td></td></tr></table>
-  <h5>2. Pemantauan status kes di hospital</h5>
-  <table><tr><th>Status</th><th>Intubated</th><th>Not intubated</th><th>Meninggal dunia</th><th>Discaj</th><th>Jumlah</th></tr><tr><th>Bilangan kes</th><td class="e"></td><td></td><td></td><td></td><td></td></tr></table>
-  <h5>3. Senarai keputusan ujian makmal</h5>
-  <table><tr><th style="width:30%">No. kes</th><th>Kes (1)</th><th>Kes (2)</th></tr><tr><td>Nama</td><td class="e"></td><td></td></tr><tr><td>Status (hidup / mati)</td><td class="e"></td><td></td></tr><tr><td>Metanol darah: tarikh diambil</td><td class="e"></td><td></td></tr><tr><td>Metanol darah: keputusan</td><td class="e"></td><td></td></tr><tr><td>Metanol urin: tarikh diambil</td><td class="e"></td><td></td></tr><tr><td>Metanol urin: keputusan</td><td class="e"></td><td></td></tr></table>
-  <h5>4. Maklumat semasa discaj</h5>
-  <table><tr><th style="width:30%">No. kes</th><th>Kes (1)</th><th>Kes (2)</th></tr><tr><td>Nama</td><td class="e"></td><td></td></tr><tr><td>RN</td><td class="e"></td><td></td></tr><tr><td>Hasil rawatan / komplikasi</td><td class="e"></td><td></td></tr><tr><td>Tarikh discaj</td><td class="e"></td><td></td></tr><tr><td>Waris: nama / telefon / alamat</td><td class="e"></td><td></td></tr></table>
+  <div class="ft" style="margin-top:2mm">Format laporan harian keracunan metanol</div>
+  <p>Daerah &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : ____________________________________________________</p>
+  <p style="margin-top:3mm">Tarikh &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : __________________ &nbsp;&nbsp;&nbsp;&nbsp; Masa : __________________</p>
+  <h5>1.&nbsp;&nbsp;&nbsp;Bilangan kes yang dilaporkan</h5>
+  <table class="lh"><tr><td style="width:14%">Tarikh</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td class="e2">Bilangan kes</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td>Jumlah</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr></table>
+  <h5>2.&nbsp;&nbsp;&nbsp;Pemantauan status kes di hospital</h5>
+  <table class="lh c"><tr><td>Status</td><td><i>Intubated</i></td><td><i>Not Intubated</i></td><td>Meninggal dunia</td><td>Discaj</td><td>Jumlah</td></tr><tr><td class="e2">Bilangan kes</td><td></td><td></td><td></td><td></td><td></td></tr></table>
+  <h5>3.&nbsp;&nbsp;&nbsp;Senarai keputusan ujian makmal</h5>
+  <table class="lh"><tr><td style="width:28%">No. kes</td><td>Kes (1)</td><td>Kes (2)</td></tr><tr><td>Nama</td><td></td><td></td></tr><tr><td>Status (Hidup / Mati)</td><td></td><td></td></tr><tr><td>Metanol dalam darah</td><td></td><td></td></tr><tr><td>&nbsp;&nbsp;&nbsp;* Tarikh diambil</td><td></td><td></td></tr><tr><td>&nbsp;&nbsp;&nbsp;* Keputusan</td><td></td><td></td></tr><tr><td>Metanol dalam urin</td><td></td><td></td></tr><tr><td>&nbsp;&nbsp;&nbsp;* Tarikh diambil</td><td></td><td></td></tr><tr><td>&nbsp;&nbsp;&nbsp;* Keputusan</td><td></td><td></td></tr></table>
 </div>
 <div class="sheet">
-  <div class="hd">LAPORAN.HARIAN/METANOL.FCTC-2026</div>
-  <h5>5. Senarai keputusan ujian sampel produk</h5>
-  <table><tr><th>Bilangan sampel</th><th>Tarikh ambil</th><th>Tarikh hantar</th><th>Tarikh terima keputusan</th><th>Keputusan</th></tr><tr><td class="e"></td><td></td><td></td><td></td><td></td></tr><tr><td class="e"></td><td></td><td></td><td></td><td></td></tr></table>
-  <h5>6. Laporan pencegahan dan kawalan</h5>
-  <p>i. Aktiviti Unit Inspektorat &amp; Perundangan Negeri &nbsp; ii. Aktiviti Pendidikan Kesihatan</p>
-  <table><tr><th>Jenis aktiviti</th><th>Jumlah (harian)</th><th>Kumulatif</th></tr><tr><td class="e"></td><td></td><td></td></tr><tr><td class="e"></td><td></td><td></td></tr></table>
+  <div class="hd">Bahagian Kawalan Penyakit, Kementerian Kesihatan Malaysia<br>LAPORAN.HARIAN/METANOL.FCTC-2026</div>
+  <h5>4.&nbsp;&nbsp;&nbsp;Maklumat semasa discaj</h5>
+  <table class="lh"><tr><td style="width:22%">No. kes</td><td class="ctr">Kes (1)</td><td class="ctr">Kes (2)</td></tr><tr><td>Nama</td><td></td><td></td></tr><tr><td>RN</td><td></td><td></td></tr><tr><td class="e2">Hasil rawatan/ komplikasi</td><td></td><td></td></tr><tr><td>Tarikh discaj</td><td></td><td></td></tr><tr><td class="e2">Maklumat waris</td><td></td><td></td></tr><tr><td>Nama</td><td></td><td></td></tr><tr><td>No. telefon</td><td></td><td></td></tr><tr><td>Alamat</td><td></td><td></td></tr></table>
+  <h5>5.&nbsp;&nbsp;&nbsp;Senarai keputusan ujian sampel produk</h5>
+  <table class="lh c"><tr><td>Bilangan sampel</td><td>Tarikh ambil sampel</td><td>Tarikh hantar sampel</td><td>Tarikh terima keputusan</td><td>Keputusan</td></tr><tr><td class="e2"></td><td></td><td></td><td></td><td></td></tr><tr><td class="e2"></td><td></td><td></td><td></td><td></td></tr></table>
+  <h5>6.&nbsp;&nbsp;&nbsp;Laporan pencegahan dan kawalan</h5>
+  <table class="lh"><tr><td colspan="3">i.&nbsp;&nbsp; Aktiviti Unit Inspektorat &amp; Perundangan Negeri<br>ii.&nbsp; Aktiviti Pendidikan Kesihatan</td></tr><tr><td class="ctr" style="width:22%">Jenis aktiviti</td><td class="ctr">Jumlah (harian)</td><td class="ctr">Kumulatif</td></tr><tr><td class="e"></td><td></td><td></td></tr><tr><td class="e"></td><td></td><td></td></tr></table>
+</div>
+<div class="sheet">
+  <div class="hd">Bahagian Kawalan Penyakit, Kementerian Kesihatan Malaysia<br>LAPORAN.HARIAN/METANOL.FCTC-2026</div>
   <p>iii. Aktiviti pemeriksaan &amp; survelan di bawah BKKM</p>
-  <table><tr><th rowspan="2">Daerah</th><th colspan="2">Premis diperiksa</th><th colspan="2">Notis Seksyen 32B</th><th colspan="2">Sampel diambil</th><th colspan="2">Produk disita</th></tr><tr><th>Semasa</th><th>Kumulatif</th><th>Semasa</th><th>Kumulatif</th><th>Semasa</th><th>Kumulatif</th><th>Semasa</th><th>Kumulatif</th></tr><tr><td class="e"></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><th>Jumlah</th><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr></table>
-  <h5>7. Laporan makmal sampel produk (ujian kandungan metanol)</h5>
-  <table><tr><th>Jenis produk</th><th>Tarikh hantar</th><th>Tarikh keputusan</th><th>Keputusan</th></tr><tr><td class="e"></td><td></td><td></td><td></td></tr></table>
-  <h5>8. Ringkasan</h5>
-  <table><tr><th>Hospital</th><th>PKD bertanggungjawab</th><th>Bangsa</th><th>Warganegara</th><th>Status (wad / discaj / mati)</th><th>Catatan</th></tr><tr><td class="e"></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td class="e"></td><td></td><td></td><td></td><td></td><td></td></tr></table>
-  <div class="sig"><span>Disediakan oleh: Nama</span><span>:</span><span></span><span>Jawatan</span><span>:</span><span></span><span>No. telefon</span><span>:</span><span></span><span>Tarikh</span><span>:</span><span></span></div>
-  <div class="src">Sumber: Lampiran 13, GP Pengurusan Wabak Keracunan Metanol Edisi Ketiga 2026, BKP KKM. Susun atur dibina semula.</div>
+  <table class="lh c sm"><tr><td rowspan="2">Daerah</td><td colspan="2">Jumlah premis diperiksa</td><td colspan="2">Bil. notis di bawah Seksyen 32B</td><td colspan="2">Bil. sampel diambil</td><td colspan="2">Bil. produk disita</td></tr><tr><td>Semasa</td><td>Kumulatif</td><td>Semasa</td><td>Kumulatif</td><td>Semasa</td><td>Kumulatif</td><td>Semasa</td><td>Kumulatif</td></tr><tr><td class="e2"></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td class="e2"></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td style="text-align:left">Jumlah</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr></table>
+  <h5>7.&nbsp;&nbsp;&nbsp;Laporan makmal sampel produk (Ujian kandungan metanol)</h5>
+  <table class="lh c"><tr><td>Jenis produk</td><td>Tarikh hantar</td><td>Tarikh keputusan</td><td>Keputusan</td></tr><tr><td style="height:14mm"></td><td></td><td></td><td></td></tr></table>
+  <h5>8.&nbsp;&nbsp;&nbsp;Ringkasan</h5>
+  <table class="lh c"><tr><td>Hospital</td><td>PKD yang bertanggungjawab</td><td>Bangsa</td><td>Warganegara</td><td>Status (wad / discaj / mati)</td><td>Catatan</td></tr><tr><td class="e2"></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td class="e2"></td><td></td><td></td><td></td><td></td><td></td></tr></table>
+  <p style="margin-top:5mm"><b>Disediakan oleh</b></p>
+  <div class="f s"><span>Nama</span><span>:</span><span></span></div><div class="f s"><span>Jawatan</span><span>:</span><span></span></div><div class="f s"><span>No. telefon</span><span>:</span><span></span></div><div class="f s"><span>Tarikh</span><span>:</span><span></span></div>
 </div>
 </div></section>
 
-<!-- L14 -->
-<section class="lview" id="lampiran-14"><div class="sheets"><div class="sheet">
-  <div class="lno">LAMPIRAN 14</div>
-  <div class="ft">Carta alir aktiviti sewaktu wabak keracunan metanol</div>
-  <div class="fc">
-    <div class="hh">TANGGUNGJAWAB</div><div class="hh">PROSES KERJA</div>
-    <div></div><div><span class="term">Mula</span></div>
-    <div>Hospital</div><div class="st">1. Menghantar notifikasi keracunan metanol kepada PKD dalam tempoh 24 jam selepas diagnosis. Laporan polis dibuat bagi kes jenayah atau kematian.</div>
-    <div>Pejabat Kesihatan Daerah (PKD)</div><div class="st">2. Membuat pengesahan dan menghantar borang notifikasi yang disahkan kepada JKN.</div>
-    <div>Jabatan Kesihatan Negeri (JKN)</div><div class="st">3. Menghantar borang notifikasi yang telah disahkan kepada IPKKM dalam tempoh 24 jam selepas PKD menerima notifikasi daripada hospital atau klinik kesihatan.</div>
-    <div>Hospital (UKA) / PKD</div><div class="st">4. Menjalankan siasatan kes dan mengenal pasti wabak.</div>
-    <div>Pejabat Kesihatan Daerah (PKD)</div><div class="st">5. Mengaktifkan bilik gerakan apabila berlaku wabak. Menyediakan dan menghantar laporan berkaitan kepada JKN: laporan awal; aktiviti kawalan dan pencegahan; Pelaporan Kejadian Berkaitan Kesihatan ke CPRC; Laporan Harian.</div>
-    <div>Jabatan Kesihatan Negeri (JKN)</div><div class="st">6. Membuat ulasan dan menghantar laporan berkaitan kepada IPKKM.</div>
-    <div>Pejabat Kesihatan Daerah (PKD)</div><div class="st">7. Melaksanakan tindakan di lapangan.</div>
-    <div>Pejabat Kesihatan Daerah (PKD)</div><div class="st">8. Mengadakan mesyuarat berkala di bilik gerakan: menerima dan menganalisis data; menilai maklumat dan laporan; merancang tindakan selanjutnya; menyelaras aktiviti antara jabatan (contohnya PDRM, JKDM dan PBT); mendokumentasikan tindakan dan menyediakan laporan harian.</div>
-    <div>Pejabat Kesihatan Daerah (PKD)</div><div class="st">9. Menutup bilik gerakan sekiranya tiada kes baharu dilaporkan dalam tempoh 10 hari selepas kes terakhir.</div>
-    <div>Pejabat Kesihatan Daerah (PKD)</div><div class="st">10. Menyediakan dan menghantar laporan akhir kepada JKN selepas bilik gerakan wabak ditutup.</div>
-    <div>Jabatan Kesihatan Negeri (JKN)</div><div class="st">11. Membuat ulasan dan menghantar laporan akhir yang lengkap kepada IPKKM.</div>
-    <div></div><div><span class="term">Tamat</span></div>
-  </div>
-  <div class="src">Sumber: Lampiran 14, GP Pengurusan Wabak Keracunan Metanol Edisi Ketiga 2026, BKP KKM.</div>
-</div></div></section>
+<section class="lview" id="lampiran-14"><div class="sheets"><div class="sheet"><div class="ft">Carta alir aktiviti sewaktu wabak keracunan metanol</div><div data-fc="L14"></div></div></div></section>
 
-<!-- L15 -->
+<!-- LAMPIRAN 15 -->
 <section class="lview" id="lampiran-15"><div class="sheets"><div class="sheet">
-  <div class="lno">LAMPIRAN 15</div>
-  <div class="ft">Kod QR bahan pendidikan</div>
-  <div style="display:grid;justify-items:center;gap:5mm;margin-top:10mm">
-    <canvas id="qr" width="232" height="232" style="width:60mm;height:60mm;image-rendering:pixelated" aria-label="Kod QR ke infosihat.moh.gov.my"></canvas>
-    <p style="font:700 11pt Arial,sans-serif;text-align:center">Bahan pendidikan kesihatan berkaitan metanol</p>
-    <p style="font:10pt monospace;word-break:break-all;text-align:center">https://infosihat.moh.gov.my/multimedia/flyer/tag/Metanol.html</p>
-    <p><a href="https://infosihat.moh.gov.my/multimedia/flyer/tag/Metanol.html" target="_blank" rel="noopener" style="color:#0f6b6f">Buka pautan</a></p>
+  <p class="ctr" style="margin-top:10mm"><b>KOD QR BAHAN PENDIDIKAN</b></p>
+  <div style="display:grid;justify-items:center;gap:6mm;margin-top:8mm">
+    <img src="assets/qr-infosihat-metanol.png" alt="Kod QR ke bahan pendidikan metanol di infosihat.moh.gov.my" style="width:62mm;height:62mm">
+    <a href="https://infosihat.moh.gov.my/multimedia/flyer/tag/Metanol.html" target="_blank" rel="noopener" style="color:#1a73e8;font-size:11pt">https://infosihat.moh.gov.my/multimedia/flyer/tag/Metanol.html</a>
   </div>
-  <div class="src">Sumber: infosihat.moh.gov.my · Lampiran 15, GP Pengurusan Wabak Keracunan Metanol Edisi Ketiga 2026, BKP KKM.</div>
+  <p style="margin-top:8mm">Sumber : infosihat.moh.gov.my</p>
 </div></div></section>
 
-<!-- L16 -->
+<!-- LAMPIRAN 16 -->
 <section class="lview" id="lampiran-16"><div class="sheets"><div class="sheet">
   <div class="hd">Bahagian Kawalan Penyakit, Kementerian Kesihatan Malaysia<br>LAPORAN.AKHIR/METANOL.FCTC-2026</div>
-  <div class="lno" style="text-align:left">LAMPIRAN 16</div>
-  <div class="ft">Format laporan akhir wabak / sporadik</div>
-  <table>
-    <tr><th style="width:32%">1. Tajuk</th><td class="e"></td></tr>
-    <tr><th>2. Sinopsis / ringkasan</th><td style="height:22mm"></td></tr>
-    <tr><th>3. Pengenalan</th><td style="height:22mm"></td></tr>
-    <tr><th>4. Objektif penyiasatan</th><td style="height:16mm"></td></tr>
-    <tr><th>5. Metodologi</th><td style="height:22mm"></td></tr>
-    <tr><th>6. Keputusan</th><td style="height:22mm"><div class="ck" style="margin-top:14mm">Klasifikasi akhir: <i>Kes berkemungkinan</i><i>Kes disahkan</i><i>Bukan keracunan metanol</i></div></td></tr>
-    <tr><th>7. Tindakan kawalan dan penguatkuasaan</th><td style="height:22mm"></td></tr>
-    <tr><th>8. Kesimpulan dan cadangan</th><td style="height:22mm"></td></tr>
+  <div class="ft" style="margin-top:2mm">Format laporan akhir wabak / sporadik</div>
+  <table class="la">
+    <tr><td class="n">1.</td><td class="k">Tajuk</td><td class="c">:</td><td class="v"></td></tr>
+    <tr><td class="n">2.</td><td class="k">Sinopsis / ringkasan</td><td class="c">:</td><td class="v"></td></tr>
+    <tr><td class="n">3.</td><td class="k">Pengenalan</td><td class="c">:</td><td class="v"></td></tr>
+    <tr><td class="n">4.</td><td class="k">Objektif penyiasatan</td><td class="c">:</td><td class="v"></td></tr>
+    <tr><td class="n">5.</td><td class="k">Metodologi</td><td class="c">:</td><td class="v"></td></tr>
+    <tr><td class="n">6.</td><td class="k">Keputusan</td><td class="c">:</td><td class="v"></td></tr>
+    <tr><td colspan="3" class="kl">Klasifikasi akhir :</td><td class="kk"><span class="sq">Kes berkemungkinan (<i>Probable Case</i>)</span><span class="sq">Kes disahkan (<i>Confirmed Case</i>)</span><span class="sq">Bukan keracunan metanol</span></td></tr>
+    <tr><td class="n">7.</td><td class="k">Tindakan kawalan dan penguatkuasaan</td><td class="c">:</td><td class="v"></td></tr>
+    <tr><td class="n">8.</td><td class="k">Kesimpulan dan cadangan</td><td class="c">:</td><td class="v"></td></tr>
   </table>
-  <div class="sig" style="margin-top:6mm"><span>Disediakan oleh (Pegawai 1)</span><span>:</span><span></span><span>Disemak oleh (Pegawai 2)</span><span>:</span><span></span><span>Disahkan oleh (Pegawai 3)</span><span>:</span><span></span></div>
-  <div class="src">Sumber: Lampiran 16, GP Pengurusan Wabak Keracunan Metanol Edisi Ketiga 2026, BKP KKM.</div>
+  <div class="sig3"><span>Disediakan oleh</span><span>:</span><span>( Pegawai 1 )</span><span>Disemak oleh</span><span>:</span><span>( Pegawai 2 )</span><span>Disahkan oleh</span><span>:</span><span>( Pegawai 3 )</span></div>
 </div></div></section>
 
-<!-- scanned / external -->
-<section class="lview" id="lampiran-scan"><div class="sheets"><div class="sheet scan">
-  <div class="lno" id="scanNo"></div>
-  <div class="big" id="scanTitle"></div>
-  <p id="scanDesc" style="font-size:11pt"></p>
-  <p style="font-size:11pt">Lampiran ini ialah borang atau dokumen agensi yang perlu digunakan dalam format asalnya. Rujuk <b id="scanPage"></b> dalam GP Pengurusan Wabak Keracunan Metanol Edisi Ketiga 2026.</p>
-  <p><a href="https://drive.google.com/file/d/100AvQzBNw97L-8w9XMI6DLMQ5MbWapvu/view" target="_blank" rel="noopener" style="color:#0f6b6f;font-weight:700">Buka GP versi cetak (Google Drive)</a></p>
-</div></div></section>
-
-  </div>
 </div>
+
 
 <footer class="gut"><div class="wrap">
   <span>Unit Penyakit Tidak Berjangkit, Jabatan Kesihatan Negeri Kedah</span>
   <span>Berdasarkan SPKPK Bil. 26/2026 dan GP Edisi Ketiga 2026. Rujuk dokumen asal untuk tujuan rasmi.</span>
 </div></footer>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
 <script>
 (function(){
+  "use strict";
   /* ---------- lampiran registry ---------- */
   var L=[
-    {id:'rajah-1',no:'R1',t:'Definisi kes (carta keputusan)',g:'Klinikal'},
-    {id:'lampiran-1',no:'1',t:'Rawatan kes methanol / ethylene glycol poisoning',g:'Klinikal'},
-    {id:'lampiran-2a',no:'2A',t:'Worksheet ethanol oral 20% v/v',g:'Klinikal',scan:'hlm. 37',d:'Lembaran kerja penyediaan larutan etanol oral 20% v/v (undenatured) untuk pegawai farmasi. Sumber: British Pharmaceutical Codex, 1994.'},
-    {id:'lampiran-2b',no:'2B',t:'Worksheet ethanol IV 10% v/v',g:'Klinikal',scan:'hlm. 38',d:'Lembaran kerja penyediaan larutan etanol intravena 10% v/v (undenatured), disediakan secara aseptik di bilik bersih.'},
-    {id:'lampiran-3',no:'3',t:'Carta alir pelaporan kes',g:'Notifikasi & pelaporan'},
-    {id:'lampiran-4',no:'4',t:'Carta alir kes Brought in Dead (BID)',g:'Kes kematian'},
-    {id:'lampiran-5',no:'5',t:'Carta alir kes Died in Department (DID)',g:'Kes kematian'},
-    {id:'lampiran-6',no:'6',t:'Borang notifikasi keracunan metanol',g:'Notifikasi & pelaporan'},
-    {id:'lampiran-7',no:'7',t:'Borang permohonan ujian makmal MKAK-BPU-U01/Rev2018',g:'Spesimen & sampel',scan:'hlm. 44',d:'Borang Permohonan Ujian Makmal (Spesimen Klinikal) MKAK. Dilengkapkan selepas spesimen dilabel, untuk kes disyaki dan kes DID yang dihantar ke MKAK.'},
-    {id:'lampiran-8',no:'8',t:'Borang pemeriksaan forensik / toksikologi KIMIA 15-Pin.3/2020',g:'Spesimen & sampel',scan:'hlm. 45–46',d:'Borang Permohonan bagi Pemeriksaan Forensik / Toksikologi Jabatan Kimia Malaysia untuk spesimen kes kematian.'},
-    {id:'lampiran-8a',no:'8A',t:'Garis panduan spesimen toksikologi KIMIA',g:'Spesimen & sampel',scan:'hlm. 47',d:'Garis Panduan Spesimen untuk Analisis bagi Kes Toksikologi (KIMIA 15-Pin.3/2020): jenis, isi padu dan bekas spesimen.'},
-    {id:'lampiran-9',no:'9',t:'Carta alir spesimen klinikal',g:'Spesimen & sampel'},
-    {id:'lampiran-10',no:'10',t:'Carta alir spesimen klinikal kes kematian',g:'Kes kematian'},
-    {id:'lampiran-11a',no:'11A',t:'Borang 1: siasatan di hospital',g:'Siasatan'},
-    {id:'lampiran-11b',no:'11B',t:'Borang 2: pasukan di lapangan',g:'Siasatan'},
-    {id:'lampiran-11c',no:'11C',t:'Pelaporan kejadian berkaitan kesihatan ke CPRC',g:'Notifikasi & pelaporan',scan:'hlm. 55–56',d:'Format Pelaporan Kejadian Berkaitan Kesihatan ke CPRC selaras SPKPK Bil. 1/2006, digunakan apabila wabak dikenal pasti.'},
-    {id:'lampiran-12',no:'12',t:'Carta alir pengendalian sampel produk',g:'Spesimen & sampel'},
-    {id:'lampiran-13',no:'13',t:'Format laporan harian',g:'Pengurusan wabak'},
-    {id:'lampiran-14',no:'14',t:'Carta alir aktiviti sewaktu wabak',g:'Pengurusan wabak'},
-    {id:'lampiran-15',no:'15',t:'Kod QR bahan pendidikan',g:'Pengurusan wabak'},
-    {id:'lampiran-16',no:'16',t:'Format laporan akhir wabak / sporadik',g:'Notifikasi & pelaporan'}
+    {id:'rajah-1',src:'Rajah 1',t:'Definisi Kes',k:'Carta keputusan',g:'Klinikal',pdf:'R01_Rajah_1_Definisi_Kes.pdf',note:'Gunakan Alat bantu klasifikasi kes di halaman utama untuk melalui carta ini langkah demi langkah.'},
+    {id:'lampiran-1',src:'Lampiran 1',t:'Rawatan Kes Methanol/Ethylene Glycol Poisoning',k:'Rujukan klinikal · 5 ms',g:'Klinikal',pdf:'L01_Rawatan_Kes.pdf'},
+    {id:'lampiran-2a',src:'Lampiran 2A',t:'Worksheet Preparation Oral Ethanol 20% v/v',k:'Lembaran kerja',g:'Klinikal',pdf:'L02A_Worksheet_Etanol_Oral_20.pdf',note:'Untuk pegawai farmasi. Larutan disediakan secara aseptik di bilik bersih yang memenuhi keperluan standard.'},
+    {id:'lampiran-2b',src:'Lampiran 2B',t:'Worksheet Preparation Intravenous Ethanol 10% v/v',k:'Lembaran kerja',g:'Klinikal',pdf:'L02B_Worksheet_Etanol_IV_10.pdf',note:'Untuk pegawai farmasi. Bekalkan ke wad bersama penapis inline 0.2 mikrometer.'},
+    {id:'lampiran-3',src:'Lampiran 3',t:'Carta Alir Pelaporan Kes Keracunan Metanol',k:'Carta alir',g:'Notifikasi & pelaporan',pdf:'L03_Carta_Alir_Pelaporan_Kes.pdf',note:'Klik label berwarna dalam lajur Tindakan untuk membuka borang yang digunakan pada langkah tersebut.'},
+    {id:'lampiran-4',src:'Lampiran 4',t:'Carta Alir Pengurusan Kes Brought in Dead (BID)',k:'Carta alir',g:'Kes kematian',pdf:'L04_Carta_Alir_Kes_BID.pdf'},
+    {id:'lampiran-5',src:'Lampiran 5',t:'Carta Alir Pengurusan Kes Died in Department (DID)',k:'Carta alir',g:'Kes kematian',pdf:'L05_Carta_Alir_Kes_DID.pdf'},
+    {id:'lampiran-6',src:'Lampiran 6',t:'Borang Notifikasi Keracunan Metanol',k:'Borang · 2 ms',g:'Notifikasi & pelaporan',pdf:'L06_Borang_Notifikasi.pdf',note:'Diisi oleh hospital / klinik dan dihantar ke PKD dalam 24 jam selepas diagnosis. Bahagian 9 diisi oleh PKD dan JKN.'},
+    {id:'lampiran-7',src:'Lampiran 7',t:'Borang Permohonan Ujian Makmal (Spesimen Klinikal) MKAK-BPU-U01/Rev2018',k:'Borang makmal',g:'Spesimen & sampel',pdf:'L07_Borang_MKAK-BPU-U01.pdf',note:'Untuk spesimen kes disyaki dan kes DID ke MKAK. Hubungi MKAK Sungai Buloh (03-6126 1200 ext. 1287) sebelum menghantar spesimen.'},
+    {id:'lampiran-8',src:'Lampiran 8',t:'Borang Permohonan Pemeriksaan Forensik / Toksikologi (KIMIA 15-Pin.3/2020)',k:'Borang · 2 ms',g:'Kes kematian',pdf:'L08_Borang_KIMIA_15.pdf',note:'Diisi oleh pegawai perubatan untuk spesimen kes kematian; diserahkan melalui pegawai penyiasat polis. Jabatan Kimia Malaysia cawangan Alor Setar: 04-7357001.'},
+    {id:'lampiran-8a',src:'Lampiran 8A',t:'Garis Panduan Spesimen untuk Analisis bagi Kes Toksikologi',k:'Rujukan makmal',g:'Kes kematian',pdf:'L08A_Garis_Panduan_Spesimen_KIMIA.pdf'},
+    {id:'lampiran-9',src:'Lampiran 9',t:'Carta Alir Pengambilan, Penyimpanan dan Penghantaran Spesimen Klinikal',k:'Carta alir',g:'Spesimen & sampel',pdf:'L09_Carta_Alir_Spesimen_Klinikal.pdf'},
+    {id:'lampiran-10',src:'Lampiran 10',t:'Carta Alir Spesimen Klinikal Kes Kematian',k:'Carta alir',g:'Kes kematian',pdf:'L10_Carta_Alir_Spesimen_Kes_Kematian.pdf'},
+    {id:'lampiran-11a',src:'Lampiran 11A',t:'Borang 1: Siasatan Kes Keracunan Metanol (Siasatan di Hospital)',k:'Borang · 3 ms',g:'Siasatan',pdf:'L11A_Borang_1_Siasatan_Hospital.pdf',note:'Diisi oleh pasukan penyiasat hospital (UKA). Bersama Borang 2 membentuk laporan awal yang mesti sampai di IPKKM dalam 48 jam selepas PKD menerima notifikasi.'},
+    {id:'lampiran-11b',src:'Lampiran 11B',t:'Borang 2: Siasatan Kes Keracunan Metanol (Pasukan di Lapangan)',k:'Borang · 2 ms',g:'Siasatan',pdf:'L11B_Borang_2_Siasatan_Lapangan.pdf',note:'Diisi oleh pasukan lapangan PKD. Bahagian 3 diulas PKD, Bahagian 4 diulas JKN.'},
+    {id:'lampiran-11c',src:'Lampiran 11C',t:'Pelaporan Kejadian Berkaitan Kesihatan ke CPRC',k:'Borang · 2 ms',g:'Notifikasi & pelaporan',pdf:'L11C_Pelaporan_CPRC.pdf',note:'Dihantar apabila wabak dikenal pasti, selaras SPKPK Bil. 1/2006.'},
+    {id:'lampiran-12',src:'Lampiran 12',t:'Carta Alir Pengendalian Sampel Produk',k:'Carta alir',g:'Spesimen & sampel',pdf:'L12_Carta_Alir_Sampel_Produk.pdf'},
+    {id:'lampiran-13',src:'Lampiran 13',t:'Format Laporan Harian Keracunan Metanol',k:'Laporan · Word',g:'Pengurusan wabak',pdf:'L13_Laporan_Harian.pdf',docx:'L13_Laporan_Harian_Keracunan_Metanol.docx',note:'Dihantar ke IPKKM melalui JKN setiap hari sehingga wabak diisytiharkan tamat. Versi Word boleh diisi terus.'},
+    {id:'lampiran-14',src:'Lampiran 14',t:'Carta Alir Aktiviti Sewaktu Wabak Keracunan Metanol',k:'Carta alir',g:'Pengurusan wabak',pdf:'L14_Carta_Alir_Aktiviti_Wabak.pdf',note:'Klik label berwarna dalam lajur Tindakan untuk membuka borang yang digunakan pada langkah tersebut.'},
+    {id:'lampiran-15',src:'Lampiran 15',t:'Kod QR Bahan Pendidikan',k:'Pendidikan kesihatan',g:'Pengurusan wabak',pdf:'L15_Kod_QR_Bahan_Pendidikan.pdf'},
+    {id:'lampiran-16',src:'Lampiran 16',t:'Format Laporan Akhir Wabak / Sporadik',k:'Laporan · Word',g:'Notifikasi & pelaporan',pdf:'L16_Laporan_Akhir.pdf',docx:'L16_Laporan_Akhir_Wabak_Sporadik.docx',note:'Sporadik: dalam 48 jam selepas keputusan makmal. Wabak: selepas bilik gerakan ditutup. Versi Word boleh diisi terus.'}
   ];
+  var ICON={
+    back:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>',
+    print:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V3h12v6"/><rect x="6" y="14" width="12" height="7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/></svg>',
+    pdf:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M4 21h16"/></svg>',
+    doc:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6"/><path d="M8 13l1.5 5 2.5-5 2.5 5 1.5-5"/></svg>'
+  };
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c]})}
+
+  /* ---------- flowcharts ---------- */
+  var FL={L6:['lampiran-6','Borang Notifikasi'],L7:['lampiran-7','Borang MKAK-BPU-U01'],L8:['lampiran-8','Borang KIMIA 15'],L8A:['lampiran-8a','Garis Panduan Spesimen KIMIA'],L4:['lampiran-4','Carta Alir BID'],L5:['lampiran-5','Carta Alir DID'],L11A:['lampiran-11a','Borang 1: Siasatan Hospital'],L11B:['lampiran-11b','Borang 2: Siasatan Lapangan'],L11C:['lampiran-11c','Pelaporan CPRC'],L13:['lampiran-13','Laporan Harian'],L16:['lampiran-16','Laporan Akhir'],L9:['lampiran-9','Carta Alir Spesimen'],L10:['lampiran-10','Carta Alir Spesimen Kes Kematian']};
+  function fl(){var a=[].slice.call(arguments);return '<div>'+a.map(function(k){return '<a class="fl" href="#'+FL[k][0]+'">'+FL[k][1]+'</a>'}).join('')+'</div>'}
+  function st(n,h){return '<div class="num"><span>'+n+'.</span><div>'+h+'</div></div>'}
+  var FC={
+    L3:[
+      ['','o','Mula'],
+      ['Hospital /<br>Klinik Kesihatan','r',st(1,'Diagnosis Kes disyaki (<i>Suspected Case</i>) / Kes berkemungkinan (<i>Probable Case</i>) Keracunan Metanol.')],
+      ['Hospital /<br>Klinik Kesihatan','dside|Ada unsur jenayah / kematian?',st(2,'Membuat laporan polis jika ada unsur jenayah / kematian.')+fl('L4','L5')],
+      ['Hospital /<br>Klinik Kesihatan','r',st(3,'Melengkapkan Borang Notifikasi Keracunan Metanol dan menghantar kepada PKD dalam tempoh <b>24 jam</b> selepas diagnosis.')+fl('L6')],
+      ['Pejabat Kesihatan Daerah (PKD)','r',st(4,'Membuat pengesahan kes dan menghantar borang notifikasi yang disahkan kepada JKN.')],
+      ['Jabatan Kesihatan Negeri (JKN)','r',st(5,'Menghantar borang notifikasi yang telah disahkan kepada IPKKM dalam tempoh <b>24 jam</b> selepas PKD menerima notifikasi daripada hospital atau klinik kesihatan.')],
+      ['Hospital (UKA) /<br>Pejabat Kesihatan Daerah (PKD)','d|Wabak?',st(6,'Menyediakan dan menghantar laporan ke JKN setelah siasatan kes:<ul><li>Laporan awal;</li><li>Laporan aktiviti kawalan dan pencegahan.</li></ul>')+fl('L11A','L11B')],
+      ['Pejabat Kesihatan Daerah (PKD)','roff',st(7,'Menyediakan laporan tambahan jika kejadian wabak:<ul><li>Pelaporan Kejadian Berkaitan Kesihatan ke CPRC;</li><li>Laporan Harian.</li></ul>')+fl('L11C','L13')],
+      ['Jabatan Kesihatan Negeri (JKN)','r',st(8,'Membuat ulasan dan menghantar laporan awal yang telah disemak kepada IPKKM dalam tempoh <b>48 jam</b> selepas PKD menerima notifikasi daripada hospital atau klinik kesihatan.')],
+      ['Pejabat Kesihatan Daerah (PKD)','r',st(9,'Menyediakan dan menghantar laporan akhir ke JKN.')+fl('L16')],
+      ['Jabatan Kesihatan Negeri (JKN)','r',st(10,'Membuat ulasan dan menghantar laporan akhir yang lengkap kepada IPKKM:<ul><li>Sporadik - dalam tempoh <b>48 jam</b> selepas menerima keputusan makmal.</li><li>Wabak - selepas penutupan bilik gerakan.</li></ul>')],
+      ['','o','Tamat']
+    ],
+    L4:[
+      ['','o','Mula'],
+      ['Hospital / Polis Diraja Malaysia (PDRM)','r',st(1,'Mengurus penerimaan mayat yang dibawa ke hospital oleh:<ul><li>PDRM - mendaftarkan mayat di mortuari; atau</li><li>Orang awam - membawa mayat ke Jabatan Kecemasan dan Trauma untuk pengesahan kematian. Pegawai perubatan membuat laporan polis dan pihak jabatan menghantar mayat ke mortuari.</li></ul>')],
+      ['Polis Diraja Malaysia (PDRM)','dbr|Keperluan pemeriksaan bedah siasat forensik',st(2,'Memerlukan bedah siasat forensik:<ul><li>Melengkapkan Borang Permintaan Pemeriksaan Mayat, Polis 61 Pin 4/68;</li><li>Memohon ujian metanol dalam pemeriksaan toksikologi.</li></ul><p><b>ATAU</b></p><p>Tidak memerlukan bedah siasat forensik:</p><ul><li>Membuat pengesahan punca kematian (<i>Criminal Procedures Code</i>, Akta 593).</li></ul>')+fl('L8','L10')],
+      ['Hospital','r',st(3,'Melepaskan mayat kepada waris selepas selesai prosedur dan dokumentasi berkaitan.')],
+      ['','o','Tamat']
+    ],
+    L5:[
+      ['','o','Mula'],
+      ['Hospital','r',st(1,'Membuat laporan polis bagi kes kematian disyaki keracunan metanol di wad.')],
+      ['Polis Diraja Malaysia (PDRM)','dbr|Keperluan pemeriksaan bedah siasat forensik',st(2,'Memerlukan bedah siasat forensik:<ul><li>Melengkapkan Borang Permintaan Pemeriksaan Mayat, Polis 61 Pin 4/68.</li></ul><p><b>ATAU</b></p><p>Tidak memerlukan bedah siasat forensik:</p><ul><li>Menggunakan <i>cause of death</i> (COD) yang disahkan oleh pakar perubatan atau pegawai perubatan.</li></ul>')+fl('L10')],
+      ['Hospital','r',st(3,'Membawa mayat ke mortuari beserta dokumen berkaitan.')],
+      ['Hospital','r',st(4,'Melepaskan mayat kepada waris selepas selesai prosedur dan dokumentasi berkaitan.')],
+      ['','o','Tamat']
+    ],
+    L9:[
+      ['','o','Mula'],
+      ['Hospital','r',st(1,'Mengambil spesimen darah dan urin:<ul><li>Darah: 3 ml (bekas <i>sodium fluoride</i>, penutup kelabu);</li><li>Urin: 3 mL (bekas <i>sodium fluoride</i>, penutup kelabu) atau 25 ml (botol universal + 1% <i>sodium fluoride</i>).</li></ul>')],
+      ['Hospital','r',st(2,'Melengkapkan borang MKAK-BPU-U01/Rev2018, melabel spesimen dan menghantar spesimen ke makmal hospital dengan segera.')+fl('L7')],
+      ['Hospital','r',st(3,'Menghantar spesimen segera ke makmal yang disenaraikan di bawah menggunakan <i>cool box</i> berisi ais mengikut SOP <i>Transport of Biological Specimens</i> in Malaysia. Jika penghantaran tertangguh, simpan spesimen pada suhu 2-8°C.<ul><li><b>Makmal Kesihatan Awam Kebangsaan (MKAK)</b><ul><li>Unit Biokimia, Makmal Kesihatan Awam Kebangsaan, Sungai Buloh</li><li>Tel : 03-6126 1200 Ext : 1287</li></ul></li><li><b>Jabatan Kimia Malaysia (KIMIA)*</b><ul><li>Unit Toksikologi, Jabatan Kimia Malaysia</li></ul></li></ul><p>*Bantuan jika berlaku wabak</p>')],
+      ['MKAK / KIMIA','r',st(4,'Memaklumkan keputusan makmal kepada pegawai pemohon. Salinan keputusan ujian metanol yang positif hendaklah dihantar kepada JKN dan IPKKM.')],
+      ['','o','Tamat']
+    ],
+    L10:[
+      ['','o','Mula'],
+      ['Hospital','r',st(1,'Mengambil dan melabel spesimen darah, urin, <i>vitreous humour</i>, cecair hempedu (<i>bile</i>) &amp; <i>gastric content.</i>')],
+      ['Hospital &amp; Polis Diraja Malaysia (PDRM)','br',st(2,'Menghantar ke <b>KIMIA</b> bagi:<ul><li>spesimen darah, urin, <i>vitreous humour</i>, cecair hempedu (<i>bile</i>) &amp; <i>gastric content;</i></li><li>Menghantar bersama Borang Kimia 15-Pin.3/2020 melalui pegawai penyiasat polis.</li></ul><p><b>ATAU</b></p><p>Menghantar ke <b>MKAK</b> (contohnya kes DID) bagi:</p><ul><li>3ml spesimen darah, urin &amp; vitreous humor di dalam bekas <i>sodium fluoride vacutainer</i> (penutup kelabu);</li><li>Menghantar dengan segera bersama Borang MKAK-BPU-U01/Rev2018 yang lengkap.</li></ul><p>*Menghantar spesimen menggunakan kotak sejuk (<i>cool box</i>) berisi ais mengikut tatacara dalam <i>SOP Transport of Biological Specimens in Malaysia</i>. Menyimpan spesimen pada suhu 2–8°C jika penghantaran tertangguh.</p>')+fl('L8','L8A','L7')],
+      ['MKAK / KIMIA','r',st(3,'Memaklumkan keputusan makmal kepada pegawai pemohon. Salinan keputusan ujian metanol yang positif hendaklah dihantar kepada JKN dan IPKKM.')],
+      ['','o','Tamat']
+    ],
+    L12:[
+      ['','o','Mula'],
+      ['Pejabat Kesihatan Daerah (PKD)','r',st(1,'Mengambil sampel produk:<ul><li>Sampel produk formal (250ml) atau sampel baki daripada hospital;</li><li>Melabelkan sampel dengan maklumat pengenalan kes dan butiran produk serta melak sampel;*</li><li>Memastikan suhu sampel produk dalam keadaan sejuk/suhu bilik (tidak melebihi suhu bilik) dan <b>tidak dibekukan.</b></li></ul><p>*Mengikut SOP-PKKM-PD-03</p>')],
+      ['Pejabat Kesihatan Daerah (PKD)','r',st(2,'Melengkapkan maklumat sampel menggunakan:<ul><li>Borang Permintaan Analisis (Borang A); Peraturan 7(1), Akta Makanan 1983 dan Peraturan-Peraturan Makanan 1985.</li></ul>')],
+      ['Pejabat Kesihatan Daerah (PKD)','r',st(3,'Menghantar sampel produk bagi analisis metanol kepada:<ul><li>Makmal Keselamatan dan Kualiti Makanan (MKKM); <b>atau</b></li><li>Makmal Kesihatan Awam Kebangsaan (MKAK)<ul><li>Unit Standard dan Pelabelan Pemakanan</li></ul></li></ul>')],
+      ['MKKM / MKAK','r',st(4,'Keputusan makmal dimaklumkan kepada pemohon. Salinan keputusan ujian metanol yang positif hendaklah dihantar kepada JKN dan IPKKM.')],
+      ['','o','Tamat']
+    ],
+    L14:[
+      ['','o','Mula'],
+      ['Hospital','r',st(1,'Menghantar notifikasi keracunan metanol kepada PKD dalam tempoh 24 jam selepas diagnosis. Laporan polis dibuat bagi kes jenayah atau kematian.')+fl('L6')],
+      ['Pejabat Kesihatan Daerah (PKD)','r',st(2,'Membuat pengesahan dan menghantar borang notifikasi yang disahkan kepada JKN.')],
+      ['Jabatan Kesihatan Negeri (JKN)','r',st(3,'Menghantar borang notifikasi yang telah disahkan kepada IPKKM dalam tempoh 24 jam selepas PKD menerima notifikasi daripada hospital atau klinik kesihatan.')],
+      ['Hospital (UKA) / Pejabat Kesihatan Daerah (PKD)','r',st(4,'Menjalankan siasatan kes dan mengenal pasti wabak.')+fl('L11A','L11B')],
+      ['Pejabat Kesihatan Daerah (PKD)','r',st(5,'Mengaktifkan bilik gerakan apabila berlaku wabak. Menyediakan dan menghantar laporan berkaitan kepada JKN:<ul><li>Laporan awal;</li><li>Aktiviti kawalan dan pencegahan;</li><li>Pelaporan Kejadian Berkaitan Kesihatan ke CPRC;</li><li>Laporan Harian.</li></ul>')+fl('L11C','L13')],
+      ['Jabatan Kesihatan Negeri (JKN)','r',st(6,'Membuat ulasan dan menghantar laporan berkaitan kepada IPKKM.')],
+      ['Pejabat Kesihatan Daerah (PKD)','r',st(7,'Melaksanakan tindakan di lapangan.')],
+      ['Pejabat Kesihatan Daerah (PKD)','r',st(8,'Mengadakan mesyuarat harian di bilik gerakan:<ul><li>Menerima maklum balas dan laporan;</li><li>Menilai dan menganalisis data atau maklumat;</li><li>Merancang tindakan selanjutnya;</li><li>Menyelaras tindakan antara jabatan (contohnya PDRM, JKDM dan PBT);</li><li>Mendokumentasikan aktiviti dan menyediakan laporan berkala.</li></ul>')],
+      ['Pejabat Kesihatan Daerah (PKD)','r',st(9,'Menutup bilik gerakan sekiranya tiada kes baharu dilaporkan dalam tempoh 10 hari selepas kes terakhir.')],
+      ['Pejabat Kesihatan Daerah (PKD)','r',st(10,'Menyediakan dan menghantar laporan akhir wabak kepada JKN selepas bilik gerakan ditutup.')+fl('L16')],
+      ['Jabatan Kesihatan Negeri (JKN)','r',st(11,'Membuat ulasan dan menghantar laporan akhir yang lengkap kepada IPKKM.')],
+      ['','o','Tamat']
+    ]
+  };
+  function sym(s){
+    var p=s.split('|'),k=p[0],lab=p[1]||'';
+    if(k==='o')return '<div class="pkw"><span class="o"></span></div>';
+    if(k==='r')return '<div class="pkw"><span class="rc"></span></div>';
+    if(k==='roff')return '<div class="pkw off"><span class="rc"></span></div>';
+    if(k==='d')return '<div class="pkw"><span class="lb ya">Ya</span><span class="dm"></span><span class="lb tdr">'+lab+'</span><span class="lb td">Tidak</span></div>';
+    if(k==='dside')return '<div class="pkw"><span class="side"></span><span class="lb ya">Ya</span><span class="dm"></span><span class="lb tr">'+lab+'</span><span class="lb td">Tidak</span></div>';
+    if(k==='dbr')return '<div class="pkw" style="flex-direction:column;gap:3mm"><span class="lb tr" style="top:0">'+lab+'</span><span class="dm" style="margin-top:9mm"></span><div class="pkw br" style="width:100%;padding:0"><span style="font-size:7.5pt;position:absolute;left:8%;top:-3mm">Ya</span><span class="rc"></span><span class="rc"></span><span style="font-size:7.5pt;position:absolute;right:8%;top:-3mm">Tidak</span></div></div>';
+    if(k==='br')return '<div class="pkw br"><span class="rc"></span><span class="rc"></span></div>';
+    return '';
+  }
+  document.querySelectorAll('[data-fc]').forEach(function(el){
+    var rows=FC[el.getAttribute('data-fc')];
+    var h='<table class="fc3"><tr><th>TANGGUNGJAWAB</th><th>PROSES KERJA</th><th>TINDAKAN</th></tr>';
+    rows.forEach(function(r,i){
+      var cls=i===0?'first':(i===rows.length-1?'last':'');
+      var ct=(r[1]==='o');
+      h+='<tr class="'+cls+'"><td class="r">'+r[0]+'</td><td class="pk">'+sym(r[1])+'</td><td class="t'+(ct?' ct':'')+'">'+r[2]+'</td></tr>';
+    });
+    el.innerHTML=h+'</table>';
+  });
+
+  /* ---------- lampiran index ---------- */
   var groups=['Klinikal','Notifikasi & pelaporan','Siasatan','Spesimen & sampel','Kes kematian','Pengurusan wabak'];
   var idx=document.getElementById('lampIndex'),h='';
   groups.forEach(function(g){
     h+='<div class="lgroup"><h3>'+g+'</h3><div class="lgrid">';
     L.filter(function(x){return x.g===g}).forEach(function(x){
-      h+='<a class="lcard" href="#'+x.id+'"><span class="no'+(x.scan?' scan':'')+'">'+x.no+'</span><span><b>'+x.t+'</b><small>'+(x.scan?'Borang asal · GP '+x.scan:'Format A4 sedia cetak')+'</small></span></a>';
+      var no=x.src.replace(/^(Lampiran|Rajah) /,(x.src.indexOf('Rajah')===0?'R':''));
+      h+='<a class="lcard" href="#'+x.id+'"><span class="no">'+no+'</span><span><b>'+esc(x.t)+'</b><small>'+esc(x.src)+' · '+esc(x.k)+(x.docx?' · .docx':'')+' · PDF</small></span></a>';
     });
     h+='</div></div>';
   });
   idx.innerHTML=h;
 
+  /* ---------- viewer bars ---------- */
+  L.forEach(function(x,i){
+    var sec=document.getElementById(x.id);if(!sec)return;
+    var prev=L[i-1],next=L[i+1];
+    var acts='<button class="btn amb" type="button" data-print>'+ICON.print+'Cetak</button>'+
+      '<a class="btn" href="files/'+x.pdf+'" target="_blank" rel="noopener">'+ICON.pdf+'PDF</a>'+
+      (x.docx?'<a class="btn" href="files/'+x.docx+'" target="_blank" rel="noopener">'+ICON.doc+'Word (.docx)</a>':'');
+    var bar=document.createElement('div');bar.className='vbar gut';
+    bar.innerHTML='<div class="wrap"><a class="btn" href="#lampiran">'+ICON.back+'Semua</a><div class="vt"><small>'+esc(x.src)+'</small><h2>'+esc(x.t)+'</h2></div><div class="acts">'+acts+'</div></div>';
+    sec.insertBefore(bar,sec.firstChild);
+    var shs=sec.querySelector('.sheets');if(shs)shs.classList.add('gut');
+    var w=document.createElement('div');w.className='gut';
+    sec.insertBefore(w,bar.nextSibling);
+    if(x.note){var p=document.createElement('p');p.className='vnote';p.textContent=x.note;w.appendChild(p)}
+    var pg=document.createElement('div');pg.className='pager gut';
+    pg.innerHTML=(prev?'<a class="btn" href="#'+prev.id+'">← '+esc(prev.src)+'</a>':'<span></span>')+(next?'<a class="btn" href="#'+next.id+'">'+esc(next.src)+' →</a>':'<span></span>');
+    sec.appendChild(pg);
+  });
+  document.addEventListener('click',function(e){var b=e.target.closest('[data-print]');if(b){try{window.print()}catch(err){}}});
+
   /* ---------- routing ---------- */
-  var cur=-1;
-  function show(id){
-    var i=-1;for(var k=0;k<L.length;k++)if(L[k].id===id)i=k;
-    if(i<0){document.body.classList.remove('lv');cur=-1;return false}
-    cur=i;var x=L[i];
-    document.body.classList.add('lv');
-    document.querySelectorAll('.lview').forEach(function(s){s.classList.remove('on')});
-    var el=x.scan?document.getElementById('lampiran-scan'):document.getElementById(x.id);
-    if(x.scan){
-      document.getElementById('scanNo').textContent=x.no==='R1'?'RAJAH 1':'LAMPIRAN '+x.no;
-      document.getElementById('scanTitle').textContent=x.t;
-      document.getElementById('scanDesc').textContent=x.d;
-      document.getElementById('scanPage').textContent=x.scan;
-    }
-    el.classList.add('on');
-    document.getElementById('vTitle').textContent=(x.no==='R1'?'Rajah 1':'Lampiran '+x.no)+' · '+x.t;
-    window.scrollTo(0,0);
-    return true;
-  }
   function route(){
-    var hsh=(location.hash||'').slice(1);
-    if(!show(hsh)&&hsh){var t=document.getElementById(hsh);if(t)t.scrollIntoView()}
+    var hs=(location.hash||'').slice(1),x=null;
+    for(var k=0;k<L.length;k++)if(L[k].id===hs)x=L[k];
+    document.querySelectorAll('.lview').forEach(function(s){s.classList.remove('on')});
+    if(x){
+      document.getElementById(x.id).classList.add('on');
+      document.body.classList.add('lv');
+      document.title=x.src+' – Hub Sehenti Keracunan Metanol';
+      window.scrollTo(0,0);
+    } else {
+      var was=document.body.classList.contains('lv');
+      document.body.classList.remove('lv');
+      document.title='Hub Sehenti Keracunan Metanol';
+      if(hs){var t=document.getElementById(hs);if(t&&(was||true))t.scrollIntoView()}
+    }
   }
   window.addEventListener('hashchange',route);
-  document.getElementById('vBack').onclick=function(){document.body.classList.remove('lv');history.replaceState(null,'',location.pathname+location.search);var t=document.getElementById('lampiran');if(t)t.scrollIntoView()};
-  document.getElementById('vPrev').onclick=function(){location.hash=L[(cur-1+L.length)%L.length].id};
-  document.getElementById('vNext').onclick=function(){location.hash=L[(cur+1)%L.length].id};
-  document.getElementById('vPrint').onclick=function(){try{window.print()}catch(e){}};
 
   /* rail highlight */
   var links=[].slice.call(document.querySelectorAll('#railList a'));
@@ -1315,104 +1758,98 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
     document.querySelectorAll('main .sec').forEach(function(s){io.observe(s)});
   }
 
-  /* ---------- classification wizard ---------- */
-  var W=document.getElementById('wizBody'),hist=[],ans={};
+  /* ---------- classification wizard (follows Rajah 1) ---------- */
+  var W=document.getElementById('wizBody');
+  var YN=[['Ya','1'],['Tidak','0']],LAB3=[['Positif','pos'],['Negatif','neg'],['Belum ada keputusan','pend']];
   var STEPS={
-    exp:{q:'Adakah individu disyaki mengambil minuman beralkohol atau bahan berpotensi mengandungi metanol dalam tempoh 5 hari sebelum bergejala?',hint:'Termasuk minuman tanpa label lengkap, tanpa setem eksais, buatan sendiri, atau daripada sumber yang sama dengan kes lain.',y:'sym',n:'R_none'},
-    sym:{q:'Adakah terdapat sekurang-kurangnya satu gejala dalam tempoh 5 hari selepas pengambilan?',hint:'<ul><li>Penglihatan kabur secara tiba-tiba</li><li>Hiperventilasi atau sesak nafas</li><li>Loya, muntah atau sakit perut</li><li>Sakit kepala, keliru, sawan, pengsan atau koma</li></ul>',y:'lab',n:'R_asym'},
-    lab:{q:'Adakah ujian darah atau urin telah mengesan kehadiran metanol?',hint:'Pilih Tidak jika keputusan belum diterima atau negatif.',y:'R_conf',n:'epi'},
-    epi:{q:'Adakah individu mempunyai hubung kait epidemiologi dengan kes disahkan?',hint:'Contoh: minum bersama, membeli daripada penjual atau premis yang sama, atau hadir di majlis yang sama.',y:'R_prob1',n:'biochem'},
-    biochem:{q:'Tandakan penemuan biokimia yang ada',hint:'HAGMA memerlukan sekurang-kurangnya 2 daripada 3 kriteria pertama.',checks:[['ph','pH arteri < 7.35'],['hco3','Bikarbonat serum < 20 mmol/L'],['ag','Anion gap serum > 12 mEq/L'],['og','Osmolal gap > 10 mOsm/L']]}
+    exp:{l:'Pendedahan',q:'Adakah individu disyaki mengambil minuman beralkohol atau bahan berpotensi mengandungi metanol dalam tempoh 5 hari sebelum bergejala?',hint:'Termasuk minuman tanpa label lengkap, tanpa setem eksais, buatan sendiri, atau daripada sumber yang sama dengan kes lain.',o:YN,go:{'1':'sym','0':'R_none'}},
+    sym:{l:'Gejala',q:'Adakah terdapat sekurang-kurangnya satu gejala dalam tempoh 5 hari selepas pengambilan?',hint:'<ul><li>Penglihatan kabur secara tiba-tiba</li><li>Hiperventilasi atau sesak nafas</li><li>Loya, muntah atau sakit perut</li><li>Sakit kepala, keliru, sawan, pengsan atau koma</li></ul>',o:YN,go:{'1':'epi','0':'R_asym'}},
+    epi:{l:'Epid link',q:'Kes disyaki. Adakah individu mempunyai hubung kait epidemiologi dengan kes disahkan?',hint:'Contoh: minum bersama, membeli daripada penjual atau premis yang sama, atau hadir di majlis yang sama.',o:YN,go:{'1':'labP','0':'bio'}},
+    bio:{l:'Biokimia',q:'Tandakan penemuan biokimia yang ada',hint:'<i>High anion gap metabolic acidosis</i> memerlukan sekurang-kurangnya 2 daripada 3 kriteria pertama.',checks:[['ph','pH arteri < 7.35'],['hco3','Bikarbonat serum < 20 mmol/L'],['ag','Anion gap serum > 12 mEq/L'],['og','Osmolal gap > 10 mOsm/L']]},
+    labP:{l:'Metanol darah/urin',q:'Kes berkemungkinan. Apakah keputusan ujian metanol darah / urin?',hint:'Spesimen sebaiknya diambil sebelum rawatan etanol dan dalam 48 jam selepas pendedahan.',o:LAB3,go:{pos:'R_conf',neg:'R_prob',pend:'R_prob'}},
+    labS:{l:'Metanol darah/urin',q:'Tiada hubung kait epidemiologi dan tiada HAGMA / osmolal gap. Apakah keputusan ujian metanol darah / urin?',hint:'Mengikut Rajah 1, keputusan negatif pada peringkat ini bermaksud bukan keracunan metanol.',o:LAB3,go:{pos:'R_conf',neg:'R_bukan',pend:'R_susp'}}
   };
-  var NOTIFY='<li>Notifikasi kepada PKD dalam <b>24 jam</b> selepas diagnosis menggunakan Lampiran 6.</li>';
-  var SPEC='<li>Ambil darah (3 ml, penutup kelabu, jangan empar) dan urin <b>sebelum rawatan</b>; hantar ke MKAK (Lampiran 7, 9).</li>';
-  var POL='<li>Laporan polis jika ada unsur jenayah atau kematian (Lampiran 3, 4, 5).</li>';
+  var NOTIFY='<li>Notifikasi kepada PKD dalam <b>24 jam</b> selepas diagnosis (<a href="#lampiran-6">Borang Notifikasi</a>).</li>';
+  var SPEC='<li>Ambil darah (3 ml, penutup kelabu, jangan empar) dan urin <b>sebelum rawatan</b>; hantar ke MKAK dengan <a href="#lampiran-7">Borang MKAK-BPU-U01</a>.</li>';
+  var POL='<li>Laporan polis jika ada unsur jenayah atau kematian.</li>';
   var RES={
-    R_none:{c:'n',t:'Tidak memenuhi definisi kes',p:'Tiada sejarah pendedahan dalam 5 hari. Pertimbangkan diagnosis lain.',a:'<li>Jika maklumat pendedahan berubah, nilai semula.</li>'},
-    R_asym:{c:'n',t:'Belum memenuhi kes disyaki',p:'Ada pendedahan tetapi tiada gejala dalam 5 hari.',a:'<li>Jika ada hubung kait epidemiologi dengan kes disahkan, pantau di hospital atau di rumah selepas penilaian klinikal.</li><li>Nasihatkan segera ke hospital jika gejala muncul; gejala boleh lewat sehingga 72–96 jam jika diminum bersama etanol.</li>'},
-    R_susp:{c:'s',t:'Kes disyaki',p:'Memenuhi kriteria A dan B, tanpa hubung kait epidemiologi atau penemuan biokimia yang mencukupi setakat ini.',a:NOTIFY+SPEC+'<li>Masukkan ke wad untuk siasatan lanjut. Ulang penilaian ABG, anion gap dan osmolal gap.</li>'+POL},
-    R_prob1:{c:'p',t:'Kes berkemungkinan (Situasi 1)',p:'Kes disyaki dengan hubung kait epidemiologi kepada kes disahkan.',a:NOTIFY+SPEC+'<li>Mulakan rawatan mengikut Lampiran 1 tanpa menunggu keputusan metanol.</li><li>Dua atau lebih kes berkemungkinan atau disahkan yang berkait ialah <b>wabak</b>: maklumkan PKD untuk aktifkan bilik gerakan.</li>'+POL},
-    R_prob2:{c:'p',t:'Kes berkemungkinan (Situasi 2)',p:'Kes disyaki dengan HAGMA atau osmolal gap > 10 mOsm/L.',a:NOTIFY+SPEC+'<li>Mulakan antidot dan pertimbangkan hemodialisis mengikut Lampiran 1.</li>'+POL},
-    R_conf:{c:'c',t:'Kes disahkan',p:'Metanol dikesan dalam darah atau urin.',a:'<li>Kemas kini kategori notifikasi kepada kes disahkan.</li><li>Makmal hantar salinan keputusan positif kepada JKN dan IPKKM.</li><li>Satu kes tanpa hubung kait = <b>sporadik</b>: laporan akhir dalam 48 jam selepas keputusan makmal. Kes berkait = <b>wabak</b>.</li>'+POL}
+    R_none:{c:'n',t:'Tidak memenuhi definisi kes',p:'Tiada sejarah pengambilan dalam 5 hari. Pertimbangkan diagnosis lain.',a:'<li>Nilai semula jika maklumat pendedahan berubah.</li>'},
+    R_asym:{c:'n',t:'Bukan keracunan metanol (tiada gejala)',p:'Mengikut Rajah 1, individu terdedah tanpa gejala tidak memenuhi definisi kes.',a:'<li>Jika ada hubung kait epidemiologi dengan kes disahkan, pantau di hospital atau di rumah selepas penilaian klinikal.</li><li>Nasihatkan segera ke hospital jika gejala muncul; gejala boleh lewat sehingga 72–96 jam jika diminum bersama etanol.</li>'},
+    R_susp:{c:'s',t:'Kes disyaki',p:'Menunggu keputusan ujian metanol. Tiada hubung kait epidemiologi atau penemuan biokimia setakat ini.',a:NOTIFY+SPEC+'<li>Masukkan ke wad untuk siasatan lanjut. Ulang ABG, anion gap dan osmolal gap.</li>'+POL},
+    R_prob:{c:'p',t:'Kes berkemungkinan',p:'',a:NOTIFY+SPEC+'<li>Mulakan rawatan mengikut Lampiran 1 tanpa menunggu keputusan metanol.</li><li>Dua atau lebih kes berkemungkinan atau disahkan yang berkait ialah <b>wabak</b>: maklumkan PKD untuk aktifkan bilik gerakan.</li>'+POL},
+    R_conf:{c:'c',t:'Kes disahkan',p:'Metanol dikesan dalam darah atau urin.',a:'<li>Kemas kini kategori notifikasi kepada kes disahkan.</li><li>Makmal hantar salinan keputusan positif kepada JKN dan IPKKM.</li><li>Satu kes tanpa hubung kait = <b>sporadik</b>: laporan akhir dalam 48 jam selepas keputusan makmal. Kes berkait = <b>wabak</b>.</li>'+POL},
+    R_bukan:{c:'n',t:'Bukan keracunan metanol',p:'Kes disyaki tanpa hubung kait epidemiologi, tanpa HAGMA atau osmolal gap, dan ujian metanol negatif.',a:'<li>Kemas kini klasifikasi akhir dalam Borang 2 sebagai bukan keracunan metanol.</li><li>Teruskan siasatan diagnosis lain.</li>'}
   };
-  var LAB={exp:'Pendedahan',sym:'Gejala',lab:'Metanol dikesan',epi:'Hubung kait epid.',biochem:'Biokimia'};
+  var stack=[{k:'exp'}];
   function trail(){
-    if(!hist.length)return '';
-    return '<div class="trail">'+hist.map(function(k){return '<span>'+LAB[k]+': <b>'+ans[k]+'</b></span>'}).join('')+'</div>';
+    return stack.length>1?'<div class="trail">'+stack.slice(0,-1).map(function(s){return '<span>'+STEPS[s.k].l+': <b>'+s.a+'</b></span>'}).join('')+'</div>':'';
   }
-  function render(k){
-    var s=STEPS[k];
-    if(!s){var r=RES[k];
-      W.innerHTML=trail()+'<div class="verdict '+r.c+'"><h4>'+r.t+'</h4><p>'+r.p+'</p></div><p style="margin-top:16px;font-weight:700">Tindakan seterusnya</p><ul class="acts">'+r.a+'</ul><div class="btns"><button class="btn" type="button" data-undo>Undur</button><button class="btn pri" type="button" data-reset>Mula semula</button></div>';
+  function render(){
+    var top=stack[stack.length-1],k=top.k,s=STEPS[k],undo=stack.length>1?'<button class="btn" type="button" data-undo>Undur</button>':'';
+    if(!s){var r=RES[k],p=r.p||(top.why||'');
+      W.innerHTML=trail()+'<div class="verdict '+r.c+'"><h4>'+r.t+'</h4>'+(p?'<p>'+p+'</p>':'')+'</div><p style="margin-top:16px;font-weight:700">Tindakan seterusnya</p><ul class="acts">'+r.a+'</ul><div class="btns">'+undo+'<button class="btn pri" type="button" data-reset>Mula semula</button></div>';
       return;}
-    var body='<p class="small muted">Soalan '+(hist.length+1)+'</p><p class="q">'+s.q+'</p><div class="q-hint">'+s.hint+'</div>';
+    var b='<p class="small muted">Langkah '+stack.length+'</p><p class="q">'+s.q+'</p><div class="q-hint">'+s.hint+'</div>';
     if(s.checks){
-      body+='<div class="checks">'+s.checks.map(function(c){return '<label><input type="checkbox" id="wz_'+c[0]+'" value="'+c[0]+'"><span>'+c[1]+'</span></label>'}).join('')+'</div><div class="btns"><button class="btn pri" type="button" data-chk>Teruskan</button>'+(hist.length?'<button class="btn" type="button" data-undo>Undur</button>':'')+'</div>';
+      b+='<div class="checks">'+s.checks.map(function(c){return '<label><input type="checkbox" id="wz_'+c[0]+'"><span>'+esc(c[1])+'</span></label>'}).join('')+'</div><div class="btns"><button class="btn pri" type="button" data-chk>Teruskan</button>'+undo+'</div>';
     } else {
-      body+='<div class="btns"><button class="btn pri" type="button" data-a="1">Ya</button><button class="btn" type="button" data-a="0">Tidak</button>'+(hist.length?'<button class="btn" type="button" data-undo>Undur</button>':'')+'</div>';
+      b+='<div class="btns">'+s.o.map(function(o,i){return '<button class="btn'+(i===0?' pri':'')+'" type="button" data-a="'+o[1]+'" data-t="'+o[0]+'">'+o[0]+'</button>'}).join('')+undo+'</div>';
     }
-    W.innerHTML=trail()+body;W.dataset.k=k;
+    W.innerHTML=trail()+b;
   }
-  var stack=['exp'];
   W.addEventListener('click',function(e){
-    var b=e.target.closest('button');if(!b)return;var k=stack[stack.length-1];
-    if(b.hasAttribute('data-reset')){stack=['exp'];hist=[];ans={};render('exp');return}
-    if(b.hasAttribute('data-undo')){stack.pop();var pk=hist.pop();delete ans[pk];render(stack[stack.length-1]);return}
-    var nx;
-    if(b.hasAttribute('data-a')){var y=b.getAttribute('data-a')==='1';ans[k]=y?'Ya':'Tidak';nx=y?STEPS[k].y:STEPS[k].n}
-    if(b.hasAttribute('data-chk')){
-      var v={};['ph','hco3','ag','og'].forEach(function(c){v[c]=document.getElementById('wz_'+c).checked});
-      var n=(v.ph?1:0)+(v.hco3?1:0)+(v.ag?1:0);
-      var hag=n>=2;ans[k]=(hag?'HAGMA':'tiada HAGMA')+(v.og?' · OG > 10':'');
-      nx=(hag||v.og)?'R_prob2':'R_susp';
+    var bt=e.target.closest('button');if(!bt)return;var top=stack[stack.length-1];
+    if(bt.hasAttribute('data-reset')){stack=[{k:'exp'}];render();return}
+    if(bt.hasAttribute('data-undo')){stack.pop();delete stack[stack.length-1].a;render();return}
+    var nx,why='';
+    if(bt.hasAttribute('data-a')){top.a=bt.getAttribute('data-t');nx=STEPS[top.k].go[bt.getAttribute('data-a')];
+      if(top.k==='epi'&&nx==='labP')why='Situasi 1: kes disyaki dengan hubung kait epidemiologi kepada kes disahkan.';
+      if(top.k==='labP'){why=stack.filter(function(s){return s.k==='bio'}).length?'Situasi 2: kes disyaki dengan HAGMA atau osmolal gap &gt; 10 mOsm/L.':'Situasi 1: kes disyaki dengan hubung kait epidemiologi kepada kes disahkan.';if(top.a!=='Positif')why+=' Keputusan metanol '+(top.a==='Negatif'?'negatif tidak menolak klasifikasi ini.':'belum diterima.')}
     }
-    if(!nx)return;hist.push(k);stack.push(nx);render(nx);
+    if(bt.hasAttribute('data-chk')){
+      var v={};['ph','hco3','ag','og'].forEach(function(c){v[c]=document.getElementById('wz_'+c).checked});
+      var n=(v.ph?1:0)+(v.hco3?1:0)+(v.ag?1:0),hag=n>=2;
+      top.a=(hag?'HAGMA':'tiada HAGMA')+(v.og?' · OG > 10':'');
+      nx=(hag||v.og)?'labP':'labS';
+    }
+    if(!nx)return;stack.push({k:nx,why:why});render();
   });
-  render('exp');
+  render();
 
   /* ---------- gap calculator ---------- */
   function num(id){var v=parseFloat(document.getElementById(id).value);return isNaN(v)?null:v}
+  function card(v,l,hi,a,b){return '<div class="res"><b>'+v+'</b><span>'+l+'</span><br><span class="flag '+(hi?'hi':'ok')+'">'+(hi?'Meningkat '+a:'Dalam had '+b)+'</span></div>'}
   function calc(){
-    var na=num('cNa'),k=num('cK'),cl=num('cCl'),hc=num('cHCO3'),u=num('cUrea'),g=num('cGlu'),et=num('cEtoh'),om=num('cOsm'),ph=num('cPH');
-    var o='';
-    if(na!==null&&k!==null&&cl!==null&&hc!==null){
-      var ag=(na+k)-(hc+cl);
-      o+=card(ag.toFixed(1),'Anion gap, mEq/L',ag>12,'> 12','≤ 12');
-    }
-    if(na!==null&&k!==null&&u!==null&&g!==null&&om!==null){
-      var co=2*(na+k)+u+g+(et||0),og=om-co;
-      o+=card(og.toFixed(1),'Osmolal gap, mOsm/L (kiraan '+co.toFixed(0)+')',og>10,'> 10','≤ 10');
-    }
-    var n=0;if(ph!==null&&ph<7.35)n++;if(hc!==null&&hc<20)n++;if(na!==null&&k!==null&&cl!==null&&hc!==null&&((na+k)-(hc+cl))>12)n++;
+    var na=num('cNa'),k=num('cK'),cl=num('cCl'),hc=num('cHCO3'),u=num('cUrea'),g=num('cGlu'),et=num('cEtoh'),om=num('cOsm'),ph=num('cPH'),o='',ag=null;
+    if(na!==null&&k!==null&&cl!==null&&hc!==null){ag=(na+k)-(hc+cl);o+=card(ag.toFixed(1),'Anion gap, mEq/L',ag>12,'> 12','≤ 12')}
+    if(na!==null&&k!==null&&u!==null&&g!==null&&om!==null){var co=2*(na+k)+u+g+(et||0),og=om-co;o+=card(og.toFixed(1),'Osmolal gap, mOsm/L (kiraan '+co.toFixed(0)+')',og>10,'> 10','≤ 10')}
+    var n=0;if(ph!==null&&ph<7.35)n++;if(hc!==null&&hc<20)n++;if(ag!==null&&ag>12)n++;
     o+='<div class="res"><b>'+n+' / 3</b><span>kriteria HAGMA dipenuhi (pH, HCO₃, AG)</span><br><span class="flag '+(n>=2?'hi':'ok')+'">'+(n>=2?'HAGMA: kriteria kes berkemungkinan':'Belum memenuhi HAGMA')+'</span></div>';
     document.getElementById('calcOut').innerHTML=o;
   }
-  function card(v,l,hi,a,b){return '<div class="res"><b>'+v+'</b><span>'+l+'</span><br><span class="flag '+(hi?'hi':'ok')+'">'+(hi?'Meningkat '+a:'Dalam had '+b)+'</span></div>'}
   ['cNa','cK','cCl','cHCO3','cUrea','cGlu','cEtoh','cOsm','cPH'].forEach(function(id){document.getElementById(id).addEventListener('input',calc)});
   calc();
 
   /* ---------- deadline calculator ---------- */
   var HARI=['Ahad','Isnin','Selasa','Rabu','Khamis','Jumaat','Sabtu'],BLN=['Jan','Feb','Mac','Apr','Mei','Jun','Jul','Ogo','Sep','Okt','Nov','Dis'];
-  function fmt(d,t){var s=HARI[d.getDay()]+', '+d.getDate()+' '+BLN[d.getMonth()]+' '+d.getFullYear();if(t){s+=' · '+('0'+d.getHours()).slice(-2)+':'+('0'+d.getMinutes()).slice(-2)}return s}
+  function fmt(d,t){var s=HARI[d.getDay()]+', '+d.getDate()+' '+BLN[d.getMonth()]+' '+d.getFullYear();if(t)s+=' · '+('0'+d.getHours()).slice(-2)+':'+('0'+d.getMinutes()).slice(-2);return s}
   function dl(){
-    var dx=document.getElementById('dDx').value,pk=document.getElementById('dPkd').value,la=document.getElementById('dLast').value,o='';
+    var dx=document.getElementById('dDx').value,pk=document.getElementById('dPkd').value,la=document.getElementById('dLast').value,o='',H=3600e3;
     function row(t,s,d,tm){o+='<div><span><strong>'+t+'</strong><small>'+s+'</small></span><b>'+(d?fmt(d,tm):'—')+'</b></div>'}
-    var H=3600e3;
     row('Notifikasi sampai PKD','Hospital / KK · 24 j selepas diagnosis',dx?new Date(new Date(dx).getTime()+24*H):null,1);
     row('Borang notifikasi disahkan sampai IPKKM','PKD → JKN → IPKKM · 24 j selepas PKD terima',pk?new Date(new Date(pk).getTime()+24*H):null,1);
     row('Laporan awal sampai IPKKM','Borang 1 dan 2 · 48 j selepas PKD terima',pk?new Date(new Date(pk).getTime()+48*H):null,1);
-    var cl=null;if(la){var p=la.split('-');cl=new Date(+p[0],+p[1]-1,+p[2]+10)}
-    row('Bilik gerakan boleh ditutup','Jika tiada kes baharu dalam 10 hari selepas kes terakhir',cl,0);
+    var c=null;if(la){var p=la.split('-');c=new Date(+p[0],+p[1]-1,+p[2]+10)}
+    row('Bilik gerakan boleh ditutup','Jika tiada kes baharu dalam 10 hari selepas kes terakhir',c,0);
     document.getElementById('dOut').innerHTML=o;
   }
   ['dDx','dPkd','dLast'].forEach(function(id){document.getElementById(id).addEventListener('input',dl)});
   dl();
 
-  /* ---------- QR ---------- */
-  try{new QRious({element:document.getElementById('qr'),value:'https://infosihat.moh.gov.my/multimedia/flyer/tag/Metanol.html',size:232,level:'M'})}catch(e){}
 
   route();
 })();
+
 </script>
 
 </body>
