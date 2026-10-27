@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#10202e">
 <title>Hub Sehenti Keracunan Metanol</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="Rujukan pantas pengurusan kejadian dan wabak keracunan metanol berdasarkan GP Pengurusan Wabak Keracunan Metanol Edisi Ketiga 2026 dan SPKPK Bil. 26/2026. JKN Kedah.">
@@ -175,7 +176,8 @@ table.t{border-collapse:collapse;width:100%;font-size:.93rem}
 
 .calc{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px}
 .fld label{display:block;font:700 .74rem var(--f-body);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
-.fld input{width:100%;font:500 1rem var(--f-mono);padding:9px 10px;border:1px solid var(--line);border-radius:5px;background:var(--paper);color:var(--ink)}
+.fld{min-width:0}
+.fld input{min-width:0;max-width:100%;box-sizing:border-box;width:100%;font:500 1rem var(--f-mono);padding:9px 10px;border:1px solid var(--line);border-radius:5px;background:var(--paper);color:var(--ink)}
 .out{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:18px}
 .res{border:1px solid var(--line);border-radius:6px;padding:14px;background:var(--paper)}
 .res b{display:block;font:800 1.8rem/1.1 var(--f-mono);font-variant-numeric:tabular-nums}
@@ -202,7 +204,8 @@ table.t{border-collapse:collapse;width:100%;font-size:.93rem}
 .cover b{font:800 1.1rem/1 var(--f-mono);color:var(--amber)}
 dl.meta{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 14px;margin:12px 0 0;font-size:.9rem}
 dl.meta dt{color:var(--muted)}
-dl.meta dd{margin:0;font-family:var(--f-mono);font-size:.85rem}
+.doc>div{min-width:0}
+dl.meta dd{overflow-wrap:anywhere;min-width:0;margin:0;font-family:var(--f-mono);font-size:.85rem}
 
 /* lampiran index */
 .lgroup{margin-top:26px}
@@ -374,16 +377,20 @@ body.lv #views{display:block}
 .pkw.off .rc{transform:translateX(-14mm)}
 .sheet a.fl{display:inline-block;font:700 7.6pt Arial,sans-serif;text-decoration:none;color:#0f6b6f;border:1px solid #0f6b6f;border-radius:3px;padding:.3mm 1.4mm;margin:.6mm 1mm 0 0;background:#e9f5f4}
 .sheet a.fl:hover{background:#0f6b6f;color:#fff}
-@media (max-width:640px){
-  .sheet{padding:8mm 6mm;min-height:auto;font-size:9.5pt}
-  .sheet .cols{grid-template-columns:1fr}
-  .sheet .src{position:static;margin-top:6mm}
-  .sheet .f,.sheet .f.w{grid-template-columns:34% 3mm 1fr}
-}
 
 footer{border-top:1px solid var(--line);padding-block:24px;font-size:.85rem;color:var(--muted)}
 footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 
+
+/* quick actions */
+.quick{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:22px;max-width:460px}
+.quick a{display:flex;flex-direction:column;align-items:flex-start;gap:8px;padding:12px;border:1px solid #33495a;border-radius:8px;color:var(--hero-fg);text-decoration:none;font:600 .85rem/1.2 var(--f-body);min-height:76px}
+.quick a:hover{border-color:var(--amber)}
+.quick svg{width:22px;height:22px;color:var(--amber)}
+.quick a[href="#talian"]{display:none}
+.talian-m{display:none}
+.tabbar{display:none}
+.acc-h .chev{display:none}
 @media (max-width:960px){
   .hero .wrap{grid-template-columns:1fr}
   .shell{grid-template-columns:1fr}
@@ -400,8 +407,129 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
   .clock{grid-template-columns:1fr}
   .rung{grid-template-columns:1fr}
   .hist li{grid-template-columns:1fr;gap:2px}
-  .sheet{padding:8mm 6mm;min-height:auto}
-  .sheet .cols{grid-template-columns:1fr}
+}
+
+@media (max-width:960px){
+  .shell{grid-template-columns:minmax(0,1fr)!important}
+}
+@media (max-width:760px){
+  body{font-size:16px}
+  /* compact header */
+  .brand .wrap{padding-block:8px;flex-wrap:nowrap}
+  .org img{height:34px}
+  .org-t{font-size:.66rem}
+  .ghs svg{width:28px;height:28px}
+  .ghs small{display:none}
+  .hero .wrap{padding-block:22px 22px;gap:18px}
+  .hero h1{font-size:1.7rem;margin-top:8px}
+  .hero .lede{font-size:.95rem;margin-top:10px}
+  .eyebrow{font-size:.66rem;line-height:1.4}
+  .chips{display:none}
+  .quick{grid-template-columns:repeat(2,minmax(0,1fr));margin-top:18px;max-width:none}
+  .quick a{flex-direction:row;align-items:center;min-height:52px;padding:10px 12px;background:rgba(255,255,255,.04)}
+  .quick a[href="#talian"]{display:flex}
+  .path{padding:14px}
+  .path p{font-size:.8rem}
+  /* layout */
+  .rail{display:none!important}
+  .shell{padding-block:18px 110px;gap:0}
+  main{gap:40px}
+  .sec{scroll-margin-top:12px}
+  .sec>h2{font-size:1.45rem;margin-bottom:14px;padding-bottom:10px}
+  .sec>h2 small{display:block;width:100%}
+  .prose{font-size:1rem}
+  .box{padding:16px}
+  .note{font-size:.92rem}
+  /* talian card */
+  .talian-m{display:block;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 14px 6px;scroll-margin-top:12px}
+  .talian-m h2{font:700 .74rem var(--f-body);letter-spacing:.12em;text-transform:uppercase;color:var(--red);margin-bottom:6px}
+  .tl{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 0;border-top:1px solid var(--line)}
+  .tl b{display:block;font-size:.92rem}
+  .tl small{display:block;font-size:.78rem;color:var(--muted)}
+  .tl .mono{font-weight:700;font-size:1rem;text-align:right;white-space:nowrap;user-select:all}
+  .tl.hot2 .mono{color:var(--red)}
+  /* accordion sub-sections */
+  .acc-h{display:flex;justify-content:space-between;align-items:center;gap:12px;cursor:pointer;margin:0!important;padding:14px 2px;border-top:1px solid var(--line);font-size:1.05rem!important;-webkit-tap-highlight-color:transparent}
+  .acc-h .chev{display:block;flex:none;width:22px;height:22px;transition:transform .2s;color:var(--muted)}
+  .acc-h[aria-expanded="true"] .chev{transform:rotate(180deg);color:var(--amber)}
+  .acc-b{display:none;padding:2px 0 18px}
+  .acc-h[aria-expanded="true"]+.acc-b{display:block}
+  /* stacked tables */
+  .tw.stk{border:0;background:none;overflow:visible}
+  table.t.stk,table.t.stk tbody{display:block}
+  table.t.stk thead{display:none}
+  table.t.stk tr{display:block;background:var(--surface);border:1px solid var(--line);border-radius:8px;margin-bottom:10px;overflow:hidden}
+  table.t.stk td{display:block;border:0;border-top:1px solid var(--line);padding:9px 12px}
+  table.t.stk td:first-child{border-top:0;background:var(--paper);font-weight:700}
+  table.t.stk td[data-label]:not(:first-child)::before{content:attr(data-label);display:block;font:700 .68rem var(--f-body);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
+  table.t.stk td.num{white-space:normal}
+  /* tools */
+  .tool-h,.tool-b{padding-inline:14px}
+  .q{font-size:1.05rem}
+  .btns .btn{flex:1 1 auto;justify-content:center;min-height:46px}
+  .checks label{padding:12px}
+  .calc{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  #dOut,.dl{min-width:0}
+  .calc:has(#dDx){grid-template-columns:1fr!important}
+  .fld input{font-size:16px;min-height:44px}
+  .dl>div{grid-template-columns:1fr;gap:2px}
+  .dl b{white-space:normal}
+  .lgrid{grid-template-columns:1fr}
+  .lcard{grid-template-columns:50px minmax(0,1fr);padding:10px}
+  /* bottom tab bar */
+  .tabbar{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));position:fixed;left:0;right:0;bottom:0;z-index:40;background:var(--surface);border-top:1px solid var(--line);padding:6px max(6px,env(safe-area-inset-right,0px)) calc(6px + env(safe-area-inset-bottom,0px)) max(6px,env(safe-area-inset-left,0px));box-shadow:0 -4px 16px rgba(16,32,46,.08)}
+  .tabbar a{display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 2px;border-radius:8px;color:var(--muted);text-decoration:none;font:600 .7rem/1 var(--f-body);-webkit-tap-highlight-color:transparent}
+  .tabbar svg{width:22px;height:22px}
+  .tabbar a.on{color:var(--ink);background:var(--amber-soft)}
+  .tabbar a.on svg{color:var(--amber)}
+  footer{padding-bottom:calc(90px + env(safe-area-inset-bottom,0px))}
+  /* lampiran viewer */
+  body.lv header,body.lv footer{display:none}
+  .vbar .wrap{gap:8px;padding-block:8px}
+  .vbar .wrap>a.btn:first-child{padding:9px 10px}
+  .vbar .vt{flex:1 1 0;order:0}
+  .vbar h2{font-size:.9rem;line-height:1.25;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .vbar .acts{order:2;width:100%;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}
+  .vbar .acts .btn{flex:1 0 auto;justify-content:center;padding:9px 12px;font-size:.85rem}
+  .vnote{margin-top:12px;font-size:.88rem}
+  .sheets{padding-block:12px 16px}
+  .pager{padding-bottom:calc(100px + env(safe-area-inset-bottom,0px))}
+  .pager .btn{flex:1 1 40%;justify-content:center}
+}
+@media (max-width:420px){
+  .org-t span{display:none}
+  .calc{grid-template-columns:1fr 1fr!important}
+}
+/* A4 sheets on phones: reflow (default) or fit-to-width (body.a4) */
+.btn.a4t{display:none}
+@media (max-width:760px){
+  .btn.a4t{display:inline-flex}
+  body.a4 .sheet{width:210mm!important;max-width:none!important;min-height:297mm!important;zoom:var(--z,.45)}
+  body.a4 .sheets{justify-items:center;overflow-x:auto}
+  body:not(.a4) .sheet{width:100%;min-height:auto;padding:7mm 5mm;font-size:9.6pt;overflow-x:auto;box-shadow:0 1px 6px rgba(0,0,0,.15)}
+  body:not(.a4) .sheet .cols{grid-template-columns:1fr;gap:0}
+  body:not(.a4) .sheet .f,body:not(.a4) .sheet .f.w{grid-template-columns:38% 3mm minmax(0,1fr)}
+  body:not(.a4) .sheet .f.yn{grid-template-columns:52% 3mm 1fr}
+  body:not(.a4) .sheet .ft{font-size:11pt}
+  body:not(.a4) .sheet .kim-top{grid-template-columns:1fr}
+  body:not(.a4) .sheet .seal{height:20mm}
+  body:not(.a4) .sheet .proc{padding-left:2mm}
+  body:not(.a4) .sheet .sig3{grid-template-columns:auto 4mm 1fr}
+  body:not(.a4) .sheet table.kv th{width:30%}
+  body:not(.a4) .sheet .mk table,body:not(.a4) .sheet table.lh.sm,body:not(.a4) .sheet table.kim2{min-width:150mm}
+  body:not(.a4) .sheet table.lh{width:100%;margin-left:0}
+  body:not(.a4) .sheet table.la td.v{width:auto}
+  /* flowcharts as step cards */
+  body:not(.a4) .sheet table.fc3,body:not(.a4) .sheet table.fc3 tbody{display:block}
+  body:not(.a4) .sheet table.fc3 tr{display:block;border:1.2px solid #000;margin-top:5mm;position:relative}
+  body:not(.a4) .sheet table.fc3 tr:first-child{display:none}
+  body:not(.a4) .sheet table.fc3 tr:not(:nth-child(2))::before{content:"";position:absolute;left:50%;top:-5mm;height:5mm;border-left:1.2px solid #000}
+  body:not(.a4) .sheet table.fc3 td{display:block;border:0;width:auto!important}
+  body:not(.a4) .sheet table.fc3 td.pk{display:none}
+  body:not(.a4) .sheet table.fc3 td.r{text-align:left;font-weight:700;font-size:8.6pt;background:#eef2f4;border-bottom:1px solid #000;padding:1.6mm 2.4mm}
+  body:not(.a4) .sheet table.fc3 td.r:empty{display:none}
+  body:not(.a4) .sheet table.fc3 tr.first,body:not(.a4) .sheet table.fc3 tr.last{width:30mm;margin-left:auto;margin-right:auto;border-radius:20mm}
+  body:not(.a4) .sheet table.fc3 tr.first td.t,body:not(.a4) .sheet table.fc3 tr.last td.t{padding:1.2mm;font-weight:700}
 }
 @media (prefers-reduced-motion:no-preference){.rail a,.btn,.lcard{transition:background .15s,border-color .15s}}
 
@@ -415,12 +543,14 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
   .sheet:last-child{break-after:auto;page-break-after:auto}
   .lview:not(.on){display:none!important}
   .sheet a.fl{display:none}
+  .sheet{zoom:1!important}
+  .tabbar{display:none!important}
 }
 </style>
 
 </head>
 <body>
-<header>
+<header id="top">
   <div class="brand gut">
     <div class="wrap">
       <div class="org">
@@ -441,6 +571,12 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
         <h1>Hub Sehenti Pengurusan Kejadian <em>Keracunan Metanol</em></h1>
         <p class="lede">Rujukan pantas definisi kes, notifikasi, spesimen, siasatan, penguatkuasaan dan pelaporan untuk hospital, klinik kesihatan, Pejabat Kesihatan Daerah dan Jabatan Kesihatan Negeri Kedah.</p>
         <div class="chips"><span class="chip">SPKPK Bil. 26/2026</span><span class="chip">MOH/K/EPI/92.26(GU)</span><span class="chip">Akta Makanan 1983</span></div>
+        <nav class="quick" aria-label="Pintasan">
+          <a href="#alat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3 8-8"/><path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9"/></svg><span>Klasifikasi kes</span></a>
+          <a href="#lampiran-6"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></svg><span>Borang notifikasi</span></a>
+          <a href="#spesimen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 1.7 3h10.6a2 2 0 0 0 1.7-3l-5-9V3"/><path d="M7.5 15h9"/></svg><span>Spesimen</span></a>
+          <a href="#talian"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg><span>Talian makmal</span></a>
+        </nav>
       </div>
       <div class="path">
         <h4>Mengapa gejala boleh lewat muncul</h4>
@@ -491,6 +627,12 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
   </nav>
 
   <main>
+<section class="talian-m" id="talian" aria-label="Talian penting">
+  <h2>Talian penting</h2>
+  <div class="tl"><div><b>MKAK Sungai Buloh</b><small>Hubungi sebelum menghantar spesimen</small></div><span class="mono">03-6126 1200<small>ext. 1287</small></span></div>
+  <div class="tl hot2"><div><b>Hotline MKAK · luar waktu pejabat</b><small>Kaunter Penerimaan Spesimen, kes wabak</small></div><span class="mono">017-219 7439</span></div>
+  <div class="tl"><div><b>Jabatan Kimia Alor Setar</b><small>Spesimen kes kematian</small></div><span class="mono">04-735 7001</span></div>
+</section>
 <!-- ================= 01 LATAR ================= -->
 <section class="sec" id="latar">
   <h2>Latar belakang <small>Bab 1–3 GP</small></h2>
@@ -559,7 +701,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
   </div>
   <p class="small muted" style="margin-top:10px">Individu tidak bergejala yang mempunyai sejarah pendedahan dan hubung kait epidemiologi dengan kes disahkan boleh dipantau di hospital atau di rumah selepas penilaian klinikal, dan dinasihatkan segera ke hospital jika gejala muncul.</p>
 
-  <h3 class="sub">Pengurusan spesimen klinikal</h3>
+  <h3 class="sub" id="spesimen">Pengurusan spesimen klinikal</h3>
   <div class="tw"><table class="t">
     <thead><tr><th style="width:18%">Perkara</th><th>Kes disyaki / berkemungkinan</th><th>Kes kematian (BID / DID)</th></tr></thead>
     <tbody>
@@ -1568,6 +1710,14 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 </div>
 
 
+<nav class="tabbar" aria-label="Navigasi utama">
+  <a href="#top" data-tab="latar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-8 9 8v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/></svg><span>Utama</span></a>
+  <a href="#ringkasan" data-tab="ringkasan"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M8 9h8M8 13h8M8 17h5"/></svg><span>Ringkasan</span></a>
+  <a href="#alat" data-tab="alat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M8 6h8M8 11h2M14 11h2M8 15h2M14 15h2M8 19h2M14 19h2"/></svg><span>Alat</span></a>
+  <a href="#klinikal" data-tab="klinikal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 3h4v7h7v4h-7v7h-4v-7H3v-4h7z"/></svg><span>Rawatan</span></a>
+  <a href="#lampiran" data-tab="lampiran"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6"/></svg><span>Borang</span></a>
+</nav>
+
 <footer class="gut"><div class="wrap">
   <span>Unit Penyakit Tidak Berjangkit, Jabatan Kesihatan Negeri Kedah</span>
   <span>Berdasarkan SPKPK Bil. 26/2026 dan GP Edisi Ketiga 2026. Rujuk dokumen asal untuk tujuan rasmi.</span>
@@ -1604,6 +1754,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
     back:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>',
     print:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V3h12v6"/><rect x="6" y="14" width="12" height="7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/></svg>',
     pdf:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M4 21h16"/></svg>',
+    a4:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="1"/><path d="M9 7h6M9 11h6M9 15h4"/></svg>',
     doc:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6"/><path d="M8 13l1.5 5 2.5-5 2.5 5 1.5-5"/></svg>'
   };
   function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c]})}
@@ -1722,7 +1873,8 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
     var prev=L[i-1],next=L[i+1];
     var acts='<button class="btn amb" type="button" data-print>'+ICON.print+'Cetak</button>'+
       '<a class="btn" href="files/'+x.pdf+'" target="_blank" rel="noopener">'+ICON.pdf+'PDF</a>'+
-      (x.docx?'<a class="btn" href="files/'+x.docx+'" target="_blank" rel="noopener">'+ICON.doc+'Word (.docx)</a>':'');
+      (x.docx?'<a class="btn" href="files/'+x.docx+'" target="_blank" rel="noopener">'+ICON.doc+'Word (.docx)</a>':'')+
+      '<button class="btn a4t" type="button" data-a4 aria-pressed="false">'+ICON.a4+'<span>Paparan A4</span></button>';
     var bar=document.createElement('div');bar.className='vbar gut';
     bar.innerHTML='<div class="wrap"><a class="btn" href="#lampiran">'+ICON.back+'Semua</a><div class="vt"><small>'+esc(x.src)+'</small><h2>'+esc(x.t)+'</h2></div><div class="acts">'+acts+'</div></div>';
     sec.insertBefore(bar,sec.firstChild);
@@ -1744,16 +1896,68 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
     if(x){
       document.getElementById(x.id).classList.add('on');
       document.body.classList.add('lv');
+      if(typeof setTab==='function')setTab('lampiran');
       document.title=x.src+' – Hub Sehenti Keracunan Metanol';
       window.scrollTo(0,0);
     } else {
       var was=document.body.classList.contains('lv');
       document.body.classList.remove('lv');
       document.title='Hub Sehenti Keracunan Metanol';
-      if(hs){var t=document.getElementById(hs);if(t&&(was||true))t.scrollIntoView()}
+      if(hs){var t=document.getElementById(hs);if(t){openTo(t);t.scrollIntoView()}}
     }
   }
   window.addEventListener('hashchange',route);
+
+
+  /* ---------- mobile: accordions, stacked tables, tab bar, A4 toggle ---------- */
+  var CHEV='<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg>';
+  document.querySelectorAll('main .sec').forEach(function(sec){
+    var subs=[].slice.call(sec.children).filter(function(c){return c.matches('h3.sub')});
+    subs.forEach(function(h,i){
+      var body=document.createElement('div');body.className='acc-b';
+      var n=h.nextElementSibling;
+      while(n&&!n.matches('h3.sub')){var nx=n.nextElementSibling;body.appendChild(n);n=nx}
+      h.parentNode.insertBefore(body,h.nextSibling);
+      h.classList.add('acc-h');h.setAttribute('role','button');h.tabIndex=0;
+      h.setAttribute('aria-expanded',i===0?'true':'false');
+      h.insertAdjacentHTML('beforeend',CHEV);
+    });
+  });
+  function tog(h){h.setAttribute('aria-expanded',h.getAttribute('aria-expanded')==='true'?'false':'true')}
+  document.addEventListener('click',function(e){var h=e.target.closest('.acc-h');if(h&&matchMedia('(max-width:760px)').matches)tog(h)});
+  document.addEventListener('keydown',function(e){var h=e.target.closest&&e.target.closest('.acc-h');if(h&&(e.key==='Enter'||e.key===' ')){e.preventDefault();tog(h)}});
+  function openTo(el){var b=el.closest&&el.closest('.acc-b');if(b&&b.previousElementSibling)b.previousElementSibling.setAttribute('aria-expanded','true');if(el.classList&&el.classList.contains('acc-h'))el.setAttribute('aria-expanded','true')}
+
+  document.querySelectorAll('table.t').forEach(function(t){
+    var hd=[].slice.call(t.querySelectorAll('thead th')).map(function(th){return th.textContent.trim()});
+    if(!hd.length)return;
+    t.classList.add('stk');if(t.parentElement.classList.contains('tw'))t.parentElement.classList.add('stk');
+    t.querySelectorAll('tbody tr').forEach(function(tr){
+      var c=0;[].slice.call(tr.children).forEach(function(td){
+        var span=+(td.getAttribute('colspan')||1);
+        td.setAttribute('data-label',span>1?hd.slice(c,c+span).filter(Boolean).join(' / '):hd[c]);c+=span;
+      });
+    });
+  });
+
+  var tabs=[].slice.call(document.querySelectorAll('.tabbar a'));
+  var TABOF={latar:'latar',ringkasan:'ringkasan',alat:'alat',klinikal:'klinikal',kuasa:'lampiran',lampiran:'lampiran'};
+  function setTab(id){tabs.forEach(function(a){a.classList.toggle('on',a.getAttribute('data-tab')===id)})}
+  if('IntersectionObserver' in window){
+    var io2=new IntersectionObserver(function(es){if(document.body.classList.contains('lv'))return;es.forEach(function(e){if(e.isIntersecting)setTab(TABOF[e.target.id])})},{rootMargin:'-35% 0px -60% 0px'});
+    document.querySelectorAll('main .sec').forEach(function(s){io2.observe(s)});
+  }
+  setTab('latar');
+  window.addEventListener('scroll',function(){if(!document.body.classList.contains('lv')&&window.scrollY<200)setTab('latar')},{passive:true});
+
+  function fitA4(){var w=Math.min(window.innerWidth,document.documentElement.clientWidth)-24;document.documentElement.style.setProperty('--z',Math.max(.3,Math.min(1,w/794)).toFixed(3))}
+  fitA4();window.addEventListener('resize',fitA4);
+  try{if(localStorage.getItem('hubA4')==='1')document.body.classList.add('a4')}catch(e){}
+  function syncA4(){var on=document.body.classList.contains('a4');document.querySelectorAll('[data-a4]').forEach(function(b){b.setAttribute('aria-pressed',on);b.querySelector('span').textContent=on?'Mudah baca':'Paparan A4'})}
+  document.addEventListener('click',function(e){var b=e.target.closest('[data-a4]');if(!b)return;document.body.classList.toggle('a4');try{localStorage.setItem('hubA4',document.body.classList.contains('a4')?'1':'0')}catch(err){}syncA4()});
+  syncA4();
+  window.addEventListener('beforeprint',function(){document.body.dataset.wasA4=document.body.classList.contains('a4')?'1':'0';document.body.classList.add('a4')});
+  window.addEventListener('afterprint',function(){if(document.body.dataset.wasA4!=='1')document.body.classList.remove('a4')});
 
   /* rail highlight */
   var links=[].slice.call(document.querySelectorAll('#railList a'));
