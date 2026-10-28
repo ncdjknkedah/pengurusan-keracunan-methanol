@@ -382,6 +382,11 @@ footer{border-top:1px solid var(--line);padding-block:24px;font-size:.85rem;colo
 footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 
 
+.slides{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:20px;padding:18px 20px;border:1px solid var(--line);border-radius:10px;background:var(--teal-soft)}
+.slides-t{min-width:0;flex:1 1 280px}
+.slides h4{font-size:1.1rem;margin-top:8px}
+.slides p{font-size:.92rem;color:var(--muted);margin-top:4px}
+@media (max-width:760px){.slides .btn{width:100%;justify-content:center;min-height:46px}}
 /* quick actions */
 .quick{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:22px;max-width:460px}
 .quick a{display:flex;flex-direction:column;align-items:flex-start;gap:8px;padding:12px;border:1px solid #33495a;border-radius:8px;color:var(--hero-fg);text-decoration:none;font:600 .85rem/1.2 var(--f-body);min-height:76px}
@@ -613,6 +618,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
       <li><a href="#klinikal">Rawatan klinikal</a></li>
       <li><a href="#kuasa">Punca kuasa &amp; dokumen</a></li>
       <li><a href="#lampiran">Lampiran &amp; borang</a></li>
+      <li><a href="#slaid">Bahan rujukan kursus</a></li>
     </ol>
     <div class="hot">
       <b>Talian makmal</b>
@@ -991,6 +997,15 @@ footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
   <h2>Lampiran, carta alir &amp; borang</h2>
   <p class="muted" style="max-width:70ch">Setiap borang dan carta alir dibina semula dalam format A4 untuk dicetak terus. Salinan PDF setiap borang dan templat Word yang boleh disunting turut disediakan.</p>
   <div id="lampIndex"></div>
+  <div class="slides" id="slaid" style="margin-top:28px;scroll-margin-top:20px">
+    <div class="slides-t">
+      <span class="tag">Bahan rujukan kursus</span>
+      <h4>Slaid Kursus Pengurusan Keracunan Metanol</h4>
+      <p>Koleksi slaid pembentangan setiap tajuk semasa kursus, untuk rujukan lanjut.</p>
+    </div>
+    <a class="btn pri" href="https://drive.google.com/drive/folders/1s3CxHnj3z6qau3dosRm1ixMhzgyJ0R_Y?usp=drive_link" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="13" rx="1"/><path d="M8 21h8M12 17v4"/></svg>Buka koleksi slaid</a>
+  </div>
+
 </section>
   </main>
 </div>
